@@ -1,8 +1,12 @@
 # Data Structures and Algorithms - Final Project
+# The main Makefile
 
 include Makefile.inc
 
 .PHONY: all src lib clean
+
+TARGET = \
+	final_project
 
 SRCS = \
 	src/main/final_project.o \
@@ -12,9 +16,9 @@ INCS = \
 
 LIBS = \
 
-all: src lib final_project run
+all: src lib $(TARGET) run
 
-final_project: $(SRCS) $(LIBS)
+$(TARGET): $(SRCS) $(LIBS)
 	$(CXX) $(CXXFLAGS) $(SRCS) $(INCLUDE) $(INCS) $(LIBRARY) $(LIBS) -o $@
 
 src:
@@ -23,8 +27,8 @@ src:
 lib:
 	( cd lib ; $(MAKE) all )
 
-run:
-	./final_project
+run: $(TARGET)
+	./$(TARGET)
 
 clean:
 	( cd src ; $(MAKE) clean )

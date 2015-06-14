@@ -9,7 +9,7 @@ TARGET = \
 	final_project
 
 SRCS = \
-	src/main/final_project.o \
+	src/core/final_project.o \
 
 INCS = \
 	-I/include \

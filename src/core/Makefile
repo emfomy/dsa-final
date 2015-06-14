@@ -12,6 +12,7 @@ LIBS = \
 TARGETS = \
 
 OBJECTS = \
+	final_project.o \
 
 HEADERS = \
 

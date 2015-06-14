@@ -3,16 +3,12 @@
 
 include ../Makefile.inc
 
-.PHONY: all main core clean
+.PHONY: all core clean
 
-all: main core
-
-main:
-	( cd main ; $(MAKE) )
+all: core
 
 core:
 	( cd core ; $(MAKE) )
 
 clean:
-	( cd main ; $(MAKE) clean )
 	( cd core ; $(MAKE) clean )

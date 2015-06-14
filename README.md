@@ -15,14 +15,15 @@ Data Structures and Algorithms - Final Project
 ### `/src`
 The source files (`*.cpp` and `*.hpp`).
 
-#### `/src/main`
-The main files (`final_project.cpp`).
-
 #### `/src/core`
-The core files that uses for all version (the implementations of class `Bank`).
+The core files that used for all version.
 
 ### `/lib`
 The library files (`*.lib`).
 
 ### `/include`
 The interface for library (`*.hpp`).
+
+### `/doc`
+The documentation.
+

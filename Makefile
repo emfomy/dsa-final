@@ -16,7 +16,7 @@ INCS = \
 
 LIBS = \
 
-all: src lib $(TARGET) run
+all: src lib $(TARGET)
 
 $(TARGET): $(SRCS) $(LIBS)
 	$(CXX) $(CXXFLAGS) $(SRCS) $(INCLUDE) $(INCS) $(LIBRARY) $(LIBS) -o $@

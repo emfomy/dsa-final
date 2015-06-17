@@ -20,7 +20,7 @@ HEADERS = \
 	core.hpp \
 	bank.hpp \
 	account.hpp \
-	../../include/account_set.hpp \
+	../../include/account_map.hpp \
 
 all: $(TARGETS) $(OBJECTS)
 

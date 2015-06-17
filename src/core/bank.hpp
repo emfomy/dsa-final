@@ -12,7 +12,7 @@
 
 #include "core.hpp"
 #include "account.hpp"
-#include "account_set.hpp"
+#include "account_map.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
@@ -25,8 +25,8 @@ namespace dsa {
 class Bank
 {
  private:
-  // The set of accounts
-  AccountSet account_set_;
+  // The map of accounts
+  AccountMap account_map_;
 
   // The logined account
   Account* logined_account_ = nullptr;

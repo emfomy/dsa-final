@@ -1,7 +1,9 @@
 # Data Structures and Algorithms - Final Project
 # The main Makefile
 
-include Makefile.inc
+export DSA=$(CURDIR)
+
+include $(DSA)/Makefile.inc
 
 .PHONY: all src lib clean
 
@@ -13,7 +15,7 @@ SRCS = \
 	src/core/bank.o \
 
 INCS = \
-	-I/include \
+	-I$(DSA)/include \
 
 LIBS = \
 

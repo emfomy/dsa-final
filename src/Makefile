@@ -1,14 +1,16 @@
 # Data Structures and Algorithms - Final Project
 # Makefile of /src
+#
+# Make sure $(DSA) is set as the root of this project
 
-include ../Makefile.inc
+include $(DSA)/Makefile.inc
 
 .PHONY: all core clean
 
 all: core
 
 core:
-	( cd core ; $(MAKE) )
+	( cd core ; $(MAKE) all )
 
 clean:
 	( cd core ; $(MAKE) clean )

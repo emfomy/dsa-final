@@ -1,12 +1,14 @@
 # Data Structures and Algorithms - Final Project
 # Makefile of /src/core
+#
+# Make sure $(DSA) is set as the root of this project
 
-include ../../Makefile.inc
+include $(DSA)/Makefile.inc
 
 .PHONY: all clean
 
 INCS = \
-	-I../../include \
+	-I$(DSA)/include \
 
 LIBS = \
 
@@ -20,7 +22,7 @@ HEADERS = \
 	core.hpp \
 	bank.hpp \
 	account.hpp \
-	../../include/account_map.hpp \
+	$(DSA)/include/account_map.hpp \
 
 all: $(TARGETS) $(OBJECTS)
 

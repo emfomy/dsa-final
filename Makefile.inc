@@ -1,5 +1,7 @@
 # Data Structures and Algorithms - Final Project
 # The main Makefile.inc
+#
+# Make sure $(DSA) is set as the root of this project
 
 CC       = gcc
 CXX      = g++

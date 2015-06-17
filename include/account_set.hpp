@@ -1,32 +1,30 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Data Structures and Algorithms - Final Project                             //
-// core.hpp                                                                   //
-// The header file of core functions                                          //
+// account_set.hpp                                                            //
+// The interface of class AccountSet                                          //
 //                                                                            //
 // Author: emfo<emfomy@gmail.com>                                             //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DSA_CORE_CORE_HPP_
+#ifndef DSA_INC_ACCOUNT_SET_HPP_
 
-#define DSA_CORE_CORE_HPP_
-
-#include <cstdint>
+#define DSA_INC_ACCOUNT_SET_HPP_
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
 ////////////////////////////////////////////////////////////////////////////////
 namespace dsa {
 
-// The maximum length of ID/Plaintext
-const int kIDLength = 100;
-const int kPlaintextLength = 100;
-
-// Define types
-typedef char ID[kIDLength+1];
-typedef char Plaintext[kPlaintextLength+1];
-typedef __int128_t Ciphertext;
-typedef int64_t Money;
+////////////////////////////////////////////////////////////////////////////////
+// The class of a set of accounts                                             //
+////////////////////////////////////////////////////////////////////////////////
+class AccountSet
+{
+ public:
+  AccountSet(){};
+  ~AccountSet(){};
+};
 
 }
 
-#endif  // DSA_CORE_CORE_HPP_
+#endif  // DSA_INC_ACCOUNT_SET_HPP_

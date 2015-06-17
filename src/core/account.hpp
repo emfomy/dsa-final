@@ -1,32 +1,39 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Data Structures and Algorithms - Final Project                             //
-// core.hpp                                                                   //
-// The header file of core functions                                          //
+// account.hpp                                                                //
+// The header file of class Account                                           //
 //                                                                            //
 // Author: emfo<emfomy@gmail.com>                                             //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DSA_CORE_CORE_HPP_
+#ifndef DSA_CORE_ACCOUNT_HPP_
 
-#define DSA_CORE_CORE_HPP_
+#define DSA_CORE_ACCOUNT_HPP_
 
-#include <cstdint>
+#include "core.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
 ////////////////////////////////////////////////////////////////////////////////
 namespace dsa {
 
-// The maximum length of ID/Plaintext
-const int kIDLength = 100;
-const int kPlaintextLength = 100;
+////////////////////////////////////////////////////////////////////////////////
+// The class of a account                                                     //
+////////////////////////////////////////////////////////////////////////////////
+class Account
+{
+ private:
+  // The ciphered password
+  Ciphertext ciphertext_;
 
-// Define types
-typedef char ID[kIDLength+1];
-typedef char Plaintext[kPlaintextLength+1];
-typedef __int128_t Ciphertext;
-typedef int64_t Money;
+  // The money
+  Money money_;
+
+ public:
+  Account(){};
+  ~Account(){};
+};
 
 }
 
-#endif  // DSA_CORE_CORE_HPP_
+#endif  // DSA_CORE_ACCOUNT_HPP_

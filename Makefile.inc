@@ -8,6 +8,6 @@ CXXFLAGS = -O2 -std=c++11 -Wall
 
 RM       = rm -rf
 
-INCLUDE = \
+INCLUDE  = \
 
-LIBRARY = \
+LIBRARY  = \

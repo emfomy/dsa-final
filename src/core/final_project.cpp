@@ -10,6 +10,7 @@
 #include <string>
 
 #include "core.hpp"
+#include "bank.hpp"
 
 using namespace std;
 using namespace dsa;
@@ -18,8 +19,10 @@ using namespace dsa;
 // Main function                                                              //
 ////////////////////////////////////////////////////////////////////////////////
 int main( int argc, char const *argv[] ) {
+  Bank bank;
+
   ID id1, id2;
-  Plaintext passward1, passward2;
+  Plaintext password1, password2;
   Money money;
 
   ios::sync_with_stdio(false);
@@ -28,32 +31,32 @@ int main( int argc, char const *argv[] ) {
   string str;
   while ( cin >> str ) {
     if ( str == "login" ) {
-      cin >> id1 >> passward1;
-      cout << endl;
+      cin >> id1 >> password1;
+      bank.Login(id1, password1);
     } else if ( str == "create" ) {
-      cin >> id1 >> passward1;
-      cout << endl;
+      cin >> id1 >> password1;
+      bank.Create(id1, password1);
     } else if ( str == "delete" ) {
-      cin >> id1 >> passward1;
-      cout << endl;
+      cin >> id1 >> password1;
+      bank.Delete(id1, password1);
     } else if ( str == "merge" ) {
-      cin >> id1 >> passward1 >> id2 >> passward2;
-      cout << endl;
+      cin >> id1 >> password1 >> id2 >> password2;
+      bank.Merge(id1, password1, id2, password2);
     } else if ( str == "deposit" ) {
       cin >> money;
-      cout << endl;
+      bank.Deposit(money);
     } else if ( str == "withdraw" ) {
       cin >> money;
-      cout << endl;
+      bank.Withdraw(money);
     } else if ( str == "transfer" ) {
       cin >> id1 >> money;
-      cout << endl;
+      bank.Transfer(id1, money);
     } else if ( str == "find" ) {
       cin >> id1;
-      cout << endl;
+      bank.Find(id1);
     } else if ( str == "search" ) {
       cin >> id1;
-      cout << endl;
+      bank.Search(id1);
     }
   }
 }

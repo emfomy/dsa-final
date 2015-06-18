@@ -27,11 +27,11 @@ class AccountMap
   ////////////////////////////////////////////////////////////////////////////
   // Access account by its ID                                               //
   //                                                                        //
-  // Input Parameters:                                                      //
+  // Parameters:                                                            //
   // id: the ID                                                             //
   //                                                                        //
   // Return Value:                                                          //
-  // The target account if exists, null pointer if not exists               //
+  // Target account if exists, null pointer if not exists                   //
   ////////////////////////////////////////////////////////////////////////////
   Account* At( const ID id );
 
@@ -41,52 +41,49 @@ class AccountMap
   // Input Parameters:                                                      //
   // id: the ID                                                             //
   //                                                                        //
+  // Output Parameters:                                                     //
+  // pit: the pointer of iterator                                           //
+  //                                                                        //
   // Return Value:                                                          //
-  // The iterator of target account if exists, null pointer if not exists   //
+  // Target account if exists, null pointer if not exists                   //
   ////////////////////////////////////////////////////////////////////////////
-  void* Find( const ID id );
+  Account* At( const ID id, void** pit );
 
   ////////////////////////////////////////////////////////////////////////////
   // Find existing accounts by ID                                           //
   //                                                                        //
-  // Parameters:                                                            //
+  // Input Parameters:                                                      //
   // id: the ID                                                             //
   //                                                                        //
-  // Return Value:                                                          //
-  // The best 10 existing IDs                                               //
+  // Output Parameters:                                                     //
+  // ids: an array of 10 best existing IDs                                  //
   ////////////////////////////////////////////////////////////////////////////
-  ID* Existing( const ID id );
+  void Existing( const ID id, ID* ids );
 
   ////////////////////////////////////////////////////////////////////////////
   // Find unused accounts by ID                                             //
   //                                                                        //
-  // Parameters:                                                            //
+  // Input Parameters:                                                      //
   // id: the ID                                                             //
   //                                                                        //
-  // Return Value:                                                          //
-  // An array of the best 10 unused IDs                                     //
+  // Output Parameters:                                                     //
+  // ids: an array of 10 best unused IDs                                    //
   ////////////////////////////////////////////////////////////////////////////
-  ID* Unused( const ID id );
+  void Unused( const ID id, ID* ids );
 
   ////////////////////////////////////////////////////////////////////////////
   // Construct and insert an account with target ID                         //
   //                                                                        //
   // Parameters:                                                            //
   // id: the ID                                                             //
-  //                                                                        //
-  // Return Value:                                                          //
-  // true if the ID is unused, false if the ID already exists               //
   ////////////////////////////////////////////////////////////////////////////
-  bool Emplace( const ID id );
+  void Emplace( const ID id );
 
   ////////////////////////////////////////////////////////////////////////////
   // Erase an account of target iterator                                    //
   //                                                                        //
   // Parameters:                                                            //
   // it: the iterator                                                       //
-  //                                                                        //
-  // Ensure:                                                                //
-  // Erase the account of target iterator                                   //
   ////////////////////////////////////////////////////////////////////////////
   void Erase( void* it );
 };

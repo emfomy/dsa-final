@@ -31,6 +31,9 @@ class Bank
   // The logined account
   Account* logined_account_ = nullptr;
 
+  // An array of 10 IDs
+  ID ids_[kNumRecommend];
+
  public:
   Bank(){};
   ~Bank(){};

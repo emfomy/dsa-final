@@ -21,13 +21,21 @@ namespace dsa {
 //                                                                            //
 // Parameters:                                                                //
 // id:       the ID of target account                                         //
-// password: the plain passward of target account                             //
+// password: the plain password of target account                             //
 //                                                                            //
 // Ensure:                                                                    //
 // Set the logined account as target account if permission allowed            //
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Login( const ID id, const Plaintext password ) {
-  cout << "Login " << id << ' ' << password << endl;
+  auto account = account_map_.At(id);
+  if ( account == nullptr ) {
+    cout << "ID " << id << " not found" << endl;
+  } else if ( !account->Login(password) ) {
+    cout << "wrong password" << endl;
+  } else {
+    logined_account_ = account;
+    cout << "success" << endl;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -35,13 +43,24 @@ void Bank::Login( const ID id, const Plaintext password ) {
 //                                                                            //
 // Parameters:                                                                //
 // id:       the ID of target account                                         //
-// password: the plain passward of target account                             //
+// password: the plain password of target account                             //
 //                                                                            //
 // Ensure:                                                                    //
 // Create target account if the ID is unused                                  //
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Create( const ID id, const Plaintext password ) {
-  cout << "Create " << id << ' ' << password << endl;
+  auto account = account_map_.At(id);
+  if ( account != nullptr ) {
+    account_map_.Unused(id, ids_);
+    cout << "ID " << id << " exists, " << ids_[0];
+    for ( auto i = 1; i < kNumRecommend; ++i ) {
+      cout << ',' << ids_[i];
+    }
+    cout << endl;
+  } else {
+    account_map_.Emplace(id);
+    cout << "success" << endl;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -49,13 +68,22 @@ void Bank::Create( const ID id, const Plaintext password ) {
 //                                                                            //
 // Parameters:                                                                //
 // id:       the ID of target account                                         //
-// password: the plain passward of target account                             //
+// password: the plain password of target account                             //
 //                                                                            //
 // Ensure:                                                                    //
 // Delete target account if permission allowed                                //
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Delete( const ID id, const Plaintext password ) {
-  cout << "Delete " << id << ' ' << password << endl;
+  void* it;
+  auto account = account_map_.At(id, &it);
+  if ( account == nullptr ) {
+    cout << "ID " << id << " not found" << endl;
+  } else if ( !account->Login(password) ) {
+    cout << "wrong password" << endl;
+  } else {
+    account_map_.Erase(it);
+    cout << "success" << endl;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -63,17 +91,16 @@ void Bank::Delete( const ID id, const Plaintext password ) {
 //                                                                            //
 // Parameters:                                                                //
 // id1:       the ID of the first account                                     //
-// password1: the plain passward of the first account                         //
+// password1: the plain password of the first account                         //
 // id2:       the ID of the second account                                    //
-// password2: the plain passward of the second account                        //
+// password2: the plain password of the second account                        //
 //                                                                            //
 // Ensure:                                                                    //
 // Merge the second account into the first one and delete the second account  //
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Merge( const ID id1, const Plaintext password1,
                   const ID id2, const Plaintext password2 ) {
-  cout << "Merge " << id1 << ' ' << password1 << ' '
-                   << id2 << ' ' << password2 << endl;
+  cout << "merge" << endl;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -86,7 +113,9 @@ void Bank::Merge( const ID id1, const Plaintext password1,
 // Deposit the amount of money into the logined account                       //
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Deposit( const Money money ) {
-  cout << "Deposit " << money << endl;
+  logined_account_->money_ += money;
+  cout << "success, " << logined_account_->money_
+       << " dollars in current account" << endl;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -100,7 +129,14 @@ void Bank::Deposit( const Money money ) {
 //   if there is enough money                                                 //
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Withdraw( const Money money ) {
-  cout << "Withdraw " << money << endl;
+  if ( logined_account_->money_ < money ) {
+    cout << "fail, " << logined_account_->money_
+         << " dollars only in current account" << endl;
+  } else {
+    logined_account_->money_ -= money;
+    cout << "success, " << logined_account_->money_
+         << " dollars left in current account" << endl;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -115,7 +151,23 @@ void Bank::Withdraw( const Money money ) {
 //   if there is enough money                                                 //
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Transfer( const ID id, const Money money ) {
-  cout << "Transfer " << id << ' ' << money << endl;
+  auto account = account_map_.At(id);
+  if ( account == nullptr ) {
+    account_map_.Existing(id, ids_);
+    cout << "ID " << id << " not found, " << ids_[0];
+    for ( auto i = 1; i < kNumRecommend; ++i ) {
+      cout << ',' << ids_[i];
+    }
+    cout << endl;
+  } else if ( logined_account_->money_ < money ) {
+    cout << "fail, " << logined_account_->money_
+         << " dollars only in current account" << endl;
+  } else {
+    logined_account_->money_ -= money;
+    account->money_ += money;
+    cout << "success, " << logined_account_->money_
+         << " dollars left in current account" << endl;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -129,7 +181,12 @@ void Bank::Transfer( const ID id, const Money money ) {
 // List all satisfying IDs separated by ',' in ascending dictionary order     //
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Find( const ID id ) {
-  cout << "Find " << id << endl;
+  account_map_.Existing(id, ids_);
+  cout << ids_[0];
+  for ( auto i = 1; i < kNumRecommend; ++i ) {
+    cout << ',' << ids_[i];
+  }
+  cout << endl;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -143,7 +200,12 @@ void Bank::Find( const ID id ) {
 // List all transfer history in ascending time order                          //
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Search( const ID id ) {
-  cout << "Search " << id << endl;
+  auto account = account_map_.At(id);
+  if ( account == nullptr ) {
+    cout << "ID " << id << " not found" << endl;
+  } else {
+    cout << "history" << endl;
+  }
 }
 
 }

@@ -26,12 +26,15 @@ class Account
   // The ciphered password
   Ciphertext ciphertext_;
 
+ public:
   // The money
   Money money_;
 
- public:
   Account(){};
   ~Account(){};
+
+  // Check password
+  bool Login( const Plaintext plaintext );
 };
 
 }

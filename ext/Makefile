@@ -1,12 +1,16 @@
 # Data Structures and Algorithms - Final Project
-# Makefile of /lib
+# Makefile of /ext
 #
 # Make sure $(DSA) is set to the root of this project
 
 include $(DSA)/Makefile.inc
 
-.PHONY: all clean
+.PHONY: all zedwood clean
 
-all:
+all: zedwood
+
+zedwood:
+	( cd zedwood ; $(MAKE) all )
 
 clean:
+	( cd zedwood ; $(MAKE) clean )

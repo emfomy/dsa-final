@@ -28,7 +28,7 @@ const int kNumRecommend = 10;
 typedef char ID[kIDLength+1];
 typedef char Plaintext[kPlaintextLength+1];
 typedef __int128_t Ciphertext;
-typedef int64_t Money;
+typedef int32_t Money;
 
 }
 

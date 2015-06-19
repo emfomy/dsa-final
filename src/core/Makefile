@@ -1,7 +1,7 @@
 # Data Structures and Algorithms - Final Project
 # Makefile of /src/core
 #
-# Make sure $(DSA) is set as the root of this project
+# Make sure $(DSA) is set to the root of this project
 
 include $(DSA)/Makefile.inc
 
@@ -11,8 +11,6 @@ INCS = \
 	-I$(DSA)/include \
 
 LIBS = \
-
-TARGETS = \
 
 OBJECTS = \
 	final_project.o \
@@ -24,10 +22,10 @@ HEADERS = \
 	account.hpp \
 	$(DSA)/include/account_map.hpp \
 
-all: $(TARGETS) $(OBJECTS)
+all: $(OBJECTS)
 
 %.o: %.cpp $(HEADERS)
 	$(CXX) $(CXXFLAGS) -c $< $(INCLUDE) $(INCS) $(LIBRARY) $(LIBS) -o $@
 
 clean:
-	$(RM) $(TARGETS) $(OBJECTS)
+	$(RM) $(OBJECTS)

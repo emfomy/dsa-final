@@ -1,7 +1,5 @@
-# Data Structures and Algorithms - Final Project
-# The main Makefile.inc
-#
-# Make sure $(DSA) is set to the root of this project
+# zedwood: md5 function
+# The main Makefile.inc of zedwood
 
 CC       = gcc
 CXX      = g++
@@ -15,7 +13,5 @@ ARFLAGS  = rv
 ARCHIVE  = $(AR) $(ARFLAGS)
 
 INCLUDE  = \
-	-I$(DSA)/ext/zedwood/include \
 
 LIBRARY  = \
-	$(DSA)/ext/zedwood/lib/libmd5.a \

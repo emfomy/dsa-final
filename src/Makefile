@@ -1,7 +1,7 @@
 # Data Structures and Algorithms - Final Project
 # Makefile of /src
 #
-# Make sure $(DSA) is set as the root of this project
+# Make sure $(DSA) is set to the root of this project
 
 include $(DSA)/Makefile.inc
 

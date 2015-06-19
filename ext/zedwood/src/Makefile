@@ -20,7 +20,7 @@ HEADERS = \
 all: $(OBJECTS)
 
 %.o: %.cpp $(HEADERS)
-	$(CXX) $(CXXFLAGS) -c $< $(INCLUDE) $(INCS) $(LIBRARY) $(LIBS) -o $@
+	$(CXX) $(CXXFLAGS) -c $< $(INCLUDE) $(INCS) -o $@
 
 clean:
 	$(RM) $(OBJECTS)

@@ -13,6 +13,7 @@ TARGET = \
 SRCS = \
 	src/core/final_project.o \
 	src/core/bank.o \
+	src/core/account.o \
 
 INCS = \
 	-I$(DSA)/include \

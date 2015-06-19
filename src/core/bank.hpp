@@ -10,7 +10,7 @@
 
 #define DSA_CORE_BANK_HPP_
 
-#include "core.hpp"
+#include "dsa.hpp"
 #include "account.hpp"
 #include "account_map.hpp"
 
@@ -32,7 +32,7 @@ class Bank
   Account* logined_account_ = nullptr;
 
   // An array of 10 IDs
-  ID ids_[kNumRecommend];
+  IDs ids_;
 
  public:
   Bank(){};

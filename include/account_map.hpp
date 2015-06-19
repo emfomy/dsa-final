@@ -21,8 +21,8 @@ namespace dsa {
 class AccountMap
 {
  public:
-  AccountMap(){};
-  ~AccountMap(){};
+  AccountMap();
+  ~AccountMap();
 
   ////////////////////////////////////////////////////////////////////////////
   // Access account by its ID                                               //
@@ -58,7 +58,7 @@ class AccountMap
   // Output Parameters:                                                     //
   // ids: an array of 10 best existing IDs                                  //
   ////////////////////////////////////////////////////////////////////////////
-  void Existing( const ID id, ID* ids );
+  void Existing( const ID id, IDs ids );
 
   ////////////////////////////////////////////////////////////////////////////
   // Find unused accounts by ID                                             //
@@ -69,15 +69,15 @@ class AccountMap
   // Output Parameters:                                                     //
   // ids: an array of 10 best unused IDs                                    //
   ////////////////////////////////////////////////////////////////////////////
-  void Unused( const ID id, ID* ids );
+  void Unused( const ID id, IDs ids );
 
   ////////////////////////////////////////////////////////////////////////////
-  // Construct and insert an account with target ID                         //
+  // Insert an account                                                      //
   //                                                                        //
   // Parameters:                                                            //
-  // id: the ID                                                             //
+  // account: the account                                                   //
   ////////////////////////////////////////////////////////////////////////////
-  void Emplace( const ID id );
+  void Insert( Account* account );
 
   ////////////////////////////////////////////////////////////////////////////
   // Erase an account of target iterator                                    //

@@ -1,17 +1,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Data Structures and Algorithms - Final Project                             //
-// account.hpp                                                                //
-// The header file of class Account                                           //
+// history_map.hpp                                                            //
+// The interface of class HistoryMap                                          //
 //                                                                            //
 // Author: emfo<emfomy@gmail.com>                                             //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DSA_CORE_ACCOUNT_HPP_
+#ifndef DSA_INC_HISTORY_MAP_HPP_
 
-#define DSA_CORE_ACCOUNT_HPP_
-
-#include "dsa.hpp"
-#include "history_map.hpp"
+#define DSA_INC_HISTORY_MAP_HPP_
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
@@ -19,38 +16,15 @@
 namespace dsa {
 
 ////////////////////////////////////////////////////////////////////////////////
-// The class of a account                                                     //
+// The class of a map of historys                                             //
 ////////////////////////////////////////////////////////////////////////////////
-class Account
+class HistoryMap
 {
  public:
-  // The money
-  Money money_ = 0;
-
- private:
-  // The ID
-  ID id_;
-
-  // The ciphered password
-  Ciphertext ciphertext_;
-
-  // The map of histories
-  HistoryMap history_map_;
-
- public:
-  Account( const ID id, const Plaintext plaintext );
-  ~Account();
-
-  // Get the starting pointer of ID
-  IDptr id();
-
-  // Check password correction
-  bool Login( const Plaintext plaintext );
-
-  // Merge from another account
-  void Merge( Account* that );
+  HistoryMap( const ID id );
+  ~HistoryMap();
 };
 
 }
 
-#endif  // DSA_CORE_ACCOUNT_HPP_
+#endif  // DSA_INC_ACCOUNT_MAP_HPP_

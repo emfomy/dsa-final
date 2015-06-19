@@ -18,15 +18,16 @@ OBJECTS = \
 	account.o \
 
 HEADERS = \
-	core.hpp \
+	$(DSA)/include/dsa.hpp \
 	bank.hpp \
-	account.hpp \
 	$(DSA)/include/account_map.hpp \
+	account.hpp \
+	$(DSA)/include/history_map.hpp \
 
 all: $(OBJECTS)
 
 %.o: %.cpp $(HEADERS)
-	$(CXX) $(CXXFLAGS) -c $< $(INCLUDE) $(INCS) $(LIBRARY) $(LIBS) -o $@
+	$(CXX) $(CXXFLAGS) -c $< $(INCLUDE) $(INCS) -o $@
 
 clean:
 	$(RM) $(OBJECTS)

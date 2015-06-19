@@ -7,12 +7,41 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "account.hpp"
+#include <cstring>
 #include "md5.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
 ////////////////////////////////////////////////////////////////////////////////
 namespace dsa {
+
+////////////////////////////////////////////////////////////////////////////////
+// The constructor of Account                                                 //
+//                                                                            //
+// Parameters:                                                                //
+// id:        the ID                                                          //
+// plaintext: the plain password                                              //
+////////////////////////////////////////////////////////////////////////////////
+Account::Account( const ID id, const Plaintext plaintext ) {
+  MD5 md5(plaintext);
+  memcpy(id_, id, kIDLength+1);
+  ciphertext_ = *reinterpret_cast<const Ciphertext*>(md5.result());
+  history_map_ = new HistoryMap(id);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// The destructor of Account                                                  //
+////////////////////////////////////////////////////////////////////////////////
+Account::~Account() {
+  delete history_map_;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Get the starting pointer of ID                                             //
+////////////////////////////////////////////////////////////////////////////////
+IDptr Account::id(){
+  return id_;
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Check password correction                                                  //
@@ -26,6 +55,17 @@ namespace dsa {
 bool Account::Login( const Plaintext plaintext ) {
   MD5 md5(plaintext);
   return (ciphertext_ == *reinterpret_cast<const Ciphertext*>(md5.result()));
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Merge from another account                                                 //
+//                                                                            //
+// Parameters:                                                                //
+// that: another account                                                      //
+////////////////////////////////////////////////////////////////////////////////
+void Account::Merge( Account* that ) {
+  this->money_ += that.money_;
+  this->history_map_->Merge(that->history_map_);
 }
 
 }

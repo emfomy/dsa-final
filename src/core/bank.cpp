@@ -58,7 +58,7 @@ void Bank::Create( const ID id, const Plaintext password ) {
     }
     cout << endl;
   } else {
-    account_map_.Emplace(id);
+    account_map_.Insert(new Account(id, password));
     cout << "success" << endl;
   }
 }

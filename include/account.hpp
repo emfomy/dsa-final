@@ -11,7 +11,6 @@
 #define DSA_INC_ACCOUNT_HPP_
 
 #include "dsa.hpp"
-#include "history_map.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //

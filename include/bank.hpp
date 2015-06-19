@@ -11,8 +11,6 @@
 #define DSA_INC_BANK_HPP_
 
 #include "dsa.hpp"
-#include "account.hpp"
-#include "account_map.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //

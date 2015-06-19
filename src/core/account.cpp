@@ -39,7 +39,7 @@ Account::~Account() {
 ////////////////////////////////////////////////////////////////////////////////
 // Get the starting pointer of ID                                             //
 ////////////////////////////////////////////////////////////////////////////////
-IDptr Account::id(){
+IDptr Account::id() {
   return id_;
 }
 
@@ -58,13 +58,13 @@ bool Account::Login( const Plaintext plaintext ) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Merge from another account                                                 //
+// Merge with another account                                                 //
 //                                                                            //
 // Parameters:                                                                //
 // that: another account                                                      //
 ////////////////////////////////////////////////////////////////////////////////
 void Account::Merge( Account* that ) {
-  this->money_ += that.money_;
+  this->money_ += that->money_;
   this->history_map_->Merge(that->history_map_);
 }
 

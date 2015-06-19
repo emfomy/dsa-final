@@ -7,6 +7,18 @@ include $(DSA)/Makefile.inc
 
 .PHONY: all clean
 
-all:
+TARGET = \
+	libcore.a \
+
+COREOBJECTS = \
+	$(DSA)/src/core/bank.o \
+	$(DSA)/src/core/account.o \
+
+all: $(TARGET)
+
+libcore.a: $(COREOBJECTS)
+	$(ARCHIVE) $@ $(COREOBJECTS)
+	- $(RANLIB) $@
 
 clean:
+	$(RM) $(TARGET)

@@ -22,11 +22,10 @@ namespace dsa {
 ////////////////////////////////////////////////////////////////////////////////
 // The class of a bank                                                        //
 ////////////////////////////////////////////////////////////////////////////////
-class Bank
-{
+class Bank {
  private:
   // The map of accounts
-  AccountMap account_map_;
+  AccountMap* account_map_;
 
   // The logined account
   Account* logined_account_ = nullptr;
@@ -35,8 +34,11 @@ class Bank
   IDs ids_;
 
  public:
-  Bank(){};
-  ~Bank(){};
+  // Constructor
+  Bank();
+
+  // Destructor
+  ~Bank();
 
   // Login an account
   void Login( const ID id, const Plaintext password );

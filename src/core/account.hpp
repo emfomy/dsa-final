@@ -21,8 +21,7 @@ namespace dsa {
 ////////////////////////////////////////////////////////////////////////////////
 // The class of a account                                                     //
 ////////////////////////////////////////////////////////////////////////////////
-class Account
-{
+class Account {
  public:
   // The money
   Money money_ = 0;
@@ -35,10 +34,13 @@ class Account
   Ciphertext ciphertext_;
 
   // The map of histories
-  HistoryMap history_map_;
+  HistoryMap* history_map_;
 
  public:
+  // Constructor
   Account( const ID id, const Plaintext plaintext );
+
+  // Destructor
   ~Account();
 
   // Get the starting pointer of ID
@@ -47,7 +49,7 @@ class Account
   // Check password correction
   bool Login( const Plaintext plaintext );
 
-  // Merge from another account
+  // Merge with another account
   void Merge( Account* that );
 };
 

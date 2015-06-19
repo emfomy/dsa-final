@@ -13,7 +13,6 @@ INCS = \
 LIBS = \
 
 OBJECTS = \
-	final_project.o \
 	bank.o \
 	account.o \
 
@@ -27,7 +26,7 @@ HEADERS = \
 all: $(OBJECTS)
 
 %.o: %.cpp $(HEADERS)
-	$(CXX) $(CXXFLAGS) -c $< $(INCLUDE) $(INCS) -o $@
+	$(CXX) $(CXXFLAGS) -c $< $(INCS) $(INCLUDE) -o $@
 
 clean:
 	$(RM) $(OBJECTS)

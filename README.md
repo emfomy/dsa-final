@@ -16,8 +16,11 @@ Make sure $(DSA) is set to the root of this project
 ### `/src`
 The source files (`*.cpp` and `*.hpp`).
 
+#### `/src/main`
+The main files (`final_project.cpp`).
+
 #### `/src/core`
-The core files that used for all version.
+The core files.
 
 ### `/lib`
 The library files (`*.lib`).
@@ -33,4 +36,3 @@ Third-party libraries.
 
 #### `/ext/zedwood`
 [zedwood: md5 function](http://www.zedwood.com/article/cpp-md5-function)
-

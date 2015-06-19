@@ -17,6 +17,20 @@ using namespace std;
 namespace dsa {
 
 ////////////////////////////////////////////////////////////////////////////////
+// The constructor of Bank                                                    //
+////////////////////////////////////////////////////////////////////////////////
+Bank::Bank() {
+  account_map_ = new AccountMap();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// The destructor of Bank                                                     //
+////////////////////////////////////////////////////////////////////////////////
+Bank::~Bank() {
+  delete account_map_;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // Login to a specific account                                                //
 //                                                                            //
 // Parameters:                                                                //
@@ -27,7 +41,7 @@ namespace dsa {
 // Set the logined account as target account if permission allowed            //
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Login( const ID id, const Plaintext password ) {
-  auto account = account_map_.At(id);
+  auto account = account_map_->At(id);
   if ( account == nullptr ) {
     cout << "ID " << id << " not found" << endl;
   } else if ( !account->Login(password) ) {
@@ -49,16 +63,16 @@ void Bank::Login( const ID id, const Plaintext password ) {
 // Create target account if the ID is unused                                  //
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Create( const ID id, const Plaintext password ) {
-  auto account = account_map_.At(id);
+  auto account = account_map_->At(id);
   if ( account != nullptr ) {
-    account_map_.Unused(id, ids_);
+    account_map_->Unused(id, ids_);
     cout << "ID " << id << " exists, " << ids_[0];
     for ( auto i = 1; i < kNumRecommend; ++i ) {
       cout << ',' << ids_[i];
     }
     cout << endl;
   } else {
-    account_map_.Insert(new Account(id, password));
+    account_map_->Insert(new Account(id, password));
     cout << "success" << endl;
   }
 }
@@ -75,13 +89,13 @@ void Bank::Create( const ID id, const Plaintext password ) {
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Delete( const ID id, const Plaintext password ) {
   void* it;
-  auto account = account_map_.At(id, &it);
+  auto account = account_map_->At(id, &it);
   if ( account == nullptr ) {
     cout << "ID " << id << " not found" << endl;
   } else if ( !account->Login(password) ) {
     cout << "wrong password" << endl;
   } else {
-    account_map_.Erase(it);
+    account_map_->Erase(it);
     cout << "success" << endl;
   }
 }
@@ -96,7 +110,7 @@ void Bank::Delete( const ID id, const Plaintext password ) {
 // password2: the plain password of the second account                        //
 //                                                                            //
 // Ensure:                                                                    //
-// Merge the second account into the first one and delete the second account  //
+// Merge the second account into the first one and delete the second one      //
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Merge( const ID id1, const Plaintext password1,
                   const ID id2, const Plaintext password2 ) {
@@ -151,9 +165,9 @@ void Bank::Withdraw( const Money money ) {
 //   if there is enough money                                                 //
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Transfer( const ID id, const Money money ) {
-  auto account = account_map_.At(id);
+  auto account = account_map_->At(id);
   if ( account == nullptr ) {
-    account_map_.Existing(id, ids_);
+    account_map_->Existing(id, ids_);
     cout << "ID " << id << " not found, " << ids_[0];
     for ( auto i = 1; i < kNumRecommend; ++i ) {
       cout << ',' << ids_[i];
@@ -181,7 +195,7 @@ void Bank::Transfer( const ID id, const Money money ) {
 // List all satisfying IDs separated by ',' in ascending dictionary order     //
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Find( const ID id ) {
-  account_map_.Existing(id, ids_);
+  account_map_->Existing(id, ids_);
   cout << ids_[0];
   for ( auto i = 1; i < kNumRecommend; ++i ) {
     cout << ',' << ids_[i];
@@ -200,7 +214,7 @@ void Bank::Find( const ID id ) {
 // List all transfer history in ascending time order                          //
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Search( const ID id ) {
-  auto account = account_map_.At(id);
+  auto account = account_map_->At(id);
   if ( account == nullptr ) {
     cout << "ID " << id << " not found" << endl;
   } else {

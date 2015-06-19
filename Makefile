@@ -8,22 +8,21 @@ include $(DSA)/Makefile.inc
 .PHONY: all ext src lib clean
 
 TARGET = \
-	final_project
+	final_project \
 
 SRCS = \
-	src/core/final_project.o \
-	src/core/bank.o \
-	src/core/account.o \
+	src/main/final_project.cpp \
 
 INCS = \
 	-I$(DSA)/include \
 
 LIBS = \
+	$(DSA)/lib/libcore.a \
 
 all: ext src lib $(TARGET)
 
 $(TARGET): $(SRCS) $(LIBS)
-	$(CXX) $(CXXFLAGS) $(SRCS) $(INCLUDE) $(INCS) $(LIBRARY) $(LIBS) -o $@
+	$(CXX) $(CXXFLAGS) $(SRCS) $(INCS) $(INCLUDE) $(LIBS) $(LIBRARY) -o $@
 
 ext:
 	( cd ext ; $(MAKE) all )

@@ -1,3 +1,5 @@
+// Modifed by emfo<emfomy@gmail.com>
+
 /* MD5
  converted to C++ class by Frank Thilo (thilo@unix-ag.org)
  for bzflag (http://www.bzflag.org)
@@ -343,6 +345,17 @@ std::string MD5::hexdigest() const
   buf[32]=0;
  
   return std::string(buf);
+}
+ 
+//////////////////////////////
+
+// Modifed by emfo<emfomy@gmail.com>
+const unsigned char* MD5::result() const
+{
+  if (!finalized)
+    return nullptr;
+ 
+  return digest;
 }
  
 //////////////////////////////

@@ -1,3 +1,5 @@
+// Modifed by emfo<emfomy@gmail.com>
+
 /* MD5
  converted to C++ class by Frank Thilo (thilo@unix-ag.org)
  for bzflag (http://www.bzflag.org)
@@ -56,8 +58,9 @@ public:
   MD5(const std::string& text);
   void update(const unsigned char *buf, size_type length);
   void update(const char *buf, size_type length);
-  MD5& finalize();
+  MD5& finalize();  // Modifed by emfo<emfomy@gmail.com>
   std::string hexdigest() const;
+  const unsigned char* result() const;
   friend std::ostream& operator<<(std::ostream&, MD5 md5);
  
 private:

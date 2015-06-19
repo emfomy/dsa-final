@@ -15,6 +15,7 @@ LIBS = \
 OBJECTS = \
 	final_project.o \
 	bank.o \
+	account.o \
 
 HEADERS = \
 	core.hpp \

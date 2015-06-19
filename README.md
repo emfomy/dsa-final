@@ -31,3 +31,6 @@ The documentation.
 ### `/ext`
 Third-party libraries.
 
+#### `/ext/zedwood`
+[zedwood: md5 function](http://www.zedwood.com/article/cpp-md5-function)
+

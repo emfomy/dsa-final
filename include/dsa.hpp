@@ -6,9 +6,9 @@
 // Author: emfo<emfomy@gmail.com>                                             //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DSA_INC_DSA_HPP_
+#ifndef DSA_DSA_HPP_
 
-#define DSA_INC_DSA_HPP_
+#define DSA_DSA_HPP_
 
 #include <cstdint>
 
@@ -33,4 +33,4 @@ typedef int32_t Money;
 
 }
 
-#endif  // DSA_INC_DSA_HPP_
+#endif  // DSA_DSA_HPP_

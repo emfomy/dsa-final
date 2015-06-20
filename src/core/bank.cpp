@@ -214,7 +214,7 @@ void Bank::Find( const ID id ) {
 // id: target ID                                                              //
 //                                                                            //
 // Ensure:                                                                    //
-// List all transfer history in ascending time order                          //
+// List all transfer history line by line in ascending time order             //
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Search( const ID id ) {
   logined_account_->Search(id);

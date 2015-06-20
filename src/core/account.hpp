@@ -6,9 +6,9 @@
 // Author: emfo<emfomy@gmail.com>                                             //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DSA_CORE_ACCOUNT_HPP_
+#ifndef DSA_ACCOUNT_HPP_
 
-#define DSA_CORE_ACCOUNT_HPP_
+#define DSA_ACCOUNT_HPP_
 
 #include "dsa.hpp"
 #include "history_map.hpp"
@@ -58,4 +58,4 @@ class Account {
 
 }
 
-#endif  // DSA_CORE_ACCOUNT_HPP_
+#endif  // DSA_ACCOUNT_HPP_

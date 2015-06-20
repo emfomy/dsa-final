@@ -6,11 +6,12 @@
 // Author: emfo<emfomy@gmail.com>                                             //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DSA_INC_ACCOUNT_MAP_HPP_
+#ifndef DSA_ACCOUNT_MAP_HPP_
 
-#define DSA_INC_ACCOUNT_MAP_HPP_
+#define DSA_ACCOUNT_MAP_HPP_
 
 #include "dsa.hpp"
+#include "account.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
@@ -111,4 +112,4 @@ class AccountMap {
 
 }
 
-#endif  // DSA_INC_ACCOUNT_MAP_HPP_
+#endif  // DSA_ACCOUNT_MAP_HPP_

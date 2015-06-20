@@ -6,9 +6,9 @@
 // Author: emfo<emfomy@gmail.com>                                             //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DSA_INC_ACCOUNT_HPP_
+#ifndef DSA_ACCOUNT_HPP_
 
-#define DSA_INC_ACCOUNT_HPP_
+#define DSA_ACCOUNT_HPP_
 
 #include "dsa.hpp"
 
@@ -72,9 +72,9 @@ class Account {
   // Ensure:                                                                //
   // Display all history with target ID to standand output, line by line    //
   ////////////////////////////////////////////////////////////////////////////
-  void Account::Search( const ID id );
+  void Search( const ID id );
 };
 
 }
 
-#endif  // DSA_INC_ACCOUNT_HPP_
+#endif  // DSA_ACCOUNT_HPP_

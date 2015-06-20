@@ -6,9 +6,9 @@
 // Author: emfo<emfomy@gmail.com>                                             //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DSA_INC_HISTORY_MAP_HPP_
+#ifndef DSA_HISTORY_MAP_HPP_
 
-#define DSA_INC_HISTORY_MAP_HPP_
+#define DSA_HISTORY_MAP_HPP_
 
 #include "dsa.hpp"
 
@@ -55,4 +55,4 @@ class HistoryMap {
 
 }
 
-#endif  // DSA_INC_ACCOUNT_MAP_HPP_
+#endif  // DSA_ACCOUNT_MAP_HPP_

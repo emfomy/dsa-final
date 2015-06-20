@@ -56,12 +56,23 @@ class Account {
   bool Login( const Plaintext plaintext );
 
   ////////////////////////////////////////////////////////////////////////////
-  // Merge with another account                                             //
+  // Merge with target account                                              //
   //                                                                        //
   // Parameters:                                                            //
-  // that: another account                                                  //
+  // that: target account                                                   //
   ////////////////////////////////////////////////////////////////////////////
   void Merge( Account* that );
+
+  ////////////////////////////////////////////////////////////////////////////
+  // Display all history with target ID                                     //
+  //                                                                        //
+  // Parameters:                                                            //
+  // id: target ID                                                          //
+  //                                                                        //
+  // Ensure:                                                                //
+  // Display all history with target ID to standand output, line by line    //
+  ////////////////////////////////////////////////////////////////////////////
+  void Account::Search( const ID id );
 };
 
 }

@@ -33,12 +33,24 @@ class HistoryMap {
   ~HistoryMap();
 
   ////////////////////////////////////////////////////////////////////////////
-  // Merge with another history map                                         //
+  // Merge with target history map                                          //
   //                                                                        //
   // Parameters:                                                            //
-  // that: another history map                                              //
+  // that: target history map                                               //
   ////////////////////////////////////////////////////////////////////////////
   void Merge( HistoryMap* that );
+
+  ////////////////////////////////////////////////////////////////////////////
+  // Display all history with target ID                                     //
+  //                                                                        //
+  // Parameters:                                                            //
+  // id: target ID                                                          //
+  //                                                                        //
+  // Ensure:                                                                //
+  // Display 'no record' if no record exists                                //
+  // Display all history with target ID to standand output, line by line    //
+  ////////////////////////////////////////////////////////////////////////////
+  void Search( const ID id );
 };
 
 }

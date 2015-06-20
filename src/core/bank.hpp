@@ -30,9 +30,6 @@ class Bank {
   // The logined account
   Account* logined_account_ = nullptr;
 
-  // An array of 10 IDs
-  IDs ids_;
-
  public:
   // Constructor
   Bank();

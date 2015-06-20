@@ -33,7 +33,7 @@ class Account {
   // The ciphered password
   Ciphertext ciphertext_;
 
-  // The map of histories
+  // The map of history
   HistoryMap* history_map_;
 
  public:
@@ -49,8 +49,11 @@ class Account {
   // Check password correction
   bool Login( const Plaintext plaintext );
 
-  // Merge with another account
+  // Merge with target account
   void Merge( Account* that );
+
+  // Display all history with target ID
+  void Search( const ID id );
 };
 
 }

@@ -65,11 +65,8 @@ void Bank::Login( const ID id, const Plaintext password ) {
 void Bank::Create( const ID id, const Plaintext password ) {
   auto account = account_map_->At(id);
   if ( account != nullptr ) {
-    account_map_->Unused(id, ids_);
-    cout << "ID " << id << " exists, " << ids_[0];
-    for ( auto i = 1; i < kNumRecommend; ++i ) {
-      cout << ',' << ids_[i];
-    }
+    cout << "ID " << id << " exists, ";
+    account_map_->Unused(id);
     cout << endl;
   } else {
     account_map_->Insert(new Account(id, password));
@@ -114,7 +111,20 @@ void Bank::Delete( const ID id, const Plaintext password ) {
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Merge( const ID id1, const Plaintext password1,
                   const ID id2, const Plaintext password2 ) {
-  cout << "merge" << endl;
+  auto account1 = account_map_->At(id1);
+  auto account2 = account_map_->At(id2);
+  if ( account1 == nullptr ) {
+    cout << "ID " << id1 << " not found" << endl;
+  } else if ( account2 == nullptr ) {
+    cout << "ID " << id2 << " not found" << endl;
+  } else if ( !account1->Login(password1) ) {
+    cout << "wrong password1" << endl;
+  } else if ( !account2->Login(password2) ) {
+    cout << "wrong password2" << endl;
+  } else {
+    cout << "success, " << id1 << " has "
+         << account1->money_ << " dollars" << endl;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -167,11 +177,8 @@ void Bank::Withdraw( const Money money ) {
 void Bank::Transfer( const ID id, const Money money ) {
   auto account = account_map_->At(id);
   if ( account == nullptr ) {
-    account_map_->Existing(id, ids_);
-    cout << "ID " << id << " not found, " << ids_[0];
-    for ( auto i = 1; i < kNumRecommend; ++i ) {
-      cout << ',' << ids_[i];
-    }
+    cout << "ID " << id << " not found, ";
+    account_map_->Existing(id);
     cout << endl;
   } else if ( logined_account_->money_ < money ) {
     cout << "fail, " << logined_account_->money_
@@ -195,11 +202,7 @@ void Bank::Transfer( const ID id, const Money money ) {
 // List all satisfying IDs separated by ',' in ascending dictionary order     //
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Find( const ID id ) {
-  account_map_->Existing(id, ids_);
-  cout << ids_[0];
-  for ( auto i = 1; i < kNumRecommend; ++i ) {
-    cout << ',' << ids_[i];
-  }
+  account_map_->Find(id, logined_account_);
   cout << endl;
 }
 
@@ -208,18 +211,14 @@ void Bank::Find( const ID id ) {
 //   from/to a specific account                                               //
 //                                                                            //
 // Parameters:                                                                //
-// id: the target ID                                                          //
+// id: target ID                                                              //
 //                                                                            //
 // Ensure:                                                                    //
 // List all transfer history in ascending time order                          //
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Search( const ID id ) {
-  auto account = account_map_->At(id);
-  if ( account == nullptr ) {
-    cout << "ID " << id << " not found" << endl;
-  } else {
-    cout << "history" << endl;
-  }
+  logined_account_->Search(id);
+  cout << endl;
 }
 
 }

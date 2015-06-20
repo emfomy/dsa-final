@@ -58,14 +58,27 @@ bool Account::Login( const Plaintext plaintext ) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Merge with another account                                                 //
+// Merge with target account                                                  //
 //                                                                            //
 // Parameters:                                                                //
-// that: another account                                                      //
+// that: target account                                                       //
 ////////////////////////////////////////////////////////////////////////////////
 void Account::Merge( Account* that ) {
   this->money_ += that->money_;
   this->history_map_->Merge(that->history_map_);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Display all history with target ID                                         //
+//                                                                            //
+// Parameters:                                                                //
+// id: target ID                                                              //
+//                                                                            //
+// Ensure:                                                                    //
+// Display all history with target ID to standand output, line by line        //
+////////////////////////////////////////////////////////////////////////////////
+void Account::Search( const ID id ) {
+  history_map_->Search(id);
 }
 
 }

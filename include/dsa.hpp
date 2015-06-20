@@ -27,7 +27,6 @@ const int kNumRecommend = 10;
 // Define types
 typedef char ID[kIDLength+1];
 typedef char* IDptr;
-typedef IDptr IDs[kNumRecommend];
 typedef char Plaintext[kPlaintextLength+1];
 typedef __int128_t Ciphertext;
 typedef int32_t Money;

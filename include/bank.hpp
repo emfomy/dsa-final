@@ -136,7 +136,7 @@ class Bank {
   //   from/to a specific account                                           //
   //                                                                        //
   // Parameters:                                                            //
-  // id: the target ID                                                      //
+  // id: target ID                                                          //
   //                                                                        //
   // Ensure:                                                                //
   // List all transfer history in ascending time order                      //

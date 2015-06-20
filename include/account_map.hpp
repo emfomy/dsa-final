@@ -58,26 +58,39 @@ class AccountMap {
   Account* At( const ID id, void** pit );
 
   ////////////////////////////////////////////////////////////////////////////
-  // Find existing accounts by ID                                           //
+  // Display existing IDs                                                   //
   //                                                                        //
   // Input Parameters:                                                      //
   // id: the ID                                                             //
   //                                                                        //
-  // Output Parameters:                                                     //
-  // ids: an array of 10 best existing IDs                                  //
+  // Ensure:                                                                //
+  // Display best satisfying IDs to standand output, separated by ','       //
   ////////////////////////////////////////////////////////////////////////////
-  void Existing( const ID id, IDs ids );
+  void Existing( const ID id );
 
   ////////////////////////////////////////////////////////////////////////////
-  // Find unused accounts by ID                                             //
+  // Display unused IDs                                                     //
   //                                                                        //
   // Input Parameters:                                                      //
   // id: the ID                                                             //
   //                                                                        //
-  // Output Parameters:                                                     //
-  // ids: an array of 10 best unused IDs                                    //
+  // Ensure:                                                                //
+  // Display best satisfying IDs to standand output, separated by ','       //
   ////////////////////////////////////////////////////////////////////////////
-  void Unused( const ID id, IDs ids );
+  void Unused( const ID id );
+
+  ////////////////////////////////////////////////////////////////////////////
+  // Find existing IDs that matches the wildcard ID                         //
+  //   but is different from target account                                 //
+  //                                                                        //
+  // Input Parameters:                                                      //
+  // id: the ID                                                             //
+  //                                                                        //
+  // Ensure:                                                                //
+  // Display all satisfying IDs to standand output,                         //
+  //   separated by ',' in ascending dictionary order                       //
+  ////////////////////////////////////////////////////////////////////////////
+  void Find( const ID id, const Account* account );
 
   ////////////////////////////////////////////////////////////////////////////
   // Insert an account                                                      //

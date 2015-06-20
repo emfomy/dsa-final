@@ -122,6 +122,7 @@ void Bank::Merge( const ID id1, const Plaintext password1,
   } else if ( !account2->Login(password2) ) {
     cout << "wrong password2" << endl;
   } else {
+    account1->Merge(account2);
     cout << "success, " << id1 << " has "
          << account1->money_ << " dollars" << endl;
   }
@@ -184,8 +185,7 @@ void Bank::Transfer( const ID id, const Money money ) {
     cout << "fail, " << logined_account_->money_
          << " dollars only in current account" << endl;
   } else {
-    logined_account_->money_ -= money;
-    account->money_ += money;
+    logined_account_->Transfer(account, money);
     cout << "success, " << logined_account_->money_
          << " dollars left in current account" << endl;
   }

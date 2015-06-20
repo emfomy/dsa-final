@@ -58,6 +58,19 @@ bool Account::Login( const Plaintext plaintext ) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// Transfer money to target account                                           //
+//                                                                            //
+// Parameters:                                                                //
+// that:  target account                                                      //
+// money: the amount of money to transfer                                     //
+////////////////////////////////////////////////////////////////////////////////
+void Account::Transfer( Account* that, const Money money ) {
+  this->money_ -= money;
+  that->money_ += money;
+  this->history_map_->Insert(that->history_map_, money);
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // Merge with target account                                                  //
 //                                                                            //
 // Parameters:                                                                //

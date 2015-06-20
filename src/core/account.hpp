@@ -49,6 +49,9 @@ class Account {
   // Check password correction
   bool Login( const Plaintext plaintext );
 
+  // Transfer money to an account
+  void Transfer( Account* that, const Money money );
+
   // Merge with target account
   void Merge( Account* that );
 

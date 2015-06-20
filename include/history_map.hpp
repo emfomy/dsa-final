@@ -33,6 +33,15 @@ class HistoryMap {
   ~HistoryMap();
 
   ////////////////////////////////////////////////////////////////////////////
+  // Insert a transfer history from this account to target account          //
+  //                                                                        //
+  // Parameters:                                                            //
+  // that: the history map of target account                                //
+  // money: the amount of money to transfer                                 //
+  ////////////////////////////////////////////////////////////////////////////
+  void Insert( HistoryMap* that, const Money money );
+
+  ////////////////////////////////////////////////////////////////////////////
   // Merge with target history map                                          //
   //                                                                        //
   // Parameters:                                                            //

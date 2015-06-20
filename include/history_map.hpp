@@ -6,9 +6,9 @@
 // Author: emfo<emfomy@gmail.com>                                             //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DSA_INC_HISTORY_MAP_HPP_
+#ifndef DSA_HISTORY_MAP_HPP_
 
-#define DSA_INC_HISTORY_MAP_HPP_
+#define DSA_HISTORY_MAP_HPP_
 
 #include "dsa.hpp"
 
@@ -33,14 +33,26 @@ class HistoryMap {
   ~HistoryMap();
 
   ////////////////////////////////////////////////////////////////////////////
-  // Merge with another history map                                         //
+  // Merge with target history map                                          //
   //                                                                        //
   // Parameters:                                                            //
-  // that: another history map                                              //
+  // that: target history map                                               //
   ////////////////////////////////////////////////////////////////////////////
   void Merge( HistoryMap* that );
+
+  ////////////////////////////////////////////////////////////////////////////
+  // Display all history with target ID                                     //
+  //                                                                        //
+  // Parameters:                                                            //
+  // id: target ID                                                          //
+  //                                                                        //
+  // Ensure:                                                                //
+  // Display 'no record' if no record exists                                //
+  // Display all history with target ID to standand output, line by line    //
+  ////////////////////////////////////////////////////////////////////////////
+  void Search( const ID id );
 };
 
 }
 
-#endif  // DSA_INC_ACCOUNT_MAP_HPP_
+#endif  // DSA_ACCOUNT_MAP_HPP_

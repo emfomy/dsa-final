@@ -6,9 +6,9 @@
 // Author: emfo<emfomy@gmail.com>                                             //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DSA_INC_DSA_HPP_
+#ifndef DSA_DSA_HPP_
 
-#define DSA_INC_DSA_HPP_
+#define DSA_DSA_HPP_
 
 #include <cstdint>
 
@@ -27,11 +27,10 @@ const int kNumRecommend = 10;
 // Define types
 typedef char ID[kIDLength+1];
 typedef char* IDptr;
-typedef IDptr IDs[kNumRecommend];
 typedef char Plaintext[kPlaintextLength+1];
 typedef __int128_t Ciphertext;
 typedef int32_t Money;
 
 }
 
-#endif  // DSA_INC_DSA_HPP_
+#endif  // DSA_DSA_HPP_

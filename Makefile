@@ -19,7 +19,7 @@ INCS = \
 LIBS = \
 	$(DSA)/lib/libcore.a \
 
-all: ext src lib $(TARGET)
+all: ext src lib main
 
 $(TARGET): $(SRCS) $(LIBS)
 	$(CXX) $(CXXFLAGS) $(SRCS) $(INCS) $(INCLUDE) $(LIBS) $(LIBRARY) -o $@
@@ -32,6 +32,8 @@ src:
 
 lib:
 	( cd lib ; $(MAKE) all )
+
+main: $(TARGET)
 
 run: $(TARGET)
 	./$(TARGET)

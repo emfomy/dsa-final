@@ -6,9 +6,9 @@
 // Author: emfo<emfomy@gmail.com>                                             //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DSA_INC_BANK_HPP_
+#ifndef DSA_BANK_HPP_
 
-#define DSA_INC_BANK_HPP_
+#define DSA_BANK_HPP_
 
 #include "dsa.hpp"
 
@@ -136,14 +136,14 @@ class Bank {
   //   from/to a specific account                                           //
   //                                                                        //
   // Parameters:                                                            //
-  // id: the target ID                                                      //
+  // id: target ID                                                          //
   //                                                                        //
   // Ensure:                                                                //
-  // List all transfer history in ascending time order                      //
+  // List all transfer history line by line in ascending time order         //
   ////////////////////////////////////////////////////////////////////////////
   void Search( const ID id );
 };
 
 }
 
-#endif  // DSA_INC_BANK_HPP_
+#endif  // DSA_BANK_HPP_

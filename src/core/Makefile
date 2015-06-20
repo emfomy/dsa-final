@@ -17,10 +17,10 @@ OBJECTS = \
 	account.o \
 
 HEADERS = \
-	$(DSA)/include/dsa.hpp \
 	bank.hpp \
-	$(DSA)/include/account_map.hpp \
 	account.hpp \
+	$(DSA)/include/dsa.hpp \
+	$(DSA)/include/account_map.hpp \
 	$(DSA)/include/history_map.hpp \
 
 all: $(OBJECTS)

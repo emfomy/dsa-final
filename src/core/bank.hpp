@@ -6,9 +6,9 @@
 // Author: emfo<emfomy@gmail.com>                                             //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DSA_CORE_BANK_HPP_
+#ifndef DSA_BANK_HPP_
 
-#define DSA_CORE_BANK_HPP_
+#define DSA_BANK_HPP_
 
 #include "dsa.hpp"
 #include "account.hpp"
@@ -29,9 +29,6 @@ class Bank {
 
   // The logined account
   Account* logined_account_ = nullptr;
-
-  // An array of 10 IDs
-  IDs ids_;
 
  public:
   // Constructor
@@ -71,4 +68,4 @@ class Bank {
 
 }
 
-#endif  // DSA_CORE_BANK_HPP_
+#endif  // DSA_BANK_HPP_

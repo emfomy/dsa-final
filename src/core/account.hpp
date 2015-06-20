@@ -6,9 +6,9 @@
 // Author: emfo<emfomy@gmail.com>                                             //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DSA_CORE_ACCOUNT_HPP_
+#ifndef DSA_ACCOUNT_HPP_
 
-#define DSA_CORE_ACCOUNT_HPP_
+#define DSA_ACCOUNT_HPP_
 
 #include "dsa.hpp"
 #include "history_map.hpp"
@@ -33,7 +33,7 @@ class Account {
   // The ciphered password
   Ciphertext ciphertext_;
 
-  // The map of histories
+  // The map of history
   HistoryMap* history_map_;
 
  public:
@@ -49,10 +49,13 @@ class Account {
   // Check password correction
   bool Login( const Plaintext plaintext );
 
-  // Merge with another account
+  // Merge with target account
   void Merge( Account* that );
+
+  // Display all history with target ID
+  void Search( const ID id );
 };
 
 }
 
-#endif  // DSA_CORE_ACCOUNT_HPP_
+#endif  // DSA_ACCOUNT_HPP_

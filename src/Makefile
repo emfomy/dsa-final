@@ -8,9 +8,10 @@ include $(DSA)/Makefile.inc
 .PHONY: all core clean
 
 all: core
+	@echo > /dev/null
 
 core:
-	( cd core ; $(MAKE) all )
+	@( cd core ; $(MAKE) all )
 
 clean:
-	( cd core ; $(MAKE) clean )
+	@( cd core ; $(MAKE) clean )

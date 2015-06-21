@@ -18,6 +18,7 @@ OBJECTS = \
 HEADERS = \
 
 all: $(OBJECTS)
+	@echo > /dev/null
 
 %.o: %.cpp $(HEADERS)
 	$(CXX) $(CXXFLAGS) -c $< $(INCS) $(INCLUDE) -o $@

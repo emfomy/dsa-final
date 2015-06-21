@@ -14,10 +14,11 @@ OBJECTS = \
 	$(ZEDWOOD)/src/md5.o \
 
 all: $(TARGET)
+	@echo > /dev/null
 
 libmd5.a: $(OBJECTS)
 	$(ARCHIVE) $@ $(OBJECTS)
-	- $(RANLIB) $@
+	-$(RANLIB) $@
 
 clean:
 	$(RM) $(TARGET)

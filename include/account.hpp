@@ -56,6 +56,15 @@ class Account {
   bool Login( const Plaintext plaintext );
 
   ////////////////////////////////////////////////////////////////////////////
+  // Transfer money to target account                                       //
+  //                                                                        //
+  // Parameters:                                                            //
+  // that:  target account                                                  //
+  // money: the amount of money to transfer                                 //
+  ////////////////////////////////////////////////////////////////////////////
+  void Account::Transfer( Account* that, const Money money );
+
+  ////////////////////////////////////////////////////////////////////////////
   // Merge with target account                                              //
   //                                                                        //
   // Parameters:                                                            //

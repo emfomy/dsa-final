@@ -5,7 +5,9 @@ export DSA=$(CURDIR)
 
 include $(DSA)/Makefile.inc
 
-.PHONY: all ext src lib clean
+.PHONY: all src lib ext clean
+
+MAKEFLAGS += --no-print-directory
 
 TARGET = \
 	final_project \
@@ -19,19 +21,20 @@ INCS = \
 LIBS = \
 	$(DSA)/lib/libcore.a \
 
-all: ext src lib main
+all: src lib ext main
+	@echo > /dev/null
 
 $(TARGET): $(SRCS) $(LIBS)
 	$(CXX) $(CXXFLAGS) $(SRCS) $(INCS) $(INCLUDE) $(LIBS) $(LIBRARY) -o $@
 
-ext:
-	( cd ext ; $(MAKE) all )
-
 src:
-	( cd src ; $(MAKE) all )
+	@( cd src ; $(MAKE) all )
 
 lib:
-	( cd lib ; $(MAKE) all )
+	@( cd lib ; $(MAKE) all )
+
+ext:
+	@( cd ext ; $(MAKE) all )
 
 main: $(TARGET)
 
@@ -39,6 +42,6 @@ run: $(TARGET)
 	./$(TARGET)
 
 clean:
-	( cd ext ; $(MAKE) clean )
-	( cd src ; $(MAKE) clean )
-	( cd lib ; $(MAKE) clean )
+	@( cd src ; $(MAKE) clean )
+	@( cd lib ; $(MAKE) clean )
+	@( cd ext ; $(MAKE) clean )

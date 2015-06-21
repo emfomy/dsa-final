@@ -23,10 +23,10 @@ namespace dsa {
 // plaintext: the plain password                                              //
 ////////////////////////////////////////////////////////////////////////////////
 Account::Account( const ID id, const Plaintext plaintext ) {
-  MD5 md5(plaintext);
   memcpy(id_, id, kIDLength+1);
+  MD5 md5(plaintext);
   ciphertext_ = *reinterpret_cast<const Ciphertext*>(md5.result());
-  history_map_ = new HistoryMap(id);
+  history_map_ = new HistoryMap(id_);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -55,6 +55,19 @@ IDptr Account::id() {
 bool Account::Login( const Plaintext plaintext ) {
   MD5 md5(plaintext);
   return (ciphertext_ == *reinterpret_cast<const Ciphertext*>(md5.result()));
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Transfer money to target account                                           //
+//                                                                            //
+// Parameters:                                                                //
+// that:  target account                                                      //
+// money: the amount of money to transfer                                     //
+////////////////////////////////////////////////////////////////////////////////
+void Account::Transfer( Account* that, const Money money ) {
+  this->money_ -= money;
+  that->money_ += money;
+  this->history_map_->Insert(that->history_map_, money);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

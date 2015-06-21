@@ -8,13 +8,14 @@ include $(ZEDWOOD)/Makefile.inc
 .PHONY: all src lib clean
 
 all: src lib
+	@echo > /dev/null
 
 src:
-	( cd src ; $(MAKE) all )
+	@( cd src ; $(MAKE) all )
 
 lib:
-	( cd lib ; $(MAKE) all )
+	@( cd lib ; $(MAKE) all )
 
 clean:
-	( cd src ; $(MAKE) clean )
-	( cd lib ; $(MAKE) clean )
+	@( cd src ; $(MAKE) clean )
+	@( cd lib ; $(MAKE) clean )

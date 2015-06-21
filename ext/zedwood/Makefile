@@ -5,17 +5,15 @@ export ZEDWOOD=$(CURDIR)
 
 include $(ZEDWOOD)/Makefile.inc
 
-.PHONY: all src lib clean
+SUBDIR = src
 
-all: src lib
+.PHONY: all $(SUBDIR) clean
+
+all: $(SUBDIR)
 	@echo > /dev/null
 
-src:
-	@( cd src ; $(MAKE) all )
-
-lib:
-	@( cd lib ; $(MAKE) all )
+$(SUBDIR):
+	@( cd $@ ; $(MAKE) all )
 
 clean:
-	@( cd src ; $(MAKE) clean )
-	@( cd lib ; $(MAKE) clean )
+	@for dir in $(SUBDIR); do ( cd $$dir ; $(MAKE) clean ) done

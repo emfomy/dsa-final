@@ -15,10 +15,11 @@ COREOBJECTS = \
 	$(DSA)/src/core/account.o \
 
 all: $(TARGET)
+	@echo > /dev/null
 
 libcore.a: $(COREOBJECTS)
 	$(ARCHIVE) $@ $(COREOBJECTS)
-	- $(RANLIB) $@
+	-$(RANLIB) $@
 
 clean:
 	$(RM) $(TARGET)

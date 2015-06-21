@@ -7,6 +7,11 @@ include $(DSA)/Makefile.inc
 
 .PHONY: all clean
 
+TARGETDIR = $(DSA)/lib
+
+TARGET = \
+	$(TARGETDIR)/libcore.a \
+
 INCS = \
 	-I$(DSA)/include \
 
@@ -23,11 +28,18 @@ HEADERS = \
 	$(DSA)/include/account_map.hpp \
 	$(DSA)/include/history_map.hpp \
 
-all: $(OBJECTS)
+all: $(TARGET)
 	@echo > /dev/null
+
+$(TARGET): $(OBJECTS) $(TARGETDIR)
+	$(ARCHIVE) $@ $(OBJECTS)
+	-$(RANLIB) $@
 
 %.o: %.cpp $(HEADERS)
 	$(CXX) $(CXXFLAGS) -c $< $(INCS) $(INCLUDE) -o $@
 
+$(TARGETDIR):
+	mkdir -p $(TARGETDIR)
+
 clean:
-	$(RM) $(OBJECTS)
+	$(RM) $(TARGET) $(OBJECTS)

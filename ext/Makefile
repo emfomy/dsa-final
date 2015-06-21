@@ -5,16 +5,15 @@
 
 include $(DSA)/Makefile.inc
 
-.PHONY: all src lib clean
+SUBDIR = zedwood
 
-all: src lib
+.PHONY: all $(SUBDIR) clean
+
+all: $(SUBDIR)
 	@echo > /dev/null
 
-src:
-	@( cd zedwood ; $(MAKE) src )
-
-lib:
-	@( cd zedwood ; $(MAKE) lib )
+$(SUBDIR):
+	@( cd $@ ; $(MAKE) all )
 
 clean:
-	@( cd zedwood ; $(MAKE) clean )
+	@for dir in $(SUBDIR); do ( cd $$dir ; $(MAKE) clean ) done

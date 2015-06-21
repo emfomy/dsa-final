@@ -5,7 +5,7 @@
 
 include $(DSA)/Makefile.inc
 
-SUBDIR = core
+SUBDIR = core account_avl_tree
 
 .PHONY: all $(SUBDIR) clean
 

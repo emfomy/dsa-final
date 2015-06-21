@@ -5,12 +5,16 @@
 
 include $(DSA)/Makefile.inc
 
-.PHONY: all zedwood clean
+.PHONY: all src lib clean
 
-all: zedwood
+all: src lib
+	@echo > /dev/null
 
-zedwood:
-	( cd zedwood ; $(MAKE) all )
+src:
+	@( cd zedwood ; $(MAKE) src )
+
+lib:
+	@( cd zedwood ; $(MAKE) lib )
 
 clean:
-	( cd zedwood ; $(MAKE) clean )
+	@( cd zedwood ; $(MAKE) clean )

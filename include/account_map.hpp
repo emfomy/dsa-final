@@ -85,7 +85,7 @@ class AccountMap {
   //   but is different from target account                                 //
   //                                                                        //
   // Input Parameters:                                                      //
-  // id: the ID                                                             //
+  // id: the wildcard ID                                                    //
   //                                                                        //
   // Ensure:                                                                //
   // Display all satisfying IDs to standand output,                         //

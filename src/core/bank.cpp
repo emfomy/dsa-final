@@ -111,8 +111,9 @@ void Bank::Delete( const ID id, const Plaintext password ) {
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Merge( const ID id1, const Plaintext password1,
                   const ID id2, const Plaintext password2 ) {
+  void* it;
   auto account1 = account_map_->At(id1);
-  auto account2 = account_map_->At(id2);
+  auto account2 = account_map_->At(id2, &it);
   if ( account1 == nullptr ) {
     cout << "ID " << id1 << " not found" << endl;
   } else if ( account2 == nullptr ) {
@@ -123,6 +124,7 @@ void Bank::Merge( const ID id1, const Plaintext password1,
     cout << "wrong password2" << endl;
   } else {
     account1->Merge(account2);
+    account_map_->Erase(it);
     cout << "success, " << id1 << " has "
          << account1->money_ << " dollars" << endl;
   }

@@ -23,10 +23,10 @@ namespace dsa {
 // plaintext: the plain password                                              //
 ////////////////////////////////////////////////////////////////////////////////
 Account::Account( const ID id, const Plaintext plaintext ) {
-  MD5 md5(plaintext);
   memcpy(id_, id, kIDLength+1);
+  MD5 md5(plaintext);
   ciphertext_ = *reinterpret_cast<const Ciphertext*>(md5.result());
-  history_map_ = new HistoryMap(id);
+  history_map_ = new HistoryMap(id_);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

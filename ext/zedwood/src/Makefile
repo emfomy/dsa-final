@@ -7,6 +7,11 @@ include $(ZEDWOOD)/Makefile.inc
 
 .PHONY: all clean
 
+TARGETDIR = $(ZEDWOOD)/lib
+
+TARGET = \
+	$(TARGETDIR)/libmd5.a \
+
 INCS = \
 	-I$(ZEDWOOD)/include
 
@@ -17,11 +22,18 @@ OBJECTS = \
 
 HEADERS = \
 
-all: $(OBJECTS)
+all: $(TARGET)
 	@echo > /dev/null
+
+$(TARGET): $(OBJECTS) $(TARGETDIR)
+	$(ARCHIVE) $@ $(OBJECTS)
+	-$(RANLIB) $@
 
 %.o: %.cpp $(HEADERS)
 	$(CXX) $(CXXFLAGS) -c $< $(INCS) $(INCLUDE) -o $@
 
+$(TARGETDIR):
+	mkdir -p $(TARGETDIR)
+
 clean:
-	$(RM) $(OBJECTS)
+	$(RM) $(TARGET) $(OBJECTS)

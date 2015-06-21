@@ -5,13 +5,15 @@
 
 include $(DSA)/Makefile.inc
 
-.PHONY: all core clean
+SUBDIR = core
 
-all: core
+.PHONY: all $(SUBDIR) clean
+
+all: $(SUBDIR)
 	@echo > /dev/null
 
-core:
-	@( cd core ; $(MAKE) all )
+$(SUBDIR):
+	@( cd $@ ; $(MAKE) all )
 
 clean:
-	@( cd core ; $(MAKE) clean )
+	@for dir in $(SUBDIR); do ( cd $$dir ; $(MAKE) clean ) done

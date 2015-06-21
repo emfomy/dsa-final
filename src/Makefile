@@ -5,7 +5,7 @@
 
 include $(DSA)/Makefile.inc
 
-SUBDIR = core
+SUBDIR = core account_skip_list
 
 .PHONY: all $(SUBDIR) clean
 

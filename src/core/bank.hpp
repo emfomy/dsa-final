@@ -11,8 +11,6 @@
 #define DSA_BANK_HPP_
 
 #include "dsa.hpp"
-#include "account.hpp"
-#include "account_map.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
@@ -25,10 +23,10 @@ namespace dsa {
 class Bank {
  private:
   // The map of accounts
-  AccountMap* account_map_;
+  class AccountMap* account_map_;
 
   // The logined account
-  Account* logined_account_ = nullptr;
+  class Account* logined_account_ = nullptr;
 
  public:
   // Constructor

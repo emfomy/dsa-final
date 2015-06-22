@@ -62,7 +62,7 @@ class Account {
   // that:  target account                                                  //
   // money: the amount of money to transfer                                 //
   ////////////////////////////////////////////////////////////////////////////
-  void Account::Transfer( Account* that, const Money money );
+  void Account::Transfer( class Account* that, const Money money );
 
   ////////////////////////////////////////////////////////////////////////////
   // Merge with target account                                              //
@@ -70,7 +70,7 @@ class Account {
   // Parameters:                                                            //
   // that: target account                                                   //
   ////////////////////////////////////////////////////////////////////////////
-  void Merge( Account* that );
+  void Merge( class Account* that );
 
   ////////////////////////////////////////////////////////////////////////////
   // Display all history with target ID                                     //

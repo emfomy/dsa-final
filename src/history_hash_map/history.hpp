@@ -45,4 +45,4 @@ class History {
 
 }
 
-#endif  // DSA_HISTORT_HPP_
+#endif  // DSA_HISTORY_HPP_

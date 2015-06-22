@@ -11,7 +11,6 @@
 #define DSA_ACCOUNT_MAP_HPP_
 
 #include "dsa.hpp"
-#include "account.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
@@ -91,7 +90,7 @@ class AccountMap {
   // Display all satisfying IDs to standand output,                         //
   //   separated by ',' in ascending dictionary order                       //
   ////////////////////////////////////////////////////////////////////////////
-  void Find( const ID id, const Account* account );
+  void Find( const ID id, const class Account* account );
 
   ////////////////////////////////////////////////////////////////////////////
   // Insert an account                                                      //
@@ -99,7 +98,7 @@ class AccountMap {
   // Parameters:                                                            //
   // account: the account                                                   //
   ////////////////////////////////////////////////////////////////////////////
-  void Insert( Account* account );
+  void Insert( class Account* account );
 
   ////////////////////////////////////////////////////////////////////////////
   // Erase an account of target iterator                                    //

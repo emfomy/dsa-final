@@ -8,7 +8,7 @@
 
 #include "account.hpp"
 #include <cstring>
-#include "md5.h"
+#include <openssl/md5.h>
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
@@ -24,8 +24,11 @@ namespace dsa {
 ////////////////////////////////////////////////////////////////////////////////
 Account::Account( const ID id, const Plaintext plaintext ) {
   memcpy(id_, id, kIDLength+1);
-  MD5 md5(plaintext);
-  ciphertext_ = *reinterpret_cast<const Ciphertext*>(md5.result());
+  MD5(
+      reinterpret_cast<const unsigned char*>(plaintext),
+      strlen(plaintext),
+      reinterpret_cast<unsigned char*>(ciphertext_)
+  );
   history_map_ = new HistoryMap(id_);
 }
 
@@ -53,8 +56,13 @@ IDptr Account::id() {
 // true if the password is correct, false if not                              //
 ////////////////////////////////////////////////////////////////////////////////
 bool Account::Login( const Plaintext plaintext ) {
-  MD5 md5(plaintext);
-  return (ciphertext_ == *reinterpret_cast<const Ciphertext*>(md5.result()));
+  Ciphertext tmp = 0;
+  MD5(
+      reinterpret_cast<const unsigned char*>(plaintext),
+      strlen(plaintext),
+      reinterpret_cast<unsigned char*>(tmp)
+  );
+  return (ciphertext_ == tmp);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

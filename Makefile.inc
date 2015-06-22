@@ -15,7 +15,5 @@ ARFLAGS  = rv
 ARCHIVE  = $(AR) $(ARFLAGS)
 
 INCLUDE  = \
-	-I$(DSA)/ext/zedwood/include \
 
 LIBRARY  = \
-	$(DSA)/ext/zedwood/lib/libmd5.a \

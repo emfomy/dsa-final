@@ -24,6 +24,9 @@ class HistoryMap {
  public:
   ////////////////////////////////////////////////////////////////////////////
   // The constructor of HistoryMap                                          //
+  //                                                                        //
+  // Parameters:                                                            //
+  // id: target ID                                                          //
   ////////////////////////////////////////////////////////////////////////////
   HistoryMap( const IDptr id );
 
@@ -39,7 +42,7 @@ class HistoryMap {
   // that: the history map of target account                                //
   // money: the amount of money to transfer                                 //
   ////////////////////////////////////////////////////////////////////////////
-  void Insert( HistoryMap* that, const Money money );
+  void Insert( class HistoryMap* that, const Money money );
 
   ////////////////////////////////////////////////////////////////////////////
   // Merge with target history map                                          //
@@ -47,7 +50,7 @@ class HistoryMap {
   // Parameters:                                                            //
   // that: target history map                                               //
   ////////////////////////////////////////////////////////////////////////////
-  void Merge( HistoryMap* that );
+  void Merge( class HistoryMap* that );
 
   ////////////////////////////////////////////////////////////////////////////
   // Display all history with target ID                                     //
@@ -64,4 +67,4 @@ class HistoryMap {
 
 }
 
-#endif  // DSA_ACCOUNT_MAP_HPP_
+#endif  // DSA_HISTORY_MAP_HPP_

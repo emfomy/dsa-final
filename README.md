@@ -34,5 +34,5 @@ The documentation.
 ### `/ext`
 Third-party libraries.
 
-#### `/ext/zedwood`
-[zedwood: md5 function](http://www.zedwood.com/article/cpp-md5-function)
+## Libraries
+* [OpenSSL cryptographic library](https://www.openssl.org/docs/crypto/crypto.html): uses for MD5 cryptography.

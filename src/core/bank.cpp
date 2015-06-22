@@ -8,6 +8,8 @@
 
 #include "bank.hpp"
 #include <iostream>
+#include "account.hpp"
+#include "account_map.hpp"
 
 using namespace std;
 

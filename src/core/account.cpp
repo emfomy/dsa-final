@@ -9,6 +9,7 @@
 #include "account.hpp"
 #include <cstring>
 #include <openssl/md5.h>
+#include "history_map.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //

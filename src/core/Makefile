@@ -31,7 +31,7 @@ HEADERS = \
 all: $(TARGET)
 	@echo > /dev/null
 
-$(TARGET): $(OBJECTS) $(TARGETDIR)
+$(TARGET): $(OBJECTS) | $(TARGETDIR)
 	$(ARCHIVE) $@ $(OBJECTS)
 	-$(RANLIB) $@
 

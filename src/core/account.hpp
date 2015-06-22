@@ -11,7 +11,6 @@
 #define DSA_ACCOUNT_HPP_
 
 #include "dsa.hpp"
-#include "history_map.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
@@ -34,7 +33,7 @@ class Account {
   Ciphertext ciphertext_;
 
   // The map of history
-  HistoryMap* history_map_;
+  class HistoryMap* history_map_;
 
  public:
   // Constructor
@@ -50,10 +49,10 @@ class Account {
   bool Login( const Plaintext plaintext );
 
   // Transfer money to an account
-  void Transfer( Account* that, const Money money );
+  void Transfer( class Account* that, const Money money );
 
   // Merge with target account
-  void Merge( Account* that );
+  void Merge( class Account* that );
 
   // Display all history with target ID
   void Search( const ID id );

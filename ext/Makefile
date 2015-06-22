@@ -5,7 +5,7 @@
 
 include $(DSA)/Makefile.inc
 
-SUBDIR = zedwood
+SUBDIR =
 
 .PHONY: all $(SUBDIR) clean
 

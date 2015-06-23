@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Data Structures and Algorithms - Final Project                             //
 // skip_list_for_account.hpp                                                  //
-// The Class SkipList                                                         //
+// The interface of class SkipList                                            //
 //                                                                            //
 // Author: daivdzan<davidzan830@gmail.com>                                    //
 ////////////////////////////////////////////////////////////////////////////////

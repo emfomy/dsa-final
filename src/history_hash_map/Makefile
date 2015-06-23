@@ -18,18 +18,18 @@ INCS = \
 LIBS = \
 
 OBJECTS = \
-	history_map.o \
-	history_list.o \
 	history.o \
+	history_map.o \
+	history_node.o \
 
 HEADERS = \
-	history_map.hpp \
-	history_list.hpp \
 	history.hpp \
+	history_map.hpp \
+	history_node.hpp \
 	$(DSA)/include/dsa.hpp \
 	$(DSA)/include/bank.hpp \
-	$(DSA)/include/account_map.hpp \
 	$(DSA)/include/account.hpp \
+	$(DSA)/include/account_map.hpp \
 
 all: $(TARGET)
 	@echo > /dev/null

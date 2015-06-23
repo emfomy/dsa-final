@@ -20,7 +20,7 @@ Time History::counter_ = 0;
 // The constructor of History                                                 //
 //                                                                            //
 // Parameters:                                                                //
-// money: the amount of money                                                 //
+// money: the amount of money changes                                         //
 ////////////////////////////////////////////////////////////////////////////////
 History::History( const Money money ) {
   money_ = money;

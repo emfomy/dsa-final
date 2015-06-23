@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Data Structures and Algorithms - Final Project                             //
-// history.hpp                                                           //
+// history.hpp                                                                //
 // The header file of class History                                           //
 //                                                                            //
 // Author: emfo<emfomy@gmail.com>                                             //
@@ -10,7 +10,7 @@
 
 #define DSA_HISTORT_HPP_
 
-#include <cstdint>
+#include <cstddef>
 #include "dsa.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -19,17 +19,19 @@
 namespace dsa {
 
 // Define types
-typedef uint64_t Time;
+typedef size_t Time;
 
 ////////////////////////////////////////////////////////////////////////////////
 // The class of a transfer history                                            //
 ////////////////////////////////////////////////////////////////////////////////
 class History {
+  friend class HistoryNode;
+
  private:
   // The counter
   static Time counter_;
 
-  // The amount of money
+  // The amount of money changes
   Money money_;
 
   // The time order
@@ -41,6 +43,9 @@ class History {
 
   // Destructor
   ~History();
+
+  // Get the amount of money changes
+  Money money();
 };
 
 }

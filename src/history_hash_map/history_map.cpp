@@ -7,6 +7,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "history_map.hpp"
+#include "history.hpp"
+#include "history_node.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
@@ -15,6 +17,9 @@ namespace dsa {
 
 ////////////////////////////////////////////////////////////////////////////////
 // The constructor of HistoryMap                                              //
+//                                                                            //
+// Parameters:                                                                //
+// id: target ID                                                              //
 ////////////////////////////////////////////////////////////////////////////////
 HistoryMap::HistoryMap( const IDptr id ) : _HistoryMap() {
   id_ = id;
@@ -34,7 +39,25 @@ HistoryMap::~HistoryMap() {
 // money: the amount of money to transfer                                     //
 ////////////////////////////////////////////////////////////////////////////////
 void HistoryMap::Insert( HistoryMap* that, const Money money ) {
+  // Find nodes
+  auto& this_node = (*this)[that->id_];
+  auto& that_node = (*that)[this->id_];
 
+  // Insert node in this map 
+  if ( !this_node ) {
+    this_node.reset(new HistoryNode(this));
+  }
+
+  // Insert node in that map
+  if ( !that_node ) {
+    that_node.reset(new HistoryNode(that));
+  }
+
+  // Link two nodes
+  this_node->Link(that_node.get());
+
+  // Insert transfer history
+  this_node->Insert(money);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -37,10 +37,10 @@ class HistoryMap : private _HistoryMap {
   ~HistoryMap();
 
   // Insert a transfer history
-  void Insert( HistoryMap* that, const Money money );
+  void Insert( class HistoryMap* that, const Money money );
 
   // Merge with target history map
-  void Merge( HistoryMap* that );
+  void Merge( class HistoryMap* that );
 
   // Display all history
   void Search( const ID id );

@@ -99,10 +99,10 @@ class SkipList {
   // id: the ID used as key(usually equal to the ID of target account)      //
   // account: the pointer of the target account                             //
   //                                                                        //
-  // Ensure:                                                                //
-  // Add a new node with id as key and account as content                   //
+  // Retrun Value:                                                          //
+  // true if successfully add node, false if id already exits               //
   ////////////////////////////////////////////////////////////////////////////
-  void Insert( const IDptr id, Account* account );
+  bool Insert( const IDptr id, Account* account );
 
   ////////////////////////////////////////////////////////////////////////////
   // Get Node* of the next node of target node in the list                  //

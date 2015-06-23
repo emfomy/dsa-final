@@ -7,8 +7,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "history_map.hpp"
+#include <iostream>
 #include "history.hpp"
 #include "history_node.hpp"
+
+using namespace std;
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
@@ -81,7 +84,12 @@ void HistoryMap::Merge( HistoryMap* that ) {
 // Display all history with target ID to standand output, line by line        //
 ////////////////////////////////////////////////////////////////////////////////
 void HistoryMap::Search( const IDptr id ) {
-
+  auto it = find(id);
+  if ( it == end() ) {
+    cout << "no record" << endl;
+  } else {
+    it->second->Display();
+  }
 }
 
 }

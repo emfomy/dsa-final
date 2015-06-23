@@ -63,6 +63,8 @@ typedef std::unordered_map<IDptr, HistoryNodeUnique, _Hash, _Pred> _HistoryMap;
 // The class of a map of historys                                             //
 ////////////////////////////////////////////////////////////////////////////////
 class HistoryMap : private _HistoryMap {
+  friend class HistoryNode;
+
  private:
   // The ID
   IDptr id_;

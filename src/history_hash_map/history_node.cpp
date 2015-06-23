@@ -7,7 +7,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "history_node.hpp"
+#include <iostream>
 #include "history.hpp"
+#include "history_map.hpp"
+
+using namespace std;
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
@@ -29,10 +33,10 @@ HistoryNode::HistoryNode( HistoryMap* map ) {
 // The destructor of HistoryNode                                              //
 ////////////////////////////////////////////////////////////////////////////////
 HistoryNode::~HistoryNode() {
-  // Change sign
-  if ( this->sign_ ) {
+  // Change transfer direction
+  if ( this->direction_ ) {
     for ( auto& ptr : *existing_ ) {
-      ptr->money_ = -(ptr->money_);
+      ptr->direction_ = !(ptr->direction_);
     }
   }
 
@@ -67,8 +71,8 @@ void HistoryNode::Link( HistoryNode* that ) {
     that->that_node_ = this;
     this->existing_ = new HistoryList();
     that->existing_ = this->existing_;
-    this->sign_ = true;
-    that->sign_ = false;
+    this->direction_ = true;
+    that->direction_ = false;
   }
 }
 
@@ -79,7 +83,7 @@ void HistoryNode::Link( HistoryNode* that ) {
 // money: the amount of money to transfer                                     //
 ////////////////////////////////////////////////////////////////////////////////
 void HistoryNode::Insert( const Money money ) {
-  this->existing_->emplace_back(new History(sign_ ? money : -money));
+  this->existing_->emplace_back(new History(money, direction_));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -100,7 +104,19 @@ void HistoryNode::Merge( HistoryNode* that ) {
 // Display all history with target ID to standand output, line by line        //
 ////////////////////////////////////////////////////////////////////////////////
 void HistoryNode::Display() {
-
+  if ( existing_->empty() && deleted_->empty() ) {
+    cout << "no record" << endl;
+  } else {
+    IDptr& id = that_node_->this_map_->id_;
+    for ( auto& ptr : *deleted_ ) {
+      cout << ((direction_ == ptr->direction_) ? "To " : "From ")
+           << id << ' ' << ptr->money_ << endl;
+    }
+    for ( auto& ptr : *existing_ ) {
+      cout << ((direction_ == ptr->direction_) ? "To " : "From ")
+           << id << ' ' << ptr->money_ << endl;
+    }
+  }
 }
 
 }

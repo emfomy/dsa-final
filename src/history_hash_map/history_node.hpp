@@ -48,8 +48,8 @@ class HistoryNode {
   // The history list of deleted account
   HistoryList* deleted_;
 
-  // The sign of money is positive or not
-  bool sign_;
+  // The default transfer direction
+  bool direction_;
 
  public:
   // Constructor

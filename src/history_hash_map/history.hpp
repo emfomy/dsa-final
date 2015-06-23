@@ -31,15 +31,18 @@ class History {
   // The counter
   static Time counter_;
 
-  // The amount of money changes
-  Money money_;
-
   // The time order
   Time time_;
 
+  // The amount of money changes
+  Money money_;
+
+  // The transfer direction
+  bool direction_;
+
  public:
   // Constructor
-  History( const Money money );
+  History( const Money money, bool direction );
 
   // Destructor
   ~History();

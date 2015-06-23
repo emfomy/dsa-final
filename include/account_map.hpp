@@ -41,7 +41,7 @@ class AccountMap {
   // Return Value:                                                          //
   // Target account if exists, null pointer if not exists                   //
   ////////////////////////////////////////////////////////////////////////////
-  Account* At( const ID id );
+  class Account* At( const ID id );
 
   ////////////////////////////////////////////////////////////////////////////
   // Access account by its ID                                               //
@@ -55,7 +55,7 @@ class AccountMap {
   // Return Value:                                                          //
   // Target account if exists, null pointer if not exists                   //
   ////////////////////////////////////////////////////////////////////////////
-  Account* At( const ID id, void** pit );
+  class Account* At( const ID id, void** pit );
 
   ////////////////////////////////////////////////////////////////////////////
   // Display existing IDs                                                   //

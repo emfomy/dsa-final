@@ -81,7 +81,7 @@ class HistoryMap : private _HistoryMap {
   void Merge( class HistoryMap* that );
 
   // Display all history
-  void Search( const ID id );
+  void Search( const IDptr id );
 };
 
 }

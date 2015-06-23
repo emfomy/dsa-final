@@ -80,7 +80,7 @@ void HistoryMap::Merge( HistoryMap* that ) {
 // Display 'no record' if no record exists                                    //
 // Display all history with target ID to standand output, line by line        //
 ////////////////////////////////////////////////////////////////////////////////
-void HistoryMap::Search( const ID id ) {
+void HistoryMap::Search( const IDptr id ) {
 
 }
 

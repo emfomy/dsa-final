@@ -52,7 +52,7 @@ class SkipList {
     IDptr data_id;
   };
 
-  // -inf node
+  // -inf node, which has id = "!"
   Node ninf;
 
  public:
@@ -69,18 +69,22 @@ class SkipList {
   ////////////////////////////////////////////////////////////////////////////
   // Get Node* for correspond id                                            //
   //                                                                        //
-  // Parameters:                                                            //
+  // Input Parameters:                                                      //
   // id: the ID                                                             //
   //                                                                        //
+  // Output Parameters:                                                     //
+  // node: the pointer of target if exit, otherwise the previous one that   //
+  //       assume id exits in this skip list.                               //
+  //                                                                        //
   // Return Value:                                                          //
-  // The pointer of target node if exists, null pointer if not exists       //
+  // true if exist, false if not                                            //
   ////////////////////////////////////////////////////////////////////////////
-  Node* Find( const ID id );
+  bool Find( const IDptr id, Node* node );
 
   ////////////////////////////////////////////////////////////////////////////
   // Remove target node in skip list                                        //
   //                                                                        //
-  // Input Parameters:                                                      //
+  // Parameters:                                                            //
   // node: the pointer of the target node                                   //
   //                                                                        //
   // Ensure:                                                                //
@@ -91,14 +95,14 @@ class SkipList {
   ////////////////////////////////////////////////////////////////////////////
   // Insert target account into a new node with the key id                  //
   //                                                                        //
-  // Input Parameters:                                                      //
+  // Parameters:                                                            //
   // id: the ID used as key(usually equal to the ID of target account)      //
   // account: the pointer of the target account                             //
   //                                                                        //
   // Ensure:                                                                //
   // Add a new node with id as key and account as content                   //
   ////////////////////////////////////////////////////////////////////////////
-  void Insert( const ID id, Account* account );
+  void Insert( const IDptr id, Account* account );
 
   ////////////////////////////////////////////////////////////////////////////
   // Get Node* of the next node of target node in the list                  //
@@ -118,7 +122,7 @@ class SkipList {
   // node: the pointer of the target node                                   //
   //                                                                        //
   // Return Value:                                                          //
-  // The pointer of revious node, null pointer if the previous node is -inf //
+  // The pointer of revious node, null pointer if this node is -inf         //
   ////////////////////////////////////////////////////////////////////////////
   Node* Previous( const Node* node );
 };

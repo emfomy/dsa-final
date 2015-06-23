@@ -24,16 +24,7 @@ namespace dsa {
 // The class of a map of accounts                                             //
 ////////////////////////////////////////////////////////////////////////////////
 class SkipList {
- private:
-  // Current maxinum number of nodes
-  size_t max_node;
-
-  // Current number of nodes
-  size_t num_node;
-
-  // Current maximum height(start at 1, will be increas when max_node increase)
-  size_t max_height;
-
+ public:
   // Node of skip list
   struct Node {
     // Height of this node
@@ -52,8 +43,21 @@ class SkipList {
     IDptr data_id;
   };
 
+ private:
+  // Current maxinum number of nodes
+  size_t max_node;
+
+  // Current number of nodes
+  size_t num_node;
+
+  // Current maximum height(start at 1, will be increas when max_node increase)
+  size_t max_height;
+
   // -inf node, which has id = "!"
-  Node ninf;
+  Node* ninf;
+
+  // +inf node, which has id = "{"
+  Node* pinf;
 
  public:
   ////////////////////////////////////////////////////////////////////////////
@@ -82,7 +86,7 @@ class SkipList {
   bool Find( const IDptr id, Node* node );
 
   ////////////////////////////////////////////////////////////////////////////
-  // Remove target node in skip list                                        //
+  // Remove target node in skip list (without the content of account)       //
   //                                                                        //
   // Parameters:                                                            //
   // node: the pointer of the target node                                   //
@@ -111,7 +115,7 @@ class SkipList {
   // node: the pointer of the target node                                   //
   //                                                                        //
   // Return Value:                                                          //
-  // The pointer of next node, null pointer if the next node is +inf        //
+  // The pointer of next node, null pointer if this node is +inf            //
   ////////////////////////////////////////////////////////////////////////////
   Node* Next( const Node* node );
 

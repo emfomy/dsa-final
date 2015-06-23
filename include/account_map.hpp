@@ -41,7 +41,7 @@ class AccountMap {
   // Return Value:                                                          //
   // Target account if exists, null pointer if not exists                   //
   ////////////////////////////////////////////////////////////////////////////
-  class Account* At( const ID id );
+  class Account* At( const IDptr id );
 
   ////////////////////////////////////////////////////////////////////////////
   // Access account by its ID                                               //
@@ -55,7 +55,7 @@ class AccountMap {
   // Return Value:                                                          //
   // Target account if exists, null pointer if not exists                   //
   ////////////////////////////////////////////////////////////////////////////
-  class Account* At( const ID id, void** pit );
+  class Account* At( const IDptr id, void** pit );
 
   ////////////////////////////////////////////////////////////////////////////
   // Display existing IDs                                                   //
@@ -66,7 +66,7 @@ class AccountMap {
   // Ensure:                                                                //
   // Display best satisfying IDs to standand output, separated by ','       //
   ////////////////////////////////////////////////////////////////////////////
-  void Existing( const ID id );
+  void Existing( const IDptr id );
 
   ////////////////////////////////////////////////////////////////////////////
   // Display unused IDs                                                     //
@@ -77,7 +77,7 @@ class AccountMap {
   // Ensure:                                                                //
   // Display best satisfying IDs to standand output, separated by ','       //
   ////////////////////////////////////////////////////////////////////////////
-  void Unused( const ID id );
+  void Unused( const IDptr id );
 
   ////////////////////////////////////////////////////////////////////////////
   // Find existing IDs that matches the wildcard ID                         //
@@ -90,13 +90,13 @@ class AccountMap {
   // Display all satisfying IDs to standand output,                         //
   //   separated by ',' in ascending dictionary order                       //
   ////////////////////////////////////////////////////////////////////////////
-  void Find( const ID id, const class Account* account );
+  void Find( const IDptr id, const class Account* account );
 
   ////////////////////////////////////////////////////////////////////////////
   // Insert an account                                                      //
   //                                                                        //
   // Parameters:                                                            //
-  // account: the account                                                   //
+  // account: target account                                                //
   ////////////////////////////////////////////////////////////////////////////
   void Insert( class Account* account );
 

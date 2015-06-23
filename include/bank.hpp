@@ -42,7 +42,7 @@ class Bank {
   // Ensure:                                                                //
   // Set the logined account as target account if permission allowed        //
   ////////////////////////////////////////////////////////////////////////////
-  void Login( const ID id, const Plaintext password );
+  void Login( const IDptr id, const Plaintext password );
 
   ////////////////////////////////////////////////////////////////////////////
   // Create a specific account with password                                //
@@ -54,7 +54,7 @@ class Bank {
   // Ensure:                                                                //
   // Create target account if the ID is unused                              //
   ////////////////////////////////////////////////////////////////////////////
-  void Create( const ID id, const Plaintext password );
+  void Create( const IDptr id, const Plaintext password );
 
   ////////////////////////////////////////////////////////////////////////////
   // Delete a specific account with password                                //
@@ -66,7 +66,7 @@ class Bank {
   // Ensure:                                                                //
   // Delete target account if permission allowed                            //
   ////////////////////////////////////////////////////////////////////////////
-  void Delete( const ID id, const Plaintext password );
+  void Delete( const IDptr id, const Plaintext password );
 
   ////////////////////////////////////////////////////////////////////////////
   // Merge the second account into the first one                            //
@@ -80,8 +80,8 @@ class Bank {
   // Ensure:                                                                //
   // Merge the second account into the first one and delete the second one  //
   ////////////////////////////////////////////////////////////////////////////
-  void Merge( const ID id1, const Plaintext password1,
-              const ID id2, const Plaintext password2 );
+  void Merge( const IDptr id1, const Plaintext password1,
+              const IDptr id2, const Plaintext password2 );
 
   ////////////////////////////////////////////////////////////////////////////
   // Deposit money into the logined account                                 //
@@ -117,7 +117,7 @@ class Bank {
   // Transfer the amount of money from the logined account to target        //
   //   account if there is enough money                                     //
   ////////////////////////////////////////////////////////////////////////////
-  void Transfer( const ID id, const Money money );
+  void Transfer( const IDptr id, const Money money );
 
   ////////////////////////////////////////////////////////////////////////////
   // Find all existing account IDs that matches the wildcard ID             //
@@ -129,7 +129,7 @@ class Bank {
   // Ensure:                                                                //
   // List all satisfying IDs separated by ',' in ascending dictionary order //
   ////////////////////////////////////////////////////////////////////////////
-  void Find( const ID id );
+  void Find( const IDptr id );
 
   ////////////////////////////////////////////////////////////////////////////
   // Search all transfer history of the logined account                     //
@@ -141,7 +141,7 @@ class Bank {
   // Ensure:                                                                //
   // List all transfer history line by line in ascending time order         //
   ////////////////////////////////////////////////////////////////////////////
-  void Search( const ID id );
+  void Search( const IDptr id );
 };
 
 }

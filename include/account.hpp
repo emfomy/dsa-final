@@ -32,7 +32,7 @@ class Account {
   // id:        the ID                                                      //
   // plaintext: the plain password                                          //
   ////////////////////////////////////////////////////////////////////////////
-  Account( const ID id, const Plaintext plaintext );
+  Account( const IDptr id, const Plaintext plaintext );
 
   ////////////////////////////////////////////////////////////////////////////
   // The destructor of Account                                              //
@@ -81,7 +81,7 @@ class Account {
   // Ensure:                                                                //
   // Display all history with target ID to standand output, line by line    //
   ////////////////////////////////////////////////////////////////////////////
-  void Search( const ID id );
+  void Search( const IDptr id );
 };
 
 }

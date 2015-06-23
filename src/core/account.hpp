@@ -37,7 +37,7 @@ class Account {
 
  public:
   // Constructor
-  Account( const ID id, const Plaintext plaintext );
+  Account( const IDptr id, const Plaintext plaintext );
 
   // Destructor
   ~Account();
@@ -55,7 +55,7 @@ class Account {
   void Merge( class Account* that );
 
   // Display all history with target ID
-  void Search( const ID id );
+  void Search( const IDptr id );
 };
 
 }

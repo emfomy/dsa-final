@@ -17,3 +17,4 @@ ARCHIVE  = $(AR) $(ARFLAGS)
 INCLUDE  = \
 
 LIBRARY  = \
+	-lcrypto \

@@ -23,7 +23,7 @@ namespace dsa {
 // id:        the ID                                                          //
 // plaintext: the plain password                                              //
 ////////////////////////////////////////////////////////////////////////////////
-Account::Account( const ID id, const Plaintext plaintext ) {
+Account::Account( const IDptr id, const Plaintext plaintext ) {
   memcpy(id_, id, kIDLength+1);
   MD5(
       reinterpret_cast<const unsigned char*>(plaintext),
@@ -99,7 +99,7 @@ void Account::Merge( Account* that ) {
 // Ensure:                                                                    //
 // Display all history with target ID to standand output, line by line        //
 ////////////////////////////////////////////////////////////////////////////////
-void Account::Search( const ID id ) {
+void Account::Search( const IDptr id ) {
   history_map_->Search(id);
 }
 

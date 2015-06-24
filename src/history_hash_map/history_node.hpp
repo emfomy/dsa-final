@@ -33,8 +33,6 @@ typedef std::list<HistoryUnique> HistoryList;
 // The class of a node of transfer history                                    //
 ////////////////////////////////////////////////////////////////////////////////
 class HistoryNode {
-  friend class HistoryMap;
-
  private:
   // The history map of this account
   class HistoryMap* this_map_;
@@ -43,13 +41,10 @@ class HistoryNode {
   class HistoryNode* that_node_;
 
   // The history list of existing account
-  HistoryList* existing_;
+  HistoryList existing_;
 
   // The history list of deleted account
-  HistoryList* deleted_;
-
-  // The default transfer direction
-  bool direction_;
+  HistoryList deleted_;
 
  public:
   // Constructor
@@ -68,7 +63,7 @@ class HistoryNode {
   void Merge( class HistoryNode* that );
 
   // Display all history
-  void Display();
+  void Display( const IDptr id );
 };
 
 }

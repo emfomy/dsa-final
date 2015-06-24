@@ -47,8 +47,8 @@ class History {
   // Destructor
   ~History();
 
-  // Get the amount of money changes
-  Money money();
+  // Display this history
+  void Display( const IDptr id );
 };
 
 }

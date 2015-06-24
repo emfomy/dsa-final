@@ -7,6 +7,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "history.hpp"
+#include <iostream>
+
+using namespace std;
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
@@ -33,6 +36,20 @@ History::History( const Money money, bool direction ) {
 // The destructor of History                                                  //
 ////////////////////////////////////////////////////////////////////////////////
 History::~History() {
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Display this history                                                       //
+//                                                                            //
+// Parameters:                                                                //
+// id: target ID                                                              //
+//                                                                            //
+// Ensure:                                                                    //
+// Display 'no record' if no record exists                                    //
+// Display all history with target ID to standand output, line by line        //
+////////////////////////////////////////////////////////////////////////////////
+void History::Display( const IDptr id ) {
+  cout << (direction_ ? "To " : "From ") << id << ' ' << money_ << endl;
 }
 
 }

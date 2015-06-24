@@ -88,7 +88,7 @@ void HistoryMap::Search( const IDptr id ) {
   if ( it == end() ) {
     cout << "no record" << endl;
   } else {
-    it->second->Display();
+    it->second->Display(id);
   }
 }
 

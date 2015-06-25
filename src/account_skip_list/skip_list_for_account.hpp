@@ -52,6 +52,7 @@ class SkipList {
   // Current maximum height(start at 1, will be increas when max_node increase)
   size_t max_height;
 
+ protected:
   // -inf node, which has id = "!"
   SkipListNode* ninf;
 

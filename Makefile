@@ -7,7 +7,7 @@ include $(DSA)/Makefile.inc
 
 MAKEFLAGS += --no-print-directory
 
-SUBDIR = src ext
+SUBDIR = src ext 
 
 .PHONY: all $(SUBDIR) clean
 
@@ -22,6 +22,7 @@ INCS = \
 
 LIBS = \
 	$(DSA)/lib/libcore.a \
+	$(DSA)/lib/libaccountskiplist.a\
 	$(DSA)/lib/libhistoryhashmap.a \
 
 all: $(SUBDIR) main

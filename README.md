@@ -22,6 +22,9 @@ The main files (`final_project.cpp`).
 #### `/src/core`
 The core files.
 
+#### `/src/history_hash_map`
+The implementation of `HistoryMap` using hash map.
+
 ### `/lib`
 The library files (`*.lib`).
 

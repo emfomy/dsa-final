@@ -27,29 +27,34 @@ SkipList::SkipList() {
   num_node = 0;
   max_height = 1;
   
-  ninf = new Node;
-  inf = new Node;
+  ninf = new SkipListNode;
+  pinf = new SkipListNode;
 
   ninf->height = 1;
   ninf->left[0] = nullptr;
   ninf->right[0] = pinf;
   ninf->data_id = new ID;
-  strcpy(ninf.IDptr, "!");
+  strcpy(ninf->data_id, "!");
 
   pinf->height = 1;
   pinf->left[0] = ninf;
   pinf->right[0] = nullptr;
   pinf->data_id = new ID;
-  strcpy(ninf.IDptr, "{");
+  strcpy(ninf->data_id, "{");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // The destructor of SkipList                                                 //
 ////////////////////////////////////////////////////////////////////////////////
 SkipList::~SkipList() {
-  Node* temp;
+  SkipListNode* temp = ninf;
+  SkipListNode* temp_del;
+
   while (temp!=nullptr) {
-    delete temp->data_accout;
+    delete temp->data_account;
+    temp_del = temp;
+    temp = temp->right[0];
+    delete temp_del;
   }
 }
 
@@ -66,13 +71,13 @@ SkipList::~SkipList() {
 // Return Value:                                                              //
 // true if exist, false if not                                                //
 ////////////////////////////////////////////////////////////////////////////////
-bool SkipList::Find( const IDptr id, Node* node ) {
-  node = ninf;
-  Node* next;
+bool SkipList::Find( const IDptr id, SkipListNode** node ) {
+  SkipListNode* temp_node = ninf;
+  SkipListNode* next;
   int level = (int)max_height - 1;
   
-  while (strcmp(id, node->data_id) != 0) {
-    next = node->right[level];
+  while (strcmp(id, temp_node->data_id) != 0) {
+    next = temp_node->right[level];
     if (strcmp(id, next->data_id) > 0) {
       if (level == 0) {
         return false;
@@ -80,10 +85,10 @@ bool SkipList::Find( const IDptr id, Node* node ) {
         level -= 1;
       }
     } else {
-      node = next;
+      temp_node = next;
     }
   }
-
+  *node = temp_node;
   return true;
 }
 
@@ -96,7 +101,7 @@ bool SkipList::Find( const IDptr id, Node* node ) {
 // Ensure:                                                                    //
 // Remove the target node in the skip list                                    //
 ////////////////////////////////////////////////////////////////////////////////
-void SkipList::Remove( const Node* node ) {
+void SkipList::Remove( const SkipListNode* node ) {
   for (int i = 0; i < node->height; ++i) {
     node->left[i]->right[i] = node->right[i];
     node->right[i]->left[i] = node->left[i];
@@ -116,9 +121,9 @@ void SkipList::Remove( const Node* node ) {
 // true if successfully add node, false if id already exits                   //
 ////////////////////////////////////////////////////////////////////////////////
 bool SkipList::Insert( const IDptr id, Account* account ) {
-  Node* node;
+  SkipListNode* node;
 
-  if (Find(id, node)) {
+  if (Find(id, &node)) {
     return false;
   }
 
@@ -138,8 +143,8 @@ bool SkipList::Insert( const IDptr id, Account* account ) {
     max_height +=1;
   }
   
-  Node* node_add = new Node;
-  node_add->data_accout = account;
+  SkipListNode* node_add = new SkipListNode;
+  node_add->data_account = account;
 
   srand(time(NULL));
   int level = 0;
@@ -154,7 +159,7 @@ bool SkipList::Insert( const IDptr id, Account* account ) {
     node->right[level] = node_add;
 
     level += 1;
-  } while (level < max_height && rand()%2 == 1);
+  } while (level < (int)max_height && rand()%2 == 1);
   node_add->height = level;
 
   return true;
@@ -169,7 +174,7 @@ bool SkipList::Insert( const IDptr id, Account* account ) {
 // Return Value:                                                              //
 // The pointer of next node, null pointer if this node is +inf                //
 ////////////////////////////////////////////////////////////////////////////////
-Node* SkipList::Next( const Node* node ) {
+struct SkipListNode* SkipList::Next( const SkipListNode* node ) {
   return node->right[0];
 }
 
@@ -182,6 +187,8 @@ Node* SkipList::Next( const Node* node ) {
 // Return Value:                                                              //
 // The pointer of revious node, null pointer if this node is -inf             //
 ////////////////////////////////////////////////////////////////////////////////
-Node* SkipList::Previous( const Node* node ) {
+struct SkipListNode* SkipList::Previous( const SkipListNode* node ) {
   return node->left[0];
+}
+
 }

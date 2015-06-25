@@ -18,10 +18,12 @@ INCS = \
 LIBS = \
 
 OBJECTS = \
+	skip_list_for_account.o \
 	account_map.o \
 
 HEADERS = \
 	account_map.hpp \
+	skip_list_for_account.hpp \
 	$(DSA)/include/dsa.hpp \
 	$(DSA)/include/bank.hpp \
 	$(DSA)/include/account.hpp \

@@ -36,12 +36,11 @@ AccountMap::~AccountMap() {}
 // Target account if exists, null pointer if not exists                       //
 ////////////////////////////////////////////////////////////////////////////////
 class Account* AccountMap::At( const IDptr id ) {
-  Node* temp;
-  if (Find(id, temp)) {
+  SkipListNode* temp;
+  if (Find(id, &temp)) {
     return temp->data_account;
-  } else {
-    return nullptr;
   }
+  return nullptr;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -57,13 +56,12 @@ class Account* AccountMap::At( const IDptr id ) {
 // Target account if exists, null pointer if not exists                       //
 ////////////////////////////////////////////////////////////////////////////////
 class Account* AccountMap::At( const IDptr id, void** pit ) {
-  Node* temp;
-  if (Find(id, temp)) {
+  SkipListNode* temp;
+  if (Find(id, &temp)) {
     *pit = temp;
     return temp->data_account;
-  } else {
-    return nullptr;
   }
+  return nullptr;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -122,7 +120,7 @@ void AccountMap::Insert( class Account* account ) {
 // it: the iterator                                                           //
 ////////////////////////////////////////////////////////////////////////////////
 void AccountMap::Erase( void* it ) {
-  Remove((Node*)it);
+  Remove((SkipListNode*)it);
 }
 
 }

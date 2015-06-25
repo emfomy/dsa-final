@@ -10,39 +10,38 @@
 
 #define DSA_SKIP_LIST_FOR_ACCOUNT_HPP_
 
-#include "dsa.hpp"
-#include "account.hpp"
 #include <vector>
 #include <cstring>
+#include "dsa.hpp"
+#include "account.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
 ////////////////////////////////////////////////////////////////////////////////
 namespace dsa {
 
+// Node of skip list
+struct SkipListNode {
+  // Height of this node
+  int height;
+
+  // left[i]: pointer to left side at level i (start at 0)
+  std::vector<SkipListNode*> left;
+
+  // right[i]: pointer to right side at level i
+  std::vector<SkipListNode*> right;
+
+  // Account data in this node
+  Account* data_account;
+
+  // Start pointer of ID in the data_account
+  IDptr data_id;
+};
+
 ////////////////////////////////////////////////////////////////////////////////
 // The class of a map of accounts                                             //
 ////////////////////////////////////////////////////////////////////////////////
 class SkipList {
- public:
-  // Node of skip list
-  struct Node {
-    // Height of this node
-    int height;
-
-    // left[i]: pointer to left side at level i (start at 0)
-    vector<node*> left;
-
-    // right[i]: pointer to right side at level i
-    vector<node*> right;
-
-    // Account data in this node
-    Account* data_account;
-
-    // Start pointer of ID in the data_account
-    IDptr data_id;
-  };
-
  private:
   // Current maxinum number of nodes
   size_t max_node;
@@ -54,10 +53,10 @@ class SkipList {
   size_t max_height;
 
   // -inf node, which has id = "!"
-  Node* ninf;
+  SkipListNode* ninf;
 
   // +inf node, which has id = "{"
-  Node* pinf;
+  SkipListNode* pinf;
 
  public:
   ////////////////////////////////////////////////////////////////////////////
@@ -83,7 +82,7 @@ class SkipList {
   // Return Value:                                                          //
   // true if exist, false if not                                            //
   ////////////////////////////////////////////////////////////////////////////
-  bool Find( const IDptr id, Node* node );
+  bool Find( const IDptr id, SkipListNode** node );
 
   ////////////////////////////////////////////////////////////////////////////
   // Remove target node in skip list (without the content of account)       //
@@ -94,7 +93,7 @@ class SkipList {
   // Ensure:                                                                //
   // Remove the target node in the skip list                                //
   ////////////////////////////////////////////////////////////////////////////
-  void Remove( const Node* node );
+  void Remove( const SkipListNode* node );
 
   ////////////////////////////////////////////////////////////////////////////
   // Insert target account into a new node with the key id                  //
@@ -117,7 +116,7 @@ class SkipList {
   // Return Value:                                                          //
   // The pointer of next node, null pointer if this node is +inf            //
   ////////////////////////////////////////////////////////////////////////////
-  Node* Next( const Node* node );
+  SkipListNode* Next( const SkipListNode* node );
 
   ////////////////////////////////////////////////////////////////////////////
   // Get Node* of the previous node of target node in the list              //
@@ -128,7 +127,7 @@ class SkipList {
   // Return Value:                                                          //
   // The pointer of revious node, null pointer if this node is -inf         //
   ////////////////////////////////////////////////////////////////////////////
-  Node* Previous( const Node* node );
+  SkipListNode* Previous( const SkipListNode* node );
 };
 
 }

@@ -11,6 +11,7 @@
 #define DSA_ACCOUNT_MAP_HPP_
 
 #include "dsa.hpp"
+#include "skip_list_for_account.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //

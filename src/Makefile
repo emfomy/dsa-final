@@ -5,7 +5,7 @@
 
 include $(DSA)/Makefile.inc
 
-SUBDIR = core account_skip_list
+SUBDIR = core account_skip_list history_hash_map
 
 .PHONY: all $(SUBDIR) clean
 

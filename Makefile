@@ -22,6 +22,7 @@ INCS = \
 
 LIBS = \
 	$(DSA)/lib/libcore.a \
+	$(DSA)/lib/libhistoryhashmap.a \
 
 all: $(SUBDIR) main
 	@echo > /dev/null

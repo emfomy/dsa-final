@@ -58,6 +58,22 @@ class AccountMap {
   class Account* At( const IDptr id, void** pit );
 
   ////////////////////////////////////////////////////////////////////////////
+  // Insert an account                                                      //
+  //                                                                        //
+  // Parameters:                                                            //
+  // account: target account                                                //
+  ////////////////////////////////////////////////////////////////////////////
+  void Insert( class Account* account );
+
+  ////////////////////////////////////////////////////////////////////////////
+  // Erase an account of target iterator                                    //
+  //                                                                        //
+  // Parameters:                                                            //
+  // it: the iterator                                                       //
+  ////////////////////////////////////////////////////////////////////////////
+  void Erase( void* it );
+
+  ////////////////////////////////////////////////////////////////////////////
   // Display existing IDs                                                   //
   //                                                                        //
   // Input Parameters:                                                      //
@@ -92,22 +108,6 @@ class AccountMap {
   //   separated by ',' in ascending dictionary order                       //
   ////////////////////////////////////////////////////////////////////////////
   void Find( const IDptr id, const class Account* account );
-
-  ////////////////////////////////////////////////////////////////////////////
-  // Insert an account                                                      //
-  //                                                                        //
-  // Parameters:                                                            //
-  // account: target account                                                //
-  ////////////////////////////////////////////////////////////////////////////
-  void Insert( class Account* account );
-
-  ////////////////////////////////////////////////////////////////////////////
-  // Erase an account of target iterator                                    //
-  //                                                                        //
-  // Parameters:                                                            //
-  // it: the iterator                                                       //
-  ////////////////////////////////////////////////////////////////////////////
-  void Erase( void* it );
 };
 
 }

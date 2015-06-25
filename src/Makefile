@@ -5,7 +5,7 @@
 
 include $(DSA)/Makefile.inc
 
-SUBDIR = core account_hash_map
+SUBDIR = core account_hash_map history_hash_map
 
 .PHONY: all $(SUBDIR) clean
 

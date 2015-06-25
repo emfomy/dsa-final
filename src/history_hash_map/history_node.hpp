@@ -61,9 +61,6 @@ class HistoryNode {
   // Insert a transfer history
   void Insert( const Money money );
 
-  // Merge with target history node
-  void Merge( class HistoryNode* that );
-
   // Display all history
   void Display( const IDptr id );
 };

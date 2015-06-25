@@ -11,7 +11,6 @@
 #define DSA_HISTORY_MAP_HPP_
 
 #include <cstring>
-#include <functional>
 #include <memory>
 #include <unordered_map>
 #include "dsa.hpp"

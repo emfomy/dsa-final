@@ -65,21 +65,6 @@ void HistoryNode::Insert( const Money money ) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Merge with target history node                                             //
-//                                                                            //
-// Parameters:                                                                //
-// that: target history node                                                  //
-////////////////////////////////////////////////////////////////////////////////
-void HistoryNode::Merge( HistoryNode* that ) {
-  this->existing_.merge(that->existing_);
-  this->deleted_.merge(that->deleted_);
-  if ( !this->that_node_ ) {
-    this->that_node_ = that->that_node_;
-  }
-  that->that_node_ = nullptr;
-}
-
-////////////////////////////////////////////////////////////////////////////////
 // Display all history with target ID                                         //
 //                                                                            //
 // Parameters:                                                                //

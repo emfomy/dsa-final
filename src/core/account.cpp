@@ -24,7 +24,7 @@ namespace dsa {
 // plaintext: the plain password                                              //
 ////////////////////////////////////////////////////////////////////////////////
 Account::Account( const IDptr id, const Plaintext plaintext ) {
-  memcpy(id_, id, kIDLength+1);
+  memcpy(id_, id, kIDLength);
   MD5(
       reinterpret_cast<const unsigned char*>(plaintext),
       strlen(plaintext),

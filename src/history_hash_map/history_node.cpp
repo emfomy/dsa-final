@@ -22,11 +22,10 @@ namespace dsa {
 // The constructor of HistoryNode                                             //
 //                                                                            //
 // map:  the history map of this account                                      //
-// node: the history const of another account                                 //
-// sign: the sign of money                                                    //
 ////////////////////////////////////////////////////////////////////////////////
 HistoryNode::HistoryNode( HistoryMap* map ) : existing_(), deleted_() {
-  this_map_ = map;
+  this_map_  = map;
+  that_node_ = nullptr;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -50,10 +49,8 @@ HistoryNode::~HistoryNode() {
 // that: target history node                                                  //
 ////////////////////////////////////////////////////////////////////////////////
 void HistoryNode::Link( HistoryNode* that ) {
-  if ( that_node_ ) {
-    this->that_node_ = that;
-    that->that_node_ = this;
-  }
+  this->that_node_ = that;
+  that->that_node_ = this;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -74,7 +71,12 @@ void HistoryNode::Insert( const Money money ) {
 // that: target history node                                                  //
 ////////////////////////////////////////////////////////////////////////////////
 void HistoryNode::Merge( HistoryNode* that ) {
-
+  this->existing_.merge(that->existing_);
+  this->deleted_.merge(that->deleted_);
+  if ( !this->that_node_ ) {
+    this->that_node_ = that->that_node_;
+  }
+  that->that_node_ = nullptr;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

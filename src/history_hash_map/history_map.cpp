@@ -26,6 +26,7 @@ namespace dsa {
 ////////////////////////////////////////////////////////////////////////////////
 HistoryMap::HistoryMap( const IDptr id ) : _HistoryMap() {
   id_ = id;
+  (*this)[id_].reset(new HistoryNode(this));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -42,25 +43,7 @@ HistoryMap::~HistoryMap() {
 // money: the amount of money to transfer                                     //
 ////////////////////////////////////////////////////////////////////////////////
 void HistoryMap::Insert( HistoryMap* that, const Money money ) {
-  // Find nodes
-  auto& this_node = (*this)[that->id_];
-  auto& that_node = (*that)[this->id_];
-
-  // Insert node in this map 
-  if ( !this_node ) {
-    this_node.reset(new HistoryNode(this));
-  }
-
-  // Insert node in that map
-  if ( !that_node ) {
-    that_node.reset(new HistoryNode(that));
-  }
-
-  // Link two nodes
-  this_node->Link(that_node.get());
-
-  // Insert transfer history
-  this_node->Insert(money);
+  this->Link(that)->Insert(money);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -70,7 +53,23 @@ void HistoryMap::Insert( HistoryMap* that, const Money money ) {
 // that: target history map                                                   //
 ////////////////////////////////////////////////////////////////////////////////
 void HistoryMap::Merge( HistoryMap* that ) {
+  // Merge *-that history into *-this history
+  for ( auto& pair23 : *that ) {
+    auto node32 = pair23.second->that_node_;
+    if ( !node32 ) {
+      auto map3 = pair23.second->that_node_->this_map_;
+      auto node31 = map3->Link(this);
+      node31->existing_.merge(node32->existing_);
+    }
+  }
 
+  // Merge that-* history into this-* history
+  for ( auto& pair23 : *that ) {
+    auto it13 = find(pair23.first);
+    it13->second->existing_.merge(pair23.second->existing_);
+    it13->second->deleted_.merge(pair23.second->deleted_);
+    pair23.second->that_node_ = nullptr;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -90,6 +89,38 @@ void HistoryMap::Search( const IDptr id ) {
   } else {
     it->second->Display(id);
   }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Create a history node of this history map and target history map           //
+//                                                                            //
+// Parameters:                                                                //
+// that: target history map                                                   //
+//                                                                            //
+// Return Value:                                                              //
+// the history node                                                           //
+////////////////////////////////////////////////////////////////////////////////
+HistoryNode* HistoryMap::Link( HistoryMap* that ) {
+  // Insert node in this map 
+  auto& uniptr12 = (*this)[that->id_];
+  if ( this != that ) {
+    if ( !uniptr12 ) {
+      uniptr12.reset(new HistoryNode(this));
+    }
+
+    if ( !uniptr12->that_node_ ) {
+      // Insert node in that map
+      auto& uniptr21 = (*that)[this->id_];
+      if ( !uniptr21 ) {
+        uniptr21.reset(new HistoryNode(that));
+      }
+
+      // Link two nodes
+      uniptr12->Link(uniptr21.get());
+    }
+  }
+
+  return uniptr12.get();
 }
 
 }

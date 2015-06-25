@@ -39,6 +39,19 @@ History::~History() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// The less than operator of History                                          //
+//                                                                            //
+// Parameters:                                                                //
+// that: another History                                                      //
+//                                                                            //
+// Return Value:                                                              //
+// whether this transfer is earily or not                                     //
+////////////////////////////////////////////////////////////////////////////////
+bool History::operator<( const History& that ) const {
+  return (this->time_ < that.time_);
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // Display this history                                                       //
 //                                                                            //
 // Parameters:                                                                //

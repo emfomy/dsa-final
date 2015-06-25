@@ -33,6 +33,8 @@ typedef std::list<HistoryUnique> HistoryList;
 // The class of a node of transfer history                                    //
 ////////////////////////////////////////////////////////////////////////////////
 class HistoryNode {
+  friend class HistoryMap;
+
  private:
   // The history map of this account
   class HistoryMap* this_map_;

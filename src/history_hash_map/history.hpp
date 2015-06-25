@@ -47,6 +47,9 @@ class History {
   // Destructor
   ~History();
 
+  // The less than operator
+  bool operator<( const class History& that ) const;
+
   // Display this history
   void Display( const IDptr id );
 };

@@ -8,6 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include "dsa.hpp"
 #include "account.hpp"
+#include "skip_list_for_account_map.hpp"
 #include "account_map.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -85,7 +86,9 @@ void AccountMap::Existing( const IDptr id ) {}
 // Ensure:                                                                    //
 // Display best satisfying IDs to standand output, separated by ','           //
 ////////////////////////////////////////////////////////////////////////////////
-void AccountMap::Unused( const IDptr id ) {}
+void AccountMap::Unused( const IDptr id ) {
+
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Find existing IDs that matches the wildcard ID                             //

@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Data Structures and Algorithms - Final Project                             //
 // account_map.hpp                                                            //
-// The interface of class AccountMap                                          //
+// The header file of class AccountMap                                        //
 //                                                                            //
 // Author: emfo<emfomy@gmail.com>                                             //
 ////////////////////////////////////////////////////////////////////////////////

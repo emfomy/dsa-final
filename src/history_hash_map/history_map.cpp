@@ -43,7 +43,25 @@ HistoryMap::~HistoryMap() {
 // money: the amount of money to transfer                                     //
 ////////////////////////////////////////////////////////////////////////////////
 void HistoryMap::Insert( HistoryMap* that, const Money money ) {
-  this->Link(that)->Insert(money);
+  // Insert node in this map
+  auto& uniptr12 = (*this)[that->id_];
+  if ( !uniptr12 ) {
+    uniptr12.reset(new HistoryNode(this));
+  }
+
+  if ( !uniptr12->that_node_ ) {
+    // Insert node in that map
+    auto& uniptr21 = (*that)[this->id_];
+    if ( !uniptr21 ) {
+      uniptr21.reset(new HistoryNode(that));
+    }
+
+    // Link two nodes
+    uniptr12->Link(uniptr21.get());
+  }
+
+  // Insert money
+  uniptr12->Insert(money);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -53,23 +71,46 @@ void HistoryMap::Insert( HistoryMap* that, const Money money ) {
 // that: target history map                                                   //
 ////////////////////////////////////////////////////////////////////////////////
 void HistoryMap::Merge( HistoryMap* that ) {
-  // Merge *-that history into *-this history
-  for ( auto& pair23 : *that ) {
-    auto node32 = pair23.second->that_node_;
+  HistoryNode *node11 = nullptr, *node21 = nullptr;
+
+  // Merge history
+  for ( auto& it : *that ) {
+    auto& uniptr23 = it.second;
+    auto& uniptr13 = (*this)[it.first];
+    if ( !uniptr13 ) {
+      uniptr13.reset(new HistoryNode(this));
+    }
+    auto node32 = uniptr23->that_node_;
+    auto node31 = uniptr13->that_node_;
+    HistoryMap *map3 = nullptr;
+
+    // Merge *-that history into *-this history
     if ( !node32 ) {
-      auto map3 = pair23.second->that_node_->this_map_;
-      auto node31 = map3->Link(this);
+      map3 = node32->this_map_;
+      if ( node31 ) {
+        node31 = new HistoryNode(map3);
+        (*map3)[this->id_].reset(node31);
+        uniptr13->Link(node31);
+      }
       node31->existing_.merge(node32->existing_);
+      node32->that_node_ = nullptr;
+    }
+
+    // Merge that-* history into this-* history
+    if ( map3 == this ) {
+      node11 = uniptr13.get();
+      node21 = uniptr23.get();
+    } else {
+      uniptr13->existing_.merge(uniptr23->existing_);
+      uniptr13->deleted_.merge(uniptr23->deleted_);
+      uniptr23->that_node_ = nullptr;
     }
   }
 
-  // Merge that-* history into this-* history
-  for ( auto& pair23 : *that ) {
-    auto it13 = find(pair23.first);
-    it13->second->existing_.merge(pair23.second->existing_);
-    it13->second->deleted_.merge(pair23.second->deleted_);
-    pair23.second->that_node_ = nullptr;
-  }
+  // Merge that-this history into this-this history
+  node11->existing_.merge(node21->existing_);
+  node11->deleted_.merge(node21->deleted_);
+  node21->that_node_ = nullptr;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -89,38 +130,6 @@ void HistoryMap::Search( const IDptr id ) {
   } else {
     it->second->Display(id);
   }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// Create a history node of this history map and target history map           //
-//                                                                            //
-// Parameters:                                                                //
-// that: target history map                                                   //
-//                                                                            //
-// Return Value:                                                              //
-// the history node                                                           //
-////////////////////////////////////////////////////////////////////////////////
-HistoryNode* HistoryMap::Link( HistoryMap* that ) {
-  // Insert node in this map 
-  auto& uniptr12 = (*this)[that->id_];
-  if ( this != that ) {
-    if ( !uniptr12 ) {
-      uniptr12.reset(new HistoryNode(this));
-    }
-
-    if ( !uniptr12->that_node_ ) {
-      // Insert node in that map
-      auto& uniptr21 = (*that)[this->id_];
-      if ( !uniptr21 ) {
-        uniptr21.reset(new HistoryNode(that));
-      }
-
-      // Link two nodes
-      uniptr12->Link(uniptr21.get());
-    }
-  }
-
-  return uniptr12.get();
 }
 
 }

@@ -81,10 +81,6 @@ class HistoryMap : private _HistoryMap {
 
   // Display all history
   void Search( const IDptr id );
-
- private:
-  // Link history maps
-  class HistoryNode* Link( class HistoryMap* that );
 };
 
 }

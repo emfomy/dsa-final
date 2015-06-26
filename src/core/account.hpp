@@ -43,7 +43,7 @@ class Account {
   ~Account();
 
   // Get the starting pointer of ID
-  IDptr id();
+  const IDptr id() const;
 
   // Check password correction
   bool Login( const Plaintext plaintext );

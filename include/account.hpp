@@ -42,7 +42,7 @@ class Account {
   ////////////////////////////////////////////////////////////////////////////
   // Get the starting pointer of ID                                         //
   ////////////////////////////////////////////////////////////////////////////
-  IDptr id();
+  const IDptr id() const;
 
   ////////////////////////////////////////////////////////////////////////////
   // Check password correction                                              //
@@ -62,7 +62,7 @@ class Account {
   // that:  target account                                                  //
   // money: the amount of money to transfer                                 //
   ////////////////////////////////////////////////////////////////////////////
-  void Account::Transfer( class Account* that, const Money money );
+  void Transfer( class Account* that, const Money money );
 
   ////////////////////////////////////////////////////////////////////////////
   // Merge with target account                                              //

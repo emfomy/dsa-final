@@ -65,14 +65,12 @@ void Bank::Login( const IDptr id, const Plaintext password ) {
 // Create target account if the ID is unused                                  //
 ////////////////////////////////////////////////////////////////////////////////
 void Bank::Create( const IDptr id, const Plaintext password ) {
-  auto account = account_map_->At(id);
-  if ( account != nullptr ) {
+  if ( account_map_->Emplace(id, password) ) {
+    cout << "success" << endl;
+  } else {
     cout << "ID " << id << " exists, ";
     account_map_->Unused(id);
     cout << endl;
-  } else {
-    account_map_->Insert(new Account(id, password));
-    cout << "success" << endl;
   }
 }
 

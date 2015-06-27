@@ -1,14 +1,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Data Structures and Algorithms - Final Project                             //
-// account.hpp                                                                //
-// The interface of class Account                                             //
+// history_map_interface.hpp                                                  //
+// The interface of class HistoryMap                                          //
 //                                                                            //
 // Author: emfo<emfomy@gmail.com>                                             //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DSA_ACCOUNT_HPP_
+#ifndef DSA_HISTORY_MAP_INTERFACE_HPP_
 
-#define DSA_ACCOUNT_HPP_
+#define DSA_HISTORY_MAP_INTERFACE_HPP_
 
 #include "dsa.hpp"
 
@@ -18,59 +18,39 @@
 namespace dsa {
 
 ////////////////////////////////////////////////////////////////////////////////
-// The class of a account                                                     //
+// The class of a map of historys                                             //
 ////////////////////////////////////////////////////////////////////////////////
-class Account {
+class HistoryMap {
  public:
-  // The money
-  Money money_ = 0;
-
   ////////////////////////////////////////////////////////////////////////////
-  // The constructor of Account                                             //
+  // The constructor of HistoryMap                                          //
   //                                                                        //
   // Parameters:                                                            //
-  // id:        the ID                                                      //
-  // plaintext: the plain password                                          //
+  // id: target ID                                                          //
   ////////////////////////////////////////////////////////////////////////////
-  Account( const IDptr id, const Plaintext plaintext );
+  HistoryMap( const IDptr id );
 
   ////////////////////////////////////////////////////////////////////////////
-  // The destructor of Account                                              //
+  // The destructor of HistoryMap                                           //
   ////////////////////////////////////////////////////////////////////////////
-  ~Account();
+  ~HistoryMap();
 
   ////////////////////////////////////////////////////////////////////////////
-  // Get the starting pointer of ID                                         //
-  ////////////////////////////////////////////////////////////////////////////
-  const IDptr id() const;
-
-  ////////////////////////////////////////////////////////////////////////////
-  // Check password correction                                              //
+  // Insert a transfer history from this account to target account          //
   //                                                                        //
   // Parameters:                                                            //
-  // plaintext: the plain password                                          //
-  //                                                                        //
-  // Return Value:                                                          //
-  // true if the password is correct, false if not                          //
-  ////////////////////////////////////////////////////////////////////////////
-  bool Login( const Plaintext plaintext );
-
-  ////////////////////////////////////////////////////////////////////////////
-  // Transfer money to target account                                       //
-  //                                                                        //
-  // Parameters:                                                            //
-  // that:  target account                                                  //
+  // that: the history map of target account                                //
   // money: the amount of money to transfer                                 //
   ////////////////////////////////////////////////////////////////////////////
-  void Transfer( class Account* that, const Money money );
+  void Insert( class HistoryMap* that, const Money money );
 
   ////////////////////////////////////////////////////////////////////////////
-  // Merge with target account                                              //
+  // Merge with target history map                                          //
   //                                                                        //
   // Parameters:                                                            //
-  // that: target account                                                   //
+  // that: target history map                                               //
   ////////////////////////////////////////////////////////////////////////////
-  void Merge( class Account* that );
+  void Merge( class HistoryMap* that );
 
   ////////////////////////////////////////////////////////////////////////////
   // Display all history with target ID                                     //
@@ -79,6 +59,7 @@ class Account {
   // id: target ID                                                          //
   //                                                                        //
   // Ensure:                                                                //
+  // Display 'no record' if no record exists                                //
   // Display all history with target ID to standand output, line by line    //
   ////////////////////////////////////////////////////////////////////////////
   void Search( const IDptr id );
@@ -86,4 +67,4 @@ class Account {
 
 }
 
-#endif  // DSA_ACCOUNT_HPP_
+#endif  // DSA_HISTORY_MAP_INTERFACE_HPP_

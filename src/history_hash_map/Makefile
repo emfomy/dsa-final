@@ -13,7 +13,6 @@ TARGET = \
 	$(TARGETDIR)/libhistoryhashmap.a \
 
 INCS = \
-	-I$(DSA)/include \
 
 LIBS = \
 
@@ -26,10 +25,6 @@ HEADERS = \
 	history.hpp \
 	history_map.hpp \
 	history_node.hpp \
-	$(DSA)/include/dsa.hpp \
-	$(DSA)/include/bank.hpp \
-	$(DSA)/include/account.hpp \
-	$(DSA)/include/account_map.hpp \
 
 all: $(TARGET)
 	@echo > /dev/null

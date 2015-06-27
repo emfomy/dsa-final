@@ -15,6 +15,11 @@ ARFLAGS  = rv
 ARCHIVE  = $(AR) $(ARFLAGS)
 
 INCLUDE  = \
+	-I$(DSA)/include \
+	-I$(DSA)/src/core \
+	-I$(DSA)/src/history_hash_map \
 
 LIBRARY  = \
+	$(DSA)/lib/libcore.a \
+	$(DSA)/lib/libhistoryhashmap.a \
 	-lcrypto \

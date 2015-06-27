@@ -1,14 +1,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Data Structures and Algorithms - Final Project                             //
-// history_map.hpp                                                            //
-// The interface of class HistoryMap                                          //
+// account_interface.hpp                                                      //
+// The interface of class Account                                             //
 //                                                                            //
 // Author: emfo<emfomy@gmail.com>                                             //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DSA_HISTORY_MAP_HPP_
+#ifndef DSA_ACCOUNT_INTERFACE_HPP_
 
-#define DSA_HISTORY_MAP_HPP_
+#define DSA_ACCOUNT_INTERFACE_HPP_
 
 #include "dsa.hpp"
 
@@ -18,39 +18,59 @@
 namespace dsa {
 
 ////////////////////////////////////////////////////////////////////////////////
-// The class of a map of historys                                             //
+// The class of a account                                                     //
 ////////////////////////////////////////////////////////////////////////////////
-class HistoryMap {
+class Account {
  public:
-  ////////////////////////////////////////////////////////////////////////////
-  // The constructor of HistoryMap                                          //
-  //                                                                        //
-  // Parameters:                                                            //
-  // id: target ID                                                          //
-  ////////////////////////////////////////////////////////////////////////////
-  HistoryMap( const IDptr id );
+  // The money
+  Money money_ = 0;
 
   ////////////////////////////////////////////////////////////////////////////
-  // The destructor of HistoryMap                                           //
-  ////////////////////////////////////////////////////////////////////////////
-  ~HistoryMap();
-
-  ////////////////////////////////////////////////////////////////////////////
-  // Insert a transfer history from this account to target account          //
+  // The constructor of Account                                             //
   //                                                                        //
   // Parameters:                                                            //
-  // that: the history map of target account                                //
+  // id:        the ID                                                      //
+  // plaintext: the plain password                                          //
+  ////////////////////////////////////////////////////////////////////////////
+  Account( const IDptr id, const Plaintext plaintext );
+
+  ////////////////////////////////////////////////////////////////////////////
+  // The destructor of Account                                              //
+  ////////////////////////////////////////////////////////////////////////////
+  ~Account();
+
+  ////////////////////////////////////////////////////////////////////////////
+  // Get the starting pointer of ID                                         //
+  ////////////////////////////////////////////////////////////////////////////
+  const IDptr id() const;
+
+  ////////////////////////////////////////////////////////////////////////////
+  // Check password correction                                              //
+  //                                                                        //
+  // Parameters:                                                            //
+  // plaintext: the plain password                                          //
+  //                                                                        //
+  // Return Value:                                                          //
+  // true if the password is correct, false if not                          //
+  ////////////////////////////////////////////////////////////////////////////
+  bool Login( const Plaintext plaintext );
+
+  ////////////////////////////////////////////////////////////////////////////
+  // Transfer money to target account                                       //
+  //                                                                        //
+  // Parameters:                                                            //
+  // that:  target account                                                  //
   // money: the amount of money to transfer                                 //
   ////////////////////////////////////////////////////////////////////////////
-  void Insert( class HistoryMap* that, const Money money );
+  void Transfer( class Account* that, const Money money );
 
   ////////////////////////////////////////////////////////////////////////////
-  // Merge with target history map                                          //
+  // Merge with target account                                              //
   //                                                                        //
   // Parameters:                                                            //
-  // that: target history map                                               //
+  // that: target account                                                   //
   ////////////////////////////////////////////////////////////////////////////
-  void Merge( class HistoryMap* that );
+  void Merge( class Account* that );
 
   ////////////////////////////////////////////////////////////////////////////
   // Display all history with target ID                                     //
@@ -59,7 +79,6 @@ class HistoryMap {
   // id: target ID                                                          //
   //                                                                        //
   // Ensure:                                                                //
-  // Display 'no record' if no record exists                                //
   // Display all history with target ID to standand output, line by line    //
   ////////////////////////////////////////////////////////////////////////////
   void Search( const IDptr id );
@@ -67,4 +86,4 @@ class HistoryMap {
 
 }
 
-#endif  // DSA_HISTORY_MAP_HPP_
+#endif  // DSA_ACCOUNT_INTERFACE_HPP_

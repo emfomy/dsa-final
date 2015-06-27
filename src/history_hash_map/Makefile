@@ -1,5 +1,5 @@
 # Data Structures and Algorithms - Final Project
-# Makefile of /src/core
+# Makefile of /src/history_hash_map
 #
 # Make sure $(DSA) is set to the root of this project
 
@@ -10,20 +10,21 @@ include $(DSA)/Makefile.inc
 TARGETDIR = $(DSA)/lib
 
 TARGET = \
-	$(TARGETDIR)/libcore.a \
+	$(TARGETDIR)/libhistoryhashmap.a \
 
 INCS = \
 
 LIBS = \
 
 OBJECTS = \
-	bank.o \
-	account.o \
+	history.o \
+	history_map.o \
+	history_node.o \
 
 HEADERS = \
-	dsa.hpp \
-	bank.hpp \
-	account.hpp \
+	history.hpp \
+	history_map.hpp \
+	history_node.hpp \
 
 all: $(TARGET)
 	@echo > /dev/null

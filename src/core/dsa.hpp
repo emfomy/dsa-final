@@ -18,16 +18,16 @@
 namespace dsa {
 
 // The maximum length of ID/Plaintext
-const int kIDLength = 100;
-const int kPlaintextLength = 100;
+const int kIDLength = 128;
+const int kPlaintextLength = 128;
 
 // The number of recommend IDs
 const int kNumRecommend = 10;
 
 // Define types
-typedef char ID[kIDLength+1];
+typedef char ID[kIDLength];
 typedef char* IDptr;
-typedef char Plaintext[kPlaintextLength+1];
+typedef char Plaintext[kPlaintextLength];
 typedef __int128_t Ciphertext;
 typedef int32_t Money;
 

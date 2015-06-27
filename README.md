@@ -22,11 +22,23 @@ The main files (`final_project.cpp`).
 #### `/src/core`
 The core files.
 
+#### `/src/account_void`
+The source code of `AccountMap` without implementation.
+
+#### `/src/history_void`
+The source code of `HistoryMap` without implementation.
+
+#### `/src/history_hash_map`
+The implementation of `HistoryMap` using hash map.
+
 ### `/lib`
 The library files (`*.lib`).
 
 ### `/include`
-The interface for library (`*.hpp`).
+The header files for library (`*.hpp`).
+
+### `/interface`
+The interface for library (`*.hpp`)
 
 ### `/doc`
 The documentation.

@@ -5,7 +5,7 @@
 
 include $(DSA)/Makefile.inc
 
-SUBDIR = core account_avl_tree
+SUBDIR = core account_avl_tree history_hash_map
 
 .PHONY: all $(SUBDIR) clean
 

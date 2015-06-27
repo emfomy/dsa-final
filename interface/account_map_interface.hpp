@@ -1,14 +1,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Data Structures and Algorithms - Final Project                             //
-// account_map.hpp                                                            //
+// account_map_interface.hpp                                                  //
 // The interface of class AccountMap                                          //
 //                                                                            //
 // Author: emfo<emfomy@gmail.com>                                             //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DSA_ACCOUNT_MAP_HPP_
+#ifndef DSA_ACCOUNT_MAP_INTERFACE_HPP_
 
-#define DSA_ACCOUNT_MAP_HPP_
+#define DSA_ACCOUNT_MAP_INTERFACE_HPP_
 
 #include "dsa.hpp"
 
@@ -41,7 +41,7 @@ class AccountMap {
   // Return Value:                                                          //
   // Target account if exists, null pointer if not exists                   //
   ////////////////////////////////////////////////////////////////////////////
-  class Account* At( const ID id );
+  class Account* At( const IDptr id );
 
   ////////////////////////////////////////////////////////////////////////////
   // Access account by its ID                                               //
@@ -55,48 +55,13 @@ class AccountMap {
   // Return Value:                                                          //
   // Target account if exists, null pointer if not exists                   //
   ////////////////////////////////////////////////////////////////////////////
-  class Account* At( const ID id, void** pit );
-
-  ////////////////////////////////////////////////////////////////////////////
-  // Display existing IDs                                                   //
-  //                                                                        //
-  // Input Parameters:                                                      //
-  // id: the ID                                                             //
-  //                                                                        //
-  // Ensure:                                                                //
-  // Display best satisfying IDs to standand output, separated by ','       //
-  ////////////////////////////////////////////////////////////////////////////
-  void Existing( const ID id );
-
-  ////////////////////////////////////////////////////////////////////////////
-  // Display unused IDs                                                     //
-  //                                                                        //
-  // Input Parameters:                                                      //
-  // id: the ID                                                             //
-  //                                                                        //
-  // Ensure:                                                                //
-  // Display best satisfying IDs to standand output, separated by ','       //
-  ////////////////////////////////////////////////////////////////////////////
-  void Unused( const ID id );
-
-  ////////////////////////////////////////////////////////////////////////////
-  // Find existing IDs that matches the wildcard ID                         //
-  //   but is different from target account                                 //
-  //                                                                        //
-  // Input Parameters:                                                      //
-  // id: the wildcard ID                                                    //
-  //                                                                        //
-  // Ensure:                                                                //
-  // Display all satisfying IDs to standand output,                         //
-  //   separated by ',' in ascending dictionary order                       //
-  ////////////////////////////////////////////////////////////////////////////
-  void Find( const ID id, const class Account* account );
+  class Account* At( const IDptr id, void** pit );
 
   ////////////////////////////////////////////////////////////////////////////
   // Insert an account                                                      //
   //                                                                        //
   // Parameters:                                                            //
-  // account: the account                                                   //
+  // account: target account                                                //
   ////////////////////////////////////////////////////////////////////////////
   void Insert( class Account* account );
 
@@ -107,8 +72,44 @@ class AccountMap {
   // it: the iterator                                                       //
   ////////////////////////////////////////////////////////////////////////////
   void Erase( void* it );
+
+  ////////////////////////////////////////////////////////////////////////////
+  // Display existing IDs                                                   //
+  //                                                                        //
+  // Input Parameters:                                                      //
+  // id: the ID                                                             //
+  //                                                                        //
+  // Ensure:                                                                //
+  // Display best satisfying IDs to standand output, separated by ','       //
+  ////////////////////////////////////////////////////////////////////////////
+  void Existing( const IDptr id );
+
+  ////////////////////////////////////////////////////////////////////////////
+  // Display unused IDs                                                     //
+  //                                                                        //
+  // Input Parameters:                                                      //
+  // id: the ID                                                             //
+  //                                                                        //
+  // Ensure:                                                                //
+  // Display best satisfying IDs to standand output, separated by ','       //
+  ////////////////////////////////////////////////////////////////////////////
+  void Unused( const IDptr id );
+
+  ////////////////////////////////////////////////////////////////////////////
+  // Find existing IDs that matches the wildcard ID                         //
+  //   but is different from target account                                 //
+  //                                                                        //
+  // Input Parameters:                                                      //
+  // id:      the wildcard ID                                               //
+  // account: target account                                                //
+  //                                                                        //
+  // Ensure:                                                                //
+  // Display all satisfying IDs to standand output,                         //
+  //   separated by ',' in ascending dictionary order                       //
+  ////////////////////////////////////////////////////////////////////////////
+  void Find( const IDptr id, const class Account* account );
 };
 
 }
 
-#endif  // DSA_ACCOUNT_MAP_HPP_
+#endif  // DSA_ACCOUNT_MAP_INTERFACE_HPP_

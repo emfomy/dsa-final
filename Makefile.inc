@@ -3,6 +3,10 @@
 #
 # Make sure $(DSA) is set to the root of this project
 
+ACCOUNT = AVLTREE
+# HISTORY = HASHMAP
+HISTORY =
+
 CC       = gcc
 CXX      = g++
 CFLAGS   = -O2 -std=c99 -Wall
@@ -14,6 +18,21 @@ AR       = ar
 ARFLAGS  = rv
 ARCHIVE  = $(AR) $(ARFLAGS)
 
-INCLUDE  = \
+INCLUDE  = -I$(DSA)/src/core
+LIBRARY  = $(DSA)/lib/libcore.a -lcrypto
 
-LIBRARY  = \
+ifeq ($(ACCOUNT), AVLTREE)
+	INCLUDE += -I$(DSA)/src/account_avl_tree
+	LIBRARY += $(DSA)/lib/libaccountavltree.a
+else
+	INCLUDE += -I$(DSA)/src/account_void
+	LIBRARY +=
+endif
+
+ifeq ($(HISTORY), HASHMAP)
+	INCLUDE += -I$(DSA)/src/history_hash_map
+	LIBRARY += $(DSA)/lib/libhistoryhashmap.a
+else
+	INCLUDE += -I$(DSA)/src/history_void
+	LIBRARY +=
+endif

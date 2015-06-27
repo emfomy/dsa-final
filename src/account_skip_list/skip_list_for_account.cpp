@@ -31,6 +31,8 @@ SkipList::SkipList() {
   max_height = 1;
   
   ninf = new SkipListNode;
+  pinf = new SkipListNode;
+
   ninf->height = 1;
   ninf->left.push_back(nullptr);
   ninf->right.push_back(pinf);
@@ -38,7 +40,6 @@ SkipList::SkipList() {
   ninf->data_id[0] = '!';
   ninf->data_id[1] = '\0';
 
-  pinf = new SkipListNode;
   pinf->height = 1;
   pinf->left.push_back(ninf);
   pinf->right.push_back(nullptr);
@@ -76,12 +77,13 @@ SkipList::~SkipList() {
 // true if exist, false if not                                                //
 ////////////////////////////////////////////////////////////////////////////////
 bool SkipList::Find( const IDptr id, SkipListNode*& node ) {
-  SkipListNode* temp_node = ninf;
+  node = ninf;
   SkipListNode* next;
   int level = (int)max_height - 1;
   
-  while (strcmp(id, temp_node->data_id) != 0) {
-    next = temp_node->right[level];
+  while (strcmp(id, node->data_id) != 0) {
+    next = node->right[level];
+
     if (strcmp(id, next->data_id) < 0) {
       if (level == 0) {
         return false;
@@ -89,10 +91,10 @@ bool SkipList::Find( const IDptr id, SkipListNode*& node ) {
         level -= 1;
       }
     } else {
-      temp_node = next;
+      node = next;
     }
   }
-  node = temp_node;
+
   return true;
 }
 
@@ -145,9 +147,10 @@ bool SkipList::Insert( const IDptr id, Account* account ) {
 
     max_height +=1;
   }
-  
+
   SkipListNode* node_add = new SkipListNode;
   node_add->data_account = account;
+  node_add->data_id = account->id();
 
   srand(time(NULL));
   int level = 0;

@@ -3,7 +3,7 @@
 #
 # Make sure $(DSA) is set to the root of this project
 
-ACCOUNT =
+ACCOUNT = SKIPLIST
 HISTORY = HASHMAP
 
 CC       = gcc
@@ -21,11 +21,14 @@ INCLUDE  = -I$(DSA)/src/core
 LIBRARY  = $(DSA)/lib/libcore.a -lcrypto
 
 ifeq ($(ACCOUNT), HASHMAP)
-	INCLUDE += -I$(DSA)/src/account_hash_map
-	LIBRARY += $(DSA)/lib/libaccounthashmap.a
+  INCLUDE += -I$(DSA)/src/account_hash_map
+  LIBRARY += $(DSA)/lib/libaccounthashmap.a
+else ifeq ($(ACCOUNT), SKIPLIST)
+  INCLUDE += -I$(DSA)/src/account_skip_list
+  LIBRARY += $(DSA)/lib/libaccountskiplist.a
 else
-	INCLUDE += -I$(DSA)/src/account_void
-	LIBRARY +=
+  INCLUDE += -I$(DSA)/src/account_void
+  LIBRARY +=
 endif
 
 ifeq ($(HISTORY), HASHMAP)

@@ -88,7 +88,7 @@ int calculate_score( IDptr a, IDptr b ) {
   int L = (len_a < len_b) ? len_a:len_b;
   int dL = abs(len_a - len_b);
 
-  s = dL * (dL - 1) / 2;
+  s = dL * (dL + 1) / 2;
   for (int i = L-1; i >= 0; --i) {
     s += ((a[i] == b[i]) ? 0:(L-i));
   }
@@ -102,15 +102,11 @@ void insert_id_to_vector(
     vector<int>& list_score,
     int state,
     IDptr id,
-    int score
+    int score,
+    int& size
 ) {
 
-  int size = list_id.size();
-
-  if (size < 10) {
-    list_id.push_back(nullptr);
-    list_score.push_back(-1);
-  }
+  if (size < 10) size += 1;
 
   if (state == 0) {
     int i = size - 2;
@@ -134,11 +130,12 @@ void insert_id_to_vector(
 }
 
 void AccountMap::Existing( const IDptr id ) {
-  vector<IDptr> list_id;
-  vector<int> list_score;
+  vector<IDptr> list_id(10);
+  vector<int> list_score(10);
   int target_score = 1;
   int num_compare = strlen(id) - 1;
   int score_temp;
+  int size = 0;
   SkipListNode* front;
   SkipListNode* back;
 
@@ -148,7 +145,7 @@ void AccountMap::Existing( const IDptr id ) {
 
   // Stop when get enough data, or two iterator are at the end
   while ((*(front->data_id) != '!' || *(back->data_id) != '{') && \
-         (list_id.size() != 10 || list_score[10] > target_score)
+         (size != 10 || list_score[10] > target_score)
   ) {
 
     // First move front iteratro
@@ -156,22 +153,24 @@ void AccountMap::Existing( const IDptr id ) {
           (num_compare == 0 || strncmp(id, front->data_id, num_compare) == 0)
     ) {
       score_temp = calculate_score(id, front->data_id);
-      if (list_id.size() < 10 || score_temp <= list_score.back()) {
-        insert_id_to_vector(list_id, list_score, 0, front->data_id, score_temp);
+      if (size < 10 || score_temp <= list_score.back()) {
+        insert_id_to_vector(list_id, list_score, 0, front->data_id, score_temp, size);
       }
+      front = Previous(front);
     }
     
     // If get enough data, stop
-    if (list_id.size() == 10 && list_score[10] <= target_score) break;
+    if (size == 10 && list_score[10] <= target_score) break;
     
     // If data is not enough, move back iterator
     while (*(back->data_id) != '{' && \
           (num_compare == 0 || strncmp(id, back->data_id, num_compare) == 0)
           ) {
       score_temp = calculate_score(id, back->data_id);
-      if (list_id.size() < 10 || score_temp < list_score.back()) {
-        insert_id_to_vector(list_id, list_score, 0, back->data_id, score_temp);
+      if (size < 10 || score_temp < list_score.back()) {
+        insert_id_to_vector(list_id, list_score, 1, back->data_id, score_temp, size);
       }
+      back = Next(back);
     }
 
     // Add the tolerent to score, adjust the number of string to compare
@@ -186,8 +185,8 @@ void AccountMap::Existing( const IDptr id ) {
       cout << ',';
     }
     cout << list_id[i];
+    comma = true;
   }
-  cout << endl;
 
 }
 
@@ -220,7 +219,14 @@ bool next_string( IDptr text, int min_len, int max_len, int& cur_len ) {
     }
   }
 
-  text[cur_len-1] += 1;
+  char c = text[cur_len-1];
+  if (c == '9') {
+    text[cur_len-1] = 'A';
+  } else if (c == 'Z') {
+    text[cur_len-1] = 'a';
+  } else {
+    text[cur_len-1] += 1;
+  }
   return true;
 }
 
@@ -239,28 +245,28 @@ void AccountMap::Unused( const IDptr id ) {
   test[min_len] = '\0';
 
   while (output < 10) {
-    if (next_string(test, min_len, max_len, cur_len)) {
-      if (calculate_score(test, id) == target_score) {
-        if (comma) {
-          cout << ',';
-        }
-        cout << test;
-        comma = true;
-        output += 1;
-      } 
-    } else {
+    if (calculate_score(test, id) == target_score && !Find(test, temp)) {
+      if (comma) {
+        cout << ',';
+      }
+      cout << test;
+      comma = true;
+      output += 1;
+    } 
+    if (!next_string(test, min_len, max_len, cur_len)) {
       target_score += 1;
       min_len = (min_len == 0) ? 0:(min_len-1);
       test[min_len] = '\0';
       if (max_len != 100 &&
-          (max_len+1-len)*(max_len+len)/2 <= target_score &&
-          !Find(test, temp))
+          (max_len+1-len+1)*(max_len+1-len)/2 <= target_score)
       {
         max_len += 1;
       }
+      strncpy(test, id, min_len);
+      test[min_len] = '\0';
+      cur_len = min_len;
     }
   }
-  cout << endl;
 
 }
 
@@ -331,19 +337,25 @@ void AccountMap::Find( const IDptr id, const class Account* account ) {
     node = Next(node);
   }
 
-  cout << endl;
 
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Insert an account                                                          //
+// Construct and insert an account                                            //
 //                                                                            //
 // Parameters:                                                                //
-// account: target account                                                    //
+// id:        the ID                                                          //
+// plaintext: the plain password                                              //
+//                                                                            //
+// Return Value:                                                              //
+// true if insert succeeded, false if the ID already exists                   //
 ////////////////////////////////////////////////////////////////////////////////
-void AccountMap::Insert( class Account* account ) {
-  IDptr id = account->id();
-  Insert(id, account);
+ bool AccountMap::Emplace( const IDptr id, const Plaintext plaintext ) {
+  Account* account = new Account(id, plaintext);
+  if(Insert(id, account)) {
+    return true;
+  }
+  return false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -99,12 +99,16 @@ class AccountMap : private SkipList {
   void Find( const IDptr id, const class Account* account );
 
   ////////////////////////////////////////////////////////////////////////////
-  // Insert an account                                                      //
+  // Construct and insert an account                                        //
   //                                                                        //
   // Parameters:                                                            //
-  // account: target account                                                //
+  // id:        the ID                                                      //
+  // plaintext: the plain password                                          //
+  //                                                                        //
+  // Return Value:                                                          //
+  // true if insert succeeded, false if the ID already exists               //
   ////////////////////////////////////////////////////////////////////////////
-  void Insert( class Account* account );
+  bool Emplace( const IDptr id, const Plaintext plaintext );
 
   ////////////////////////////////////////////////////////////////////////////
   // Erase an account of target iterator                                    //

@@ -18,12 +18,9 @@ SRCS = \
 	src/main/final_project.cpp \
 
 INCS = \
-	-I$(DSA)/include \
 
 LIBS = \
-	$(DSA)/lib/libcore.a \
-	$(DSA)/lib/libaccountskiplist.a\
-	$(DSA)/lib/libhistoryhashmap.a \
+
 
 all: $(SUBDIR) main
 	@echo > /dev/null

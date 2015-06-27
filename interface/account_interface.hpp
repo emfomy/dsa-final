@@ -1,14 +1,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Data Structures and Algorithms - Final Project                             //
-// account.hpp                                                                //
+// account_interface.hpp                                                      //
 // The interface of class Account                                             //
 //                                                                            //
 // Author: emfo<emfomy@gmail.com>                                             //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DSA_ACCOUNT_HPP_
+#ifndef DSA_ACCOUNT_INTERFACE_HPP_
 
-#define DSA_ACCOUNT_HPP_
+#define DSA_ACCOUNT_INTERFACE_HPP_
 
 #include "dsa.hpp"
 
@@ -42,7 +42,7 @@ class Account {
   ////////////////////////////////////////////////////////////////////////////
   // Get the starting pointer of ID                                         //
   ////////////////////////////////////////////////////////////////////////////
-  IDptr id();
+  const IDptr id() const;
 
   ////////////////////////////////////////////////////////////////////////////
   // Check password correction                                              //
@@ -62,7 +62,7 @@ class Account {
   // that:  target account                                                  //
   // money: the amount of money to transfer                                 //
   ////////////////////////////////////////////////////////////////////////////
-  void Account::Transfer( class Account* that, const Money money );
+  void Transfer( class Account* that, const Money money );
 
   ////////////////////////////////////////////////////////////////////////////
   // Merge with target account                                              //
@@ -86,4 +86,4 @@ class Account {
 
 }
 
-#endif  // DSA_ACCOUNT_HPP_
+#endif  // DSA_ACCOUNT_INTERFACE_HPP_

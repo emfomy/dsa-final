@@ -13,7 +13,6 @@ TARGET = \
 	$(TARGETDIR)/libcore.a \
 
 INCS = \
-	-I$(DSA)/include \
 
 LIBS = \
 
@@ -22,11 +21,9 @@ OBJECTS = \
 	account.o \
 
 HEADERS = \
+	dsa.hpp \
 	bank.hpp \
 	account.hpp \
-	$(DSA)/include/dsa.hpp \
-	$(DSA)/include/account_map.hpp \
-	$(DSA)/include/history_map.hpp \
 
 all: $(TARGET)
 	@echo > /dev/null

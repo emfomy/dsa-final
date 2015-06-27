@@ -13,7 +13,6 @@ TARGET = \
 	$(TARGETDIR)/libaccountskiplist.a \
 
 INCS = \
-	-I$(DSA)/include \
 
 LIBS = \
 
@@ -24,10 +23,6 @@ OBJECTS = \
 HEADERS = \
 	account_map.hpp \
 	skip_list_for_account.hpp \
-	$(DSA)/include/dsa.hpp \
-	$(DSA)/include/bank.hpp \
-	$(DSA)/include/account.hpp \
-	$(DSA)/include/history_map.hpp \
 
 all: $(TARGET)
 	@echo > /dev/null

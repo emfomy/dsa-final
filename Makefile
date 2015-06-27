@@ -37,3 +37,4 @@ run: $(TARGET)
 
 clean:
 	@for dir in $(SUBDIR); do ( cd $$dir ; $(MAKE) clean ) done
+	$(RM) $(TARGET)

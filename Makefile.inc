@@ -3,7 +3,7 @@
 #
 # Make sure $(DSA) is set to the root of this project
 
-ACCOUNT =
+ACCOUNT = HASHMAP
 HISTORY = HASHMAP
 
 CC       = gcc

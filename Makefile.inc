@@ -3,6 +3,9 @@
 #
 # Make sure $(DSA) is set to the root of this project
 
+ACCOUNT =
+HISTORY = HASHMAP
+
 CC       = gcc
 CXX      = g++
 CFLAGS   = -O2 -std=c99 -Wall
@@ -14,12 +17,21 @@ AR       = ar
 ARFLAGS  = rv
 ARCHIVE  = $(AR) $(ARFLAGS)
 
-INCLUDE  = \
-	-I$(DSA)/include \
-	-I$(DSA)/src/core \
-	-I$(DSA)/src/history_hash_map \
+INCLUDE  = -I$(DSA)/src/core
+LIBRARY  = $(DSA)/lib/libcore.a -lcrypto
 
-LIBRARY  = \
-	$(DSA)/lib/libcore.a \
-	$(DSA)/lib/libhistoryhashmap.a \
-	-lcrypto \
+ifeq ($(ACCOUNT), HASHMAP)
+	INCLUDE += -I$(DSA)/src/account_hash_map
+	LIBRARY += $(DSA)/lib/libaccounthashmap.a
+else
+	INCLUDE += -I$(DSA)/src/account_void
+	LIBRARY +=
+endif
+
+ifeq ($(HISTORY), HASHMAP)
+	INCLUDE += -I$(DSA)/src/history_hash_map
+	LIBRARY += $(DSA)/lib/libhistoryhashmap.a
+else
+	INCLUDE += -I$(DSA)/src/history_void
+	LIBRARY +=
+endif

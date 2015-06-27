@@ -21,6 +21,7 @@ OBJECTS = \
 	account.o \
 
 HEADERS = \
+	dsa.hpp \
 	bank.hpp \
 	account.hpp \
 

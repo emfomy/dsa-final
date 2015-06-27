@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Data Structures and Algorithms - Final Project                             //
 // history_map.hpp                                                            //
-// The interface of class HistoryMap                                          //
+// The header files of class HistoryMap                                       //
 //                                                                            //
 // Author: emfo<emfomy@gmail.com>                                             //
 ////////////////////////////////////////////////////////////////////////////////
@@ -28,12 +28,12 @@ class HistoryMap {
   // Parameters:                                                            //
   // id: target ID                                                          //
   ////////////////////////////////////////////////////////////////////////////
-  HistoryMap( const IDptr id );
+  HistoryMap( const IDptr id ) {};
 
   ////////////////////////////////////////////////////////////////////////////
   // The destructor of HistoryMap                                           //
   ////////////////////////////////////////////////////////////////////////////
-  ~HistoryMap();
+  ~HistoryMap() {};
 
   ////////////////////////////////////////////////////////////////////////////
   // Insert a transfer history from this account to target account          //
@@ -42,7 +42,7 @@ class HistoryMap {
   // that: the history map of target account                                //
   // money: the amount of money to transfer                                 //
   ////////////////////////////////////////////////////////////////////////////
-  void Insert( class HistoryMap* that, const Money money );
+  void Insert( class HistoryMap* that, const Money money ) {};
 
   ////////////////////////////////////////////////////////////////////////////
   // Merge with target history map                                          //
@@ -50,7 +50,7 @@ class HistoryMap {
   // Parameters:                                                            //
   // that: target history map                                               //
   ////////////////////////////////////////////////////////////////////////////
-  void Merge( class HistoryMap* that );
+  void Merge( class HistoryMap* that ) {};
 
   ////////////////////////////////////////////////////////////////////////////
   // Display all history with target ID                                     //
@@ -62,7 +62,7 @@ class HistoryMap {
   // Display 'no record' if no record exists                                //
   // Display all history with target ID to standand output, line by line    //
   ////////////////////////////////////////////////////////////////////////////
-  void Search( const IDptr id );
+  void Search( const IDptr id ) {};
 };
 
 }

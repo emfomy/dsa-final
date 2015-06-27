@@ -13,7 +13,6 @@ TARGET = \
 	$(TARGETDIR)/libaccounthashmap.a \
 
 INCS = \
-	-I$(DSA)/include \
 
 LIBS = \
 
@@ -22,10 +21,6 @@ OBJECTS = \
 
 HEADERS = \
 	account_map.hpp \
-	$(DSA)/include/dsa.hpp \
-	$(DSA)/include/bank.hpp \
-	$(DSA)/include/account.hpp \
-	$(DSA)/include/history_map.hpp \
 
 all: $(TARGET)
 	@echo > /dev/null

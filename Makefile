@@ -18,12 +18,8 @@ SRCS = \
 	src/main/final_project.cpp \
 
 INCS = \
-	-I$(DSA)/include \
 
 LIBS = \
-	$(DSA)/lib/libcore.a \
-	$(DSA)/lib/libaccounthashmap.a \
-	$(DSA)/lib/libhistoryhashmap.a \
 
 all: $(SUBDIR) main
 	@echo > /dev/null
@@ -41,3 +37,4 @@ run: $(TARGET)
 
 clean:
 	@for dir in $(SUBDIR); do ( cd $$dir ; $(MAKE) clean ) done
+	$(RM) $(TARGET)

@@ -1,14 +1,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Data Structures and Algorithms - Final Project                             //
-// bank.hpp                                                                   //
+// bank_interface.hpp                                                         //
 // The interface of class Bank                                                //
 //                                                                            //
 // Author: emfo<emfomy@gmail.com>                                             //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DSA_BANK_HPP_
+#ifndef DSA_BANK_INTERFACE_HPP_
 
-#define DSA_BANK_HPP_
+#define DSA_BANK_INTERFACE_HPP_
 
 #include "dsa.hpp"
 
@@ -146,4 +146,4 @@ class Bank {
 
 }
 
-#endif  // DSA_BANK_HPP_
+#endif  // DSA_BANK_INTERFACE_HPP_

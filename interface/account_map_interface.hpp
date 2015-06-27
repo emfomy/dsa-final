@@ -1,14 +1,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Data Structures and Algorithms - Final Project                             //
-// account_map.hpp                                                            //
+// account_map_interface.hpp                                                  //
 // The interface of class AccountMap                                          //
 //                                                                            //
 // Author: emfo<emfomy@gmail.com>                                             //
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef DSA_ACCOUNT_MAP_HPP_
+#ifndef DSA_ACCOUNT_MAP_INTERFACE_HPP_
 
-#define DSA_ACCOUNT_MAP_HPP_
+#define DSA_ACCOUNT_MAP_INTERFACE_HPP_
 
 #include "dsa.hpp"
 
@@ -112,4 +112,4 @@ class AccountMap {
 
 }
 
-#endif  // DSA_ACCOUNT_MAP_HPP_
+#endif  // DSA_ACCOUNT_MAP_INTERFACE_HPP_

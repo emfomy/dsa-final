@@ -24,7 +24,7 @@ namespace dsa {
 // plaintext: the plain password                                              //
 ////////////////////////////////////////////////////////////////////////////////
 Account::Account( const IDptr id, const Plaintext plaintext ) {
-  memcpy(id_, id, kIDLength+1);
+  memcpy(id_, id, kIDLength);
   MD5(
       reinterpret_cast<const unsigned char*>(plaintext),
       strlen(plaintext),
@@ -43,8 +43,8 @@ Account::~Account() {
 ////////////////////////////////////////////////////////////////////////////////
 // Get the starting pointer of ID                                             //
 ////////////////////////////////////////////////////////////////////////////////
-IDptr Account::id() {
-  return id_;
+const IDptr Account::id() const {
+  return const_cast<IDptr>(id_);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

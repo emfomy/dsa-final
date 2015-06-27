@@ -42,7 +42,7 @@ struct SkipListNode {
 // The class of a map of accounts                                             //
 ////////////////////////////////////////////////////////////////////////////////
 class SkipList {
- private:
+ protected:
   // Current maxinum number of nodes
   size_t max_node;
 
@@ -52,13 +52,12 @@ class SkipList {
   // Current maximum height(start at 1, will be increas when max_node increase)
   size_t max_height;
 
- protected:
   // -inf node, which has id = "!"
   SkipListNode* ninf;
 
   // +inf node, which has id = "{"
   SkipListNode* pinf;
-
+ 
  public:
   ////////////////////////////////////////////////////////////////////////////
   // The constructor of SkipList                                            //
@@ -83,7 +82,7 @@ class SkipList {
   // Return Value:                                                          //
   // true if exist, false if not                                            //
   ////////////////////////////////////////////////////////////////////////////
-  bool Find( const IDptr id, SkipListNode** node );
+  bool Find( const IDptr id, SkipListNode*& node );
 
   ////////////////////////////////////////////////////////////////////////////
   // Remove target node in skip list (without the content of account)       //

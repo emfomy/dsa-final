@@ -13,6 +13,9 @@
 #include <cstring>
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
+
+using namespace std;
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
@@ -28,19 +31,20 @@ SkipList::SkipList() {
   max_height = 1;
   
   ninf = new SkipListNode;
-  pinf = new SkipListNode;
-
   ninf->height = 1;
-  ninf->left[0] = nullptr;
-  ninf->right[0] = pinf;
+  ninf->left.push_back(nullptr);
+  ninf->right.push_back(pinf);
   ninf->data_id = new ID;
-  strcpy(ninf->data_id, "!");
+  ninf->data_id[0] = '!';
+  ninf->data_id[1] = '\0';
 
+  pinf = new SkipListNode;
   pinf->height = 1;
-  pinf->left[0] = ninf;
-  pinf->right[0] = nullptr;
+  pinf->left.push_back(ninf);
+  pinf->right.push_back(nullptr);
   pinf->data_id = new ID;
-  strcpy(ninf->data_id, "{");
+  pinf->data_id[0] = '{';
+  pinf->data_id[1] = '\0';
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -71,14 +75,14 @@ SkipList::~SkipList() {
 // Return Value:                                                              //
 // true if exist, false if not                                                //
 ////////////////////////////////////////////////////////////////////////////////
-bool SkipList::Find( const IDptr id, SkipListNode** node ) {
+bool SkipList::Find( const IDptr id, SkipListNode*& node ) {
   SkipListNode* temp_node = ninf;
   SkipListNode* next;
   int level = (int)max_height - 1;
   
   while (strcmp(id, temp_node->data_id) != 0) {
     next = temp_node->right[level];
-    if (strcmp(id, next->data_id) > 0) {
+    if (strcmp(id, next->data_id) < 0) {
       if (level == 0) {
         return false;
       } else {
@@ -88,7 +92,7 @@ bool SkipList::Find( const IDptr id, SkipListNode** node ) {
       temp_node = next;
     }
   }
-  *node = temp_node;
+  node = temp_node;
   return true;
 }
 
@@ -123,7 +127,7 @@ void SkipList::Remove( const SkipListNode* node ) {
 bool SkipList::Insert( const IDptr id, Account* account ) {
   SkipListNode* node;
 
-  if (Find(id, &node)) {
+  if (Find(id, node)) {
     return false;
   }
 
@@ -131,14 +135,13 @@ bool SkipList::Insert( const IDptr id, Account* account ) {
   if (num_node > max_node) {
     max_node *= 2;
 
-    int level = ninf->height;
     ninf->height += 1;
-    ninf->left[level] = nullptr;
-    ninf->right[level] = pinf;
+    ninf->left.push_back(nullptr);
+    ninf->right.push_back(pinf);
 
     pinf->height += 1;
-    pinf->left[level] = ninf;
-    pinf->right[level] = nullptr;
+    pinf->left.push_back(ninf);
+    pinf->right.push_back(nullptr);
 
     max_height +=1;
   }
@@ -153,8 +156,8 @@ bool SkipList::Insert( const IDptr id, Account* account ) {
       node = node->left[level-1];
     }
 
-    node_add->left[level] = node;
-    node_add->right[level] = node->right[level];
+    node_add->left.push_back(node);
+    node_add->right.push_back(node->right[level]);
     node->right[level]->left[level] = node_add;
     node->right[level] = node_add;
 

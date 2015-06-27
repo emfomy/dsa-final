@@ -28,7 +28,7 @@ AccountMap::AccountMap() : SkipList() {}
 ////////////////////////////////////////////////////////////////////////////////
 // The destructor of AccountMap                                               //
 ////////////////////////////////////////////////////////////////////////////////
-AccountMap::~AccountMap() : ~SkipList() {}
+AccountMap::~AccountMap() { }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Access account by its ID                                                   //
@@ -88,9 +88,7 @@ int calculate_score( IDptr a, IDptr b ) {
   int L = (len_a < len_b) ? len_a:len_b;
   int dL = abs(len_a - len_b);
 
-  for (int i = 1; i <= dL; ++i) {
-    s += i;
-  }
+  s = dL * (dL - 1) / 2;
   for (int i = L-1; i >= 0; --i) {
     s += ((a[i] == b[i]) ? 0:(L-i));
   }
@@ -203,13 +201,66 @@ void AccountMap::Existing( const IDptr id ) {
 // Display best satisfying IDs to standand output, separated by ','           //
 ////////////////////////////////////////////////////////////////////////////////
 
+// Change text to the next one accrording to dictionary order
+// The part that can be changed is between string[min_len] and string[max_len-1]
+// Retrun true if succeed, false if the next one doesn't exist
+bool next_string( IDptr text, int min_len, int max_len, int& cur_len ) {
+  if (cur_len < max_len) {
+    text[cur_len] = '0';
+    cur_len += 1;
+    text[cur_len] = '\0';
+    return true;
+  }
+
+  while (text[cur_len-1] == 'z') {
+    cur_len -= 1;
+    text[cur_len] = '\0';
+    if (cur_len == min_len) {
+      return false;
+    }
+  }
+
+  text[cur_len-1] += 1;
+  return true;
+}
+
 void AccountMap::Unused( const IDptr id ) {
   int target_score = 1;
-  int min_len = strlen(id) - 1;
-  int max_len = (min_len+2 < 100) ? (min_len+2):100;
+  int len = strlen(id);
+  int min_len = len - 1;
+  int max_len = (len+1 < 100) ? (len+1):100;
+  int cur_len = min_len;
   int output = 0;
   bool comma = false;
+  SkipListNode* temp;
+  
+  IDptr test = new ID;
+  strncpy(test, id, min_len);
+  test[min_len] = '\0';
 
+  while (output < 10) {
+    if (next_string(test, min_len, max_len, cur_len)) {
+      if (calculate_score(test, id) == target_score) {
+        if (comma) {
+          cout << ',';
+        }
+        cout << test;
+        comma = true;
+        output += 1;
+      } 
+    } else {
+      target_score += 1;
+      min_len = (min_len == 0) ? 0:(min_len-1);
+      test[min_len] = '\0';
+      if (max_len != 100 &&
+          (max_len+1-len)*(max_len+len)/2 <= target_score &&
+          !Find(test, temp))
+      {
+        max_len += 1;
+      }
+    }
+  }
+  cout << endl;
 
 }
 

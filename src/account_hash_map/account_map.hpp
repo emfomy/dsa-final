@@ -75,8 +75,8 @@ class AccountMap : private _AccountMap {
   // Access account
   class Account* At( const IDptr id, void** pit );
 
-  // Insert account
-  void Insert( class Account* account );
+  // Construct and insert account
+  bool Emplace( const IDptr id, const Plaintext plaintext );
 
   // Erase account
   void Erase( void* it );

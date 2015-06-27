@@ -59,12 +59,17 @@ Account* AccountMap::At( const IDptr id, void** pit ) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Insert an account                                                          //
+// Construct and insert an account                                            //
 //                                                                            //
 // Parameters:                                                                //
-// account: target account                                                    //
+// id:        the ID                                                          //
+// plaintext: the plain password                                              //
+//                                                                            //
+// Return Value:                                                              //
+// true if insert succeeded, false if the ID already exists                   //
 ////////////////////////////////////////////////////////////////////////////////
-void AccountMap::Insert( Account* account ) {
+bool AccountMap::Emplace( const IDptr id, const Plaintext plaintext ) {
+  return false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

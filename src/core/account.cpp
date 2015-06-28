@@ -25,11 +25,12 @@ namespace dsa {
 ////////////////////////////////////////////////////////////////////////////////
 Account::Account( const IDptr id, const Plaintext plaintext ) {
   memcpy(id_, id, kIDLength);
-  MD5(
+  auto tmp = MD5(
       reinterpret_cast<const unsigned char*>(plaintext),
       strlen(plaintext),
-      reinterpret_cast<unsigned char*>(ciphertext_)
+      nullptr
   );
+  ciphertext_ = *reinterpret_cast<Ciphertext*>(tmp);
   history_map_ = new HistoryMap(id_);
 }
 
@@ -57,13 +58,12 @@ const IDptr Account::id() const {
 // true if the password is correct, false if not                              //
 ////////////////////////////////////////////////////////////////////////////////
 bool Account::Login( const Plaintext plaintext ) {
-  Ciphertext tmp = 0;
-  MD5(
+  auto tmp = MD5(
       reinterpret_cast<const unsigned char*>(plaintext),
       strlen(plaintext),
-      reinterpret_cast<unsigned char*>(tmp)
+      nullptr
   );
-  return (ciphertext_ == tmp);
+  return (ciphertext_ == *reinterpret_cast<Ciphertext*>(tmp));
 }
 
 ////////////////////////////////////////////////////////////////////////////////

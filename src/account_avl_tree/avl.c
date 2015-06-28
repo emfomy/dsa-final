@@ -843,7 +843,7 @@ avl_destroy (struct avl_table *tree, avl_item_func *destroy)
         q->avl_link[1] = p;
       }
 
-  tree->avl_alloc->(tree->avl_alloc, tree);
+  tree->avl_alloc->libavl_free (tree->avl_alloc, tree);
 }
 
 /* Allocates |size| bytes of space using |malloc()|.

@@ -18,9 +18,11 @@ LIBS = \
 
 OBJECTS = \
 	account_map.o \
+	avl.o \
 
 HEADERS = \
 	account_map.hpp \
+	avl.h \
 
 all: $(TARGET)
 	@echo > /dev/null

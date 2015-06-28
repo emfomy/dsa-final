@@ -15,6 +15,7 @@ extern "C"{
   #include "avl.h"
 }
 #include "dsa.hpp"
+#include <string>
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
@@ -26,11 +27,12 @@ namespace dsa {
 class AccountMap {
  private:
   struct avl_table* avl_tree;
+
  public:
   ////////////////////////////////////////////////////////////////////////////
   // The constructor of AccountMap                                          //
   ////////////////////////////////////////////////////////////////////////////
-  AccountMap(){};
+  AccountMap();
 
   ////////////////////////////////////////////////////////////////////////////
   // The destructor of AccountMap                                           //
@@ -46,7 +48,7 @@ class AccountMap {
   // Return Value:                                                          //
   // Target account if exists, null pointer if not exists                   //
   ////////////////////////////////////////////////////////////////////////////
-  class Account* At( const ID id );
+  class Account* At( const ID& id );
 
   ////////////////////////////////////////////////////////////////////////////
   // Access account by its ID                                               //
@@ -60,7 +62,7 @@ class AccountMap {
   // Return Value:                                                          //
   // Target account if exists, null pointer if not exists                   //
   ////////////////////////////////////////////////////////////////////////////
-  class Account* At( const ID id, void** pit );
+  class Account* At( const ID& id, void** pit );
 
   ////////////////////////////////////////////////////////////////////////////
   // Display existing IDs                                                   //
@@ -71,7 +73,7 @@ class AccountMap {
   // Ensure:                                                                //
   // Display best satisfying IDs to standand output, separated by ','       //
   ////////////////////////////////////////////////////////////////////////////
-  void Existing( const ID id );
+  void Existing( const ID& id );
 
   ////////////////////////////////////////////////////////////////////////////
   // Display unused IDs                                                     //
@@ -82,7 +84,7 @@ class AccountMap {
   // Ensure:                                                                //
   // Display best satisfying IDs to standand output, separated by ','       //
   ////////////////////////////////////////////////////////////////////////////
-  void Unused( const ID id );
+  void Unused( const ID& id );
 
   ////////////////////////////////////////////////////////////////////////////
   // Find existing IDs that matches the wildcard ID                         //
@@ -95,15 +97,19 @@ class AccountMap {
   // Display all satisfying IDs to standand output,                         //
   //   separated by ',' in ascending dictionary order                       //
   ////////////////////////////////////////////////////////////////////////////
-  void Find( const ID id, const class Account* account );
+  void Find( const ID& id, const class Account* account );
 
   ////////////////////////////////////////////////////////////////////////////
-  // Insert an account                                                      //
+  // Construct and insert an account                                        //
   //                                                                        //
   // Parameters:                                                            //
-  // account: the account                                                   //
+  // id:        the ID                                                      //
+  // plaintext: the plain password                                          //
+  //                                                                        //
+  // Return Value:                                                          //
+  // true if insert succeeded, false if the ID already exists               //
   ////////////////////////////////////////////////////////////////////////////
-  void Insert( class Account* account );
+  bool Emplace( const ID& id, const Plaintext& plaintext );
 
   ////////////////////////////////////////////////////////////////////////////
   // Erase an account of target iterator                                    //

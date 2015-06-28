@@ -7,7 +7,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "account.hpp"
-#include <cstring>
 #include <openssl/md5.h>
 #include "history_map.hpp"
 
@@ -23,14 +22,17 @@ namespace dsa {
 // id:        the ID                                                          //
 // plaintext: the plain password                                              //
 ////////////////////////////////////////////////////////////////////////////////
-Account::Account( const IDptr id, const Plaintext plaintext ) {
-  memcpy(id_, id, kIDLength);
-  auto tmp = MD5(
-      reinterpret_cast<const unsigned char*>(plaintext),
-      strlen(plaintext),
-      nullptr
+Account::Account( const ID& id, const Plaintext plaintext ) {
+  id_ = id;
+  MD5(
+      reinterpret_cast<const unsigned char*>(plaintext.c_str()),
+      plaintext.length(),
+      reinterpret_cast<unsigned char*>(&ciphertext_)
   );
-  ciphertext_ = *reinterpret_cast<Ciphertext*>(tmp);
+  printf("%llx%llx\n",
+      reinterpret_cast<long long*>(&ciphertext_)[1],
+      reinterpret_cast<long long*>(&ciphertext_)[0]
+  );
   history_map_ = new HistoryMap(id_);
 }
 
@@ -44,8 +46,8 @@ Account::~Account() {
 ////////////////////////////////////////////////////////////////////////////////
 // Get the starting pointer of ID                                             //
 ////////////////////////////////////////////////////////////////////////////////
-const IDptr Account::id() const {
-  return const_cast<IDptr>(id_);
+const ID& Account::id() const {
+  return id_;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -58,12 +60,17 @@ const IDptr Account::id() const {
 // true if the password is correct, false if not                              //
 ////////////////////////////////////////////////////////////////////////////////
 bool Account::Login( const Plaintext plaintext ) {
-  auto tmp = MD5(
-      reinterpret_cast<const unsigned char*>(plaintext),
-      strlen(plaintext),
-      nullptr
+  Ciphertext tmp = 0;
+  MD5(
+      reinterpret_cast<const unsigned char*>(plaintext.c_str()),
+      plaintext.length(),
+      reinterpret_cast<unsigned char*>(&tmp)
   );
-  return (ciphertext_ == *reinterpret_cast<Ciphertext*>(tmp));
+  printf("%llx%llx\n",
+      reinterpret_cast<long long*>(&tmp)[1],
+      reinterpret_cast<long long*>(&tmp)[0]
+  );
+  return (ciphertext_ == tmp);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -99,7 +106,7 @@ void Account::Merge( Account* that ) {
 // Ensure:                                                                    //
 // Display all history with target ID to standand output, line by line        //
 ////////////////////////////////////////////////////////////////////////////////
-void Account::Search( const IDptr id ) {
+void Account::Search( const ID& id ) {
   history_map_->Search(id);
 }
 

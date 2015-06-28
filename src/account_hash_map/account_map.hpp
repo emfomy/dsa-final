@@ -73,13 +73,13 @@ class AccountMap : private _AccountMap {
   class Account* At( const IDptr id );
 
   // Access account
-  class Account* At( const IDptr id, void** pit );
+  class Account* At( const IDptr id, void** ppit );
 
   // Construct and insert account
   bool Emplace( const IDptr id, const Plaintext plaintext );
 
   // Erase account
-  void Erase( void* it );
+  void Erase( void* pit );
 
   // Display existing IDs
   void Existing( const IDptr id );

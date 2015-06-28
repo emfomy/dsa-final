@@ -9,6 +9,7 @@
 #include "account_map.hpp"
 #include <stdexcept>
 #include "account.hpp"
+#include <iostream>
 
 using namespace std;
 
@@ -39,7 +40,8 @@ AccountMap::~AccountMap() {
 // Target account if exists, null pointer if not exists                       //
 ////////////////////////////////////////////////////////////////////////////////
 Account* AccountMap::At( const IDptr id ) {
-  return nullptr; 
+  auto it = find(id);
+  return ((it != end()) ? it->second.get() : nullptr);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -49,13 +51,15 @@ Account* AccountMap::At( const IDptr id ) {
 // id: the ID                                                                 //
 //                                                                            //
 // Output Parameters:                                                         //
-// pit: the pointer of iterator                                               //
+// ppit: the double pointer of iterator                                       //
 //                                                                            //
 // Return Value:                                                              //
 // Target account if exists, null pointer if not exists                       //
 ////////////////////////////////////////////////////////////////////////////////
-Account* AccountMap::At( const IDptr id, void** pit ) {
-  return nullptr; 
+Account* AccountMap::At( const IDptr id, void** ppit ) {
+  auto pit = new AccountMap::iterator(find(id));
+  *ppit = reinterpret_cast<void*>(pit);
+  return ((*pit != end()) ? (*pit)->second.get() : nullptr);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -69,16 +73,22 @@ Account* AccountMap::At( const IDptr id, void** pit ) {
 // true if insert succeeded, false if the ID already exists                   //
 ////////////////////////////////////////////////////////////////////////////////
 bool AccountMap::Emplace( const IDptr id, const Plaintext plaintext ) {
-  return false;
+  auto& uniptr = (*this)[id];
+  bool success = (!uniptr);
+  if ( success ) {
+    uniptr.reset(new Account(id, plaintext));
+  }
+  return success;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Erase an account of target iterator                                        //
 //                                                                            //
 // Parameters:                                                                //
-// it: the iterator                                                           //
+// pit: the pointer of iterator                                               //
 ////////////////////////////////////////////////////////////////////////////////
-void AccountMap::Erase( void* it ) {
+void AccountMap::Erase( void* pit ) {
+  erase(*reinterpret_cast<AccountMap::iterator*>(pit));
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -39,7 +39,7 @@ AccountMap::~AccountMap() { }
 // Return Value:                                                              //
 // Target account if exists, null pointer if not exists                       //
 ////////////////////////////////////////////////////////////////////////////////
-class Account* AccountMap::At( const IDptr id ) {
+class Account* AccountMap::At( const ID& id ) {
   SkipListNode* temp;
 
   if (Find(id, temp)) {
@@ -60,7 +60,7 @@ class Account* AccountMap::At( const IDptr id ) {
 // Return Value:                                                              //
 // Target account if exists, null pointer if not exists                       //
 ////////////////////////////////////////////////////////////////////////////////
-class Account* AccountMap::At( const IDptr id, void** pit ) {
+class Account* AccountMap::At( const ID& id, void** pit ) {
   SkipListNode* temp;
   if (Find(id, temp)) {
     *pit = temp;
@@ -80,11 +80,10 @@ class Account* AccountMap::At( const IDptr id, void** pit ) {
 ////////////////////////////////////////////////////////////////////////////////
 
 // Score function
-int calculate_score( IDptr a, IDptr b ) {
-  int len_a = strlen(a);
-  int len_b = strlen(b);
+int calculate_score( ID& a, ID& b ) {
+  int len_a = a.size();
+  int len_b = b.size();
   int s = 0;
-
   int L = (len_a < len_b) ? len_a:len_b;
   int dL = abs(len_a - len_b);
 
@@ -98,10 +97,10 @@ int calculate_score( IDptr a, IDptr b ) {
 
 // Insert an id into vector
 void insert_id_to_vector( 
-    vector<IDptr>& list_id,
+    vector<ID*>& list_id,
     vector<int>& list_score,
     int state,
-    IDptr id,
+    ID& id,
     int score,
     int& size
 ) {
@@ -115,7 +114,7 @@ void insert_id_to_vector(
       list_id[i+1] = list_id[i];
       --i;
     }
-    list_id[i+1] = id;
+    list_id[i+1] = &id;
     list_score[i+1] = score;
   } else {
     int i = size - 2;
@@ -124,16 +123,16 @@ void insert_id_to_vector(
       list_id[i+1] = list_id[i];
       --i;
     }
-    list_id[i+1] = id;
+    list_id[i+1] = &id;
     list_score[i+1] = score;
   }
 }
 
-void AccountMap::Existing( const IDptr id ) {
-  vector<IDptr> list_id(10);
+void AccountMap::Existing( const ID& id ) {
+  vector<ID*> list_id(10);
   vector<int> list_score(10);
   int target_score = 1;
-  int num_compare = strlen(id) - 1;
+  int num_compare = id.size() - 1;
   int score_temp;
   int size = 0;
   SkipListNode* front;
@@ -144,13 +143,13 @@ void AccountMap::Existing( const IDptr id ) {
   back = Next(front);
 
   // Stop when get enough data, or two iterator are at the end
-  while ((*(front->data_id) != '!' || *(back->data_id) != '{') && \
+  while ((front->data_id.front() != '!' || back->data_id.front() != '{') && \
          (size != 10 || list_score[10] > target_score)
   ) {
 
     // First move front iteratro
-    while (*(front->data_id) != '!' && \
-          (num_compare == 0 || strncmp(id, front->data_id, num_compare) == 0)
+    while (front->data_id.front() != '!' && \
+          (num_compare == 0 || id.compare(0, num_compare, front->data_id, 0, num_compare) == 0)
     ) {
       score_temp = calculate_score(id, front->data_id);
       if (size < 10 || score_temp <= list_score.back()) {
@@ -163,8 +162,8 @@ void AccountMap::Existing( const IDptr id ) {
     if (size == 10 && list_score[10] <= target_score) break;
     
     // If data is not enough, move back iterator
-    while (*(back->data_id) != '{' && \
-          (num_compare == 0 || strncmp(id, back->data_id, num_compare) == 0)
+    while (back->data_id.front() != '{' && \
+          (num_compare == 0 || id.compare(0, num_compare, back->data_id, 0, num_compare) == 0)
           ) {
       score_temp = calculate_score(id, back->data_id);
       if (size < 10 || score_temp < list_score.back()) {
@@ -184,7 +183,7 @@ void AccountMap::Existing( const IDptr id ) {
     if (comma) {
       cout << ',';
     }
-    cout << list_id[i];
+    cout << *(list_id[i]);
     comma = true;
   }
 
@@ -203,46 +202,40 @@ void AccountMap::Existing( const IDptr id ) {
 // Change text to the next one accrording to dictionary order
 // The part that can be changed is between string[min_len] and string[max_len-1]
 // Retrun true if succeed, false if the next one doesn't exist
-bool next_string( IDptr text, int min_len, int max_len, int& cur_len ) {
-  if (cur_len < max_len) {
-    text[cur_len] = '0';
-    cur_len += 1;
-    text[cur_len] = '\0';
+bool next_string( ID& text, int min_len, int max_len ) {
+  if (text.size() < max_len) {
+    text.append('0');
     return true;
   }
 
-  while (text[cur_len-1] == 'z') {
-    cur_len -= 1;
-    text[cur_len] = '\0';
-    if (cur_len == min_len) {
+  while (text.back() == 'z') {
+    text.pop_back();
+    if (text.size() == min_len) {
       return false;
     }
   }
 
-  char c = text[cur_len-1];
+  char c = text.back();
   if (c == '9') {
-    text[cur_len-1] = 'A';
+    text.back() = 'A';
   } else if (c == 'Z') {
-    text[cur_len-1] = 'a';
+    text.back() = 'a';
   } else {
-    text[cur_len-1] += 1;
+    text.back() += 1;
   }
   return true;
 }
 
-void AccountMap::Unused( const IDptr id ) {
+void AccountMap::Unused( const ID& id ) {
   int target_score = 1;
-  int len = strlen(id);
+  int len = id.size();
   int min_len = len - 1;
   int max_len = (len+1 < 100) ? (len+1):100;
-  int cur_len = min_len;
   int output = 0;
   bool comma = false;
   SkipListNode* temp;
   
-  IDptr test = new ID;
-  strncpy(test, id, min_len);
-  test[min_len] = '\0';
+  string test = id.substr(0, min_len);
 
   while (output < 10) {
     if (calculate_score(test, id) == target_score && !Find(test, temp)) {
@@ -253,18 +246,15 @@ void AccountMap::Unused( const IDptr id ) {
       comma = true;
       output += 1;
     } 
-    if (!next_string(test, min_len, max_len, cur_len)) {
+    if (!next_string(test, min_len, max_len)) {
       target_score += 1;
       min_len = (min_len == 0) ? 0:(min_len-1);
-      test[min_len] = '\0';
       if (max_len != 100 &&
           (max_len+1-len+1)*(max_len+1-len)/2 <= target_score)
       {
         max_len += 1;
       }
-      strncpy(test, id, min_len);
-      test[min_len] = '\0';
-      cur_len = min_len;
+      test = id.substr(0, min_len);
     }
   }
 
@@ -304,30 +294,26 @@ bool match_recursion( const char* a, const char* b ) {
   return false;
 }
 
-void AccountMap::Find( const IDptr id, const class Account* account ) {
-  IDptr id_avoid = account->id();
+void AccountMap::Find( const ID& id, const class Account* account ) {
   SkipListNode* node = Next(ninf);
 
-  int i = 0;
-  while (id[i] != '*' && id[i] != '?' && id[i] != '\0') {
-    ++i;
-  }
+  int i = id.find_first_of("?*");
 
-  IDptr id_key = new ID;
+  string id_key;
   bool key_not_used = true;
-  if (i > 0) {
-    strncpy(id_key, id, i);
-    id_key[i] = '\0';
-    Find(id_key, node);
-    node = Next(node);
+  if (i == string::npos) {
+    id_key = id;
+    key_not_used = false;
+  } else if (i > 0) {
+    id_key = id.substr(0, i);
     key_not_used = false;
   }
 
   bool comma = false;
-  while (*(node->data_id) != '{' && (key_not_used || \
-         strncmp(id_key, node->data_id, i) == 0)) {
-    if (match_recursion(id, node->data_id) && \
-        id_avoid != node->data_id) {
+  while (node->data_id.front() != '{' && (key_not_used || \
+         node->data_id.compare(0, i, id_key) == 0)) {
+    if (match_recursion(id.c_str(), node->data_id.c_str()) && \
+        account != node->data_account) {
       if (comma) {
         cout << ',';
       }
@@ -350,9 +336,8 @@ void AccountMap::Find( const IDptr id, const class Account* account ) {
 // Return Value:                                                              //
 // true if insert succeeded, false if the ID already exists                   //
 ////////////////////////////////////////////////////////////////////////////////
- bool AccountMap::Emplace( const IDptr id, const Plaintext plaintext ) {
-  Account* account = new Account(id, plaintext);
-  if(Insert(id, account)) {
+ bool AccountMap::Emplace( const ID& id, const Plaintext& plaintext ) {
+  if(Insert(id, plaintext)) {
     return true;
   }
   return false;

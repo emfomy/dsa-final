@@ -36,16 +36,12 @@ SkipList::SkipList() {
   ninf->height = 1;
   ninf->left.push_back(nullptr);
   ninf->right.push_back(pinf);
-  ninf->data_id = new ID;
-  ninf->data_id[0] = '!';
-  ninf->data_id[1] = '\0';
+  ninf->data_id = "!";
 
   pinf->height = 1;
   pinf->left.push_back(ninf);
   pinf->right.push_back(nullptr);
-  pinf->data_id = new ID;
-  pinf->data_id[0] = '{';
-  pinf->data_id[1] = '\0';
+  pinf->data_id = "{";
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -76,15 +72,15 @@ SkipList::~SkipList() {
 // Return Value:                                                              //
 // true if exist, false if not                                                //
 ////////////////////////////////////////////////////////////////////////////////
-bool SkipList::Find( const IDptr id, SkipListNode*& node ) {
+bool SkipList::Find( const ID& id, SkipListNode*& node ) {
   node = ninf;
   SkipListNode* next;
   int level = (int)max_height - 1;
   
-  while (strcmp(id, node->data_id) != 0) {
+  while (id.compare(node->data_id) != 0) {
     next = node->right[level];
 
-    if (strcmp(id, next->data_id) < 0) {
+    if (id.compare(next->data_id) < 0) {
       if (level == 0) {
         return false;
       } else {
@@ -121,12 +117,12 @@ void SkipList::Remove( const SkipListNode* node ) {
 //                                                                            //
 // Parameters:                                                                //
 // id: the ID used as key(usually equal to the ID of target account)          //
-// account: the pointer of the target account                                 //
+// plaintext: the plain password of the account                               //
 //                                                                            //
 // Retrun Value:                                                              //
 // true if successfully add node, false if id already exits                   //
 ////////////////////////////////////////////////////////////////////////////////
-bool SkipList::Insert( const IDptr id, Account* account ) {
+bool SkipList::Insert( const ID& id, const Plaintext& plaintext ) {
   SkipListNode* node;
 
   if (Find(id, node)) {
@@ -149,8 +145,8 @@ bool SkipList::Insert( const IDptr id, Account* account ) {
   }
 
   SkipListNode* node_add = new SkipListNode;
-  node_add->data_account = account;
-  node_add->data_id = account->id();
+  node_add->data_account = new Account(id, plaintext);
+  node_add->data_id = id;
 
   srand(time(NULL));
   int level = 0;

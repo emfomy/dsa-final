@@ -46,7 +46,7 @@ class AccountMap : private SkipList {
   // Return Value:                                                          //
   // Target account if exists, null pointer if not exists                   //
   ////////////////////////////////////////////////////////////////////////////
-  class Account* At( const IDptr id );
+  class Account* At( const ID& id );
 
   ////////////////////////////////////////////////////////////////////////////
   // Access account by its ID                                               //
@@ -60,7 +60,7 @@ class AccountMap : private SkipList {
   // Return Value:                                                          //
   // Target account if exists, null pointer if not exists                   //
   ////////////////////////////////////////////////////////////////////////////
-  class Account* At( const IDptr id, void** pit );
+  class Account* At( const ID& id, void** pit );
 
   ////////////////////////////////////////////////////////////////////////////
   // Display existing IDs                                                   //
@@ -71,7 +71,7 @@ class AccountMap : private SkipList {
   // Ensure:                                                                //
   // Display best satisfying IDs to standand output, separated by ','       //
   ////////////////////////////////////////////////////////////////////////////
-  void Existing( const IDptr id );
+  void Existing( const ID& id );
 
   ////////////////////////////////////////////////////////////////////////////
   // Display unused IDs                                                     //
@@ -82,7 +82,7 @@ class AccountMap : private SkipList {
   // Ensure:                                                                //
   // Display best satisfying IDs to standand output, separated by ','       //
   ////////////////////////////////////////////////////////////////////////////
-  void Unused( const IDptr id );
+  void Unused( const ID& id );
 
   ////////////////////////////////////////////////////////////////////////////
   // Find existing IDs that matches the wildcard ID                         //
@@ -96,7 +96,7 @@ class AccountMap : private SkipList {
   // Display all satisfying IDs to standand output,                         //
   //   separated by ',' in ascending dictionary order                       //
   ////////////////////////////////////////////////////////////////////////////
-  void Find( const IDptr id, const class Account* account );
+  void Find( const ID& id, const class Account* account );
 
   ////////////////////////////////////////////////////////////////////////////
   // Construct and insert an account                                        //
@@ -108,7 +108,7 @@ class AccountMap : private SkipList {
   // Return Value:                                                          //
   // true if insert succeeded, false if the ID already exists               //
   ////////////////////////////////////////////////////////////////////////////
-  bool Emplace( const IDptr id, const Plaintext plaintext );
+  bool Emplace( const ID& id, const Plaintext& plaintext );
 
   ////////////////////////////////////////////////////////////////////////////
   // Erase an account of target iterator                                    //

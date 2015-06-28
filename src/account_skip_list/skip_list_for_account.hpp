@@ -35,7 +35,7 @@ struct SkipListNode {
   Account* data_account;
 
   // Start pointer of ID in the data_account
-  IDptr data_id;
+  ID data_id;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -82,7 +82,7 @@ class SkipList {
   // Return Value:                                                          //
   // true if exist, false if not                                            //
   ////////////////////////////////////////////////////////////////////////////
-  bool Find( const IDptr id, SkipListNode*& node );
+  bool Find( const ID& id, SkipListNode*& node );
 
   ////////////////////////////////////////////////////////////////////////////
   // Remove target node in skip list (without the content of account)       //
@@ -100,12 +100,12 @@ class SkipList {
   //                                                                        //
   // Parameters:                                                            //
   // id: the ID used as key(usually equal to the ID of target account)      //
-  // account: the pointer of the target account                             //
+  // plaintext: the plain password of the account                           //
   //                                                                        //
   // Retrun Value:                                                          //
   // true if successfully add node, false if id already exits               //
   ////////////////////////////////////////////////////////////////////////////
-  bool Insert( const IDptr id, Account* account );
+  bool Insert( const ID& id, const Plaintext& plaintext );
 
   ////////////////////////////////////////////////////////////////////////////
   // Get Node* of the next node of target node in the list                  //

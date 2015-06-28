@@ -28,7 +28,7 @@ class HistoryMap {
   // Parameters:                                                            //
   // id: target ID                                                          //
   ////////////////////////////////////////////////////////////////////////////
-  HistoryMap( const IDptr id ) {};
+  HistoryMap( const ID& id ) {};
 
   ////////////////////////////////////////////////////////////////////////////
   // The destructor of HistoryMap                                           //
@@ -62,7 +62,7 @@ class HistoryMap {
   // Display 'no record' if no record exists                                //
   // Display all history with target ID to standand output, line by line    //
   ////////////////////////////////////////////////////////////////////////////
-  void Search( const IDptr id ) {};
+  void Search( const ID& id ) {};
 };
 
 }

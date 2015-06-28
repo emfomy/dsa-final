@@ -62,7 +62,7 @@ class HistoryNode {
   void Insert( const Money money );
 
   // Display all history
-  void Display( const IDptr id );
+  void Display( const ID& id );
 };
 
 }

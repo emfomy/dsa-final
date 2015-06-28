@@ -11,23 +11,19 @@
 #define DSA_DSA_HPP_
 
 #include <cstdint>
+#include <string>
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
 ////////////////////////////////////////////////////////////////////////////////
 namespace dsa {
 
-// The maximum length of ID/Plaintext
-const int kIDLength = 128;
-const int kPlaintextLength = 128;
-
 // The number of recommend IDs
 const int kNumRecommend = 10;
 
 // Define types
-typedef char ID[kIDLength];
-typedef char* IDptr;
-typedef char Plaintext[kPlaintextLength];
+typedef std::string ID;
+typedef std::string Plaintext;
 typedef __int128_t Ciphertext;
 typedef int32_t Money;
 

@@ -24,7 +24,7 @@ namespace dsa {
 // Parameters:                                                                //
 // id: target ID                                                              //
 ////////////////////////////////////////////////////////////////////////////////
-HistoryMap::HistoryMap( const IDptr id ) : _HistoryMap() {
+HistoryMap::HistoryMap( const ID& id ) : _HistoryMap() {
   id_ = id;
   (*this)[id_].reset(new HistoryNode(this));
 }
@@ -123,7 +123,7 @@ void HistoryMap::Merge( HistoryMap* that ) {
 // Display 'no record' if no record exists                                    //
 // Display all history with target ID to standand output, line by line        //
 ////////////////////////////////////////////////////////////////////////////////
-void HistoryMap::Search( const IDptr id ) {
+void HistoryMap::Search( const ID& id ) {
   auto it = find(id);
   if ( it == end() ) {
     cout << "no record" << endl;

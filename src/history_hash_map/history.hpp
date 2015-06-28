@@ -51,7 +51,7 @@ class History {
   bool operator<( const class History& that ) const;
 
   // Display this history
-  void Display( const IDptr id );
+  void Display( const ID& id );
 };
 
 }

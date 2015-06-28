@@ -26,9 +26,6 @@ class Account {
   Money money_ = 0;
 
  private:
-  // The ID
-  ID id_;
-
   // The ciphered password
   Ciphertext ciphertext_;
 
@@ -41,9 +38,6 @@ class Account {
 
   // Destructor
   ~Account();
-
-  // Get the starting pointer of ID
-  const ID& id() const;
 
   // Check password correction
   bool Login( const Plaintext plaintext );

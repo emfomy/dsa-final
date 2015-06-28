@@ -23,17 +23,12 @@ namespace dsa {
 // plaintext: the plain password                                              //
 ////////////////////////////////////////////////////////////////////////////////
 Account::Account( const ID& id, const Plaintext plaintext ) {
-  id_ = id;
   MD5(
       reinterpret_cast<const unsigned char*>(plaintext.c_str()),
       plaintext.length(),
       reinterpret_cast<unsigned char*>(&ciphertext_)
   );
-  printf("%llx%llx\n",
-      reinterpret_cast<long long*>(&ciphertext_)[1],
-      reinterpret_cast<long long*>(&ciphertext_)[0]
-  );
-  history_map_ = new HistoryMap(id_);
+  history_map_ = new HistoryMap(id);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -41,13 +36,6 @@ Account::Account( const ID& id, const Plaintext plaintext ) {
 ////////////////////////////////////////////////////////////////////////////////
 Account::~Account() {
   delete history_map_;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// Get the starting pointer of ID                                             //
-////////////////////////////////////////////////////////////////////////////////
-const ID& Account::id() const {
-  return id_;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -65,10 +53,6 @@ bool Account::Login( const Plaintext plaintext ) {
       reinterpret_cast<const unsigned char*>(plaintext.c_str()),
       plaintext.length(),
       reinterpret_cast<unsigned char*>(&tmp)
-  );
-  printf("%llx%llx\n",
-      reinterpret_cast<long long*>(&tmp)[1],
-      reinterpret_cast<long long*>(&tmp)[0]
   );
   return (ciphertext_ == tmp);
 }

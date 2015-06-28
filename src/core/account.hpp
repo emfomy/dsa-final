@@ -34,13 +34,13 @@ class Account {
 
  public:
   // Constructor
-  Account( const ID& id, const Plaintext plaintext );
+  Account( const ID& id, const Plaintext& plaintext );
 
   // Destructor
   ~Account();
 
   // Check password correction
-  bool Login( const Plaintext plaintext );
+  bool Login( const Plaintext& plaintext );
 
   // Transfer money to an account
   void Transfer( class Account* that, const Money money );

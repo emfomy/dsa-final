@@ -32,7 +32,7 @@ class Account {
   // id:        the ID                                                      //
   // plaintext: the plain password                                          //
   ////////////////////////////////////////////////////////////////////////////
-  Account( const ID& id, const Plaintext plaintext );
+  Account( const ID& id, const Plaintext& plaintext );
 
   ////////////////////////////////////////////////////////////////////////////
   // The destructor of Account                                              //
@@ -48,7 +48,7 @@ class Account {
   // Return Value:                                                          //
   // true if the password is correct, false if not                          //
   ////////////////////////////////////////////////////////////////////////////
-  bool Login( const Plaintext plaintext );
+  bool Login( const Plaintext& plaintext );
 
   ////////////////////////////////////////////////////////////////////////////
   // Transfer money to target account                                       //

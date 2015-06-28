@@ -36,17 +36,17 @@ class Bank {
   ~Bank();
 
   // Login an account
-  void Login( const ID& id, const Plaintext password );
+  void Login( const ID& id, const Plaintext& password );
 
   // Create an account
-  void Create( const ID& id, const Plaintext password );
+  void Create( const ID& id, const Plaintext& password );
 
   // Delete an account
-  void Delete( const ID& id, const Plaintext password );
+  void Delete( const ID& id, const Plaintext& password );
 
   // Merge two accounts
-  void Merge( const ID& id1, const Plaintext password1, 
-              const ID& id2, const Plaintext password2 );
+  void Merge( const ID& id1, const Plaintext& password1, 
+              const ID& id2, const Plaintext& password2 );
 
   // Deposit money
   void Deposit( const Money money );

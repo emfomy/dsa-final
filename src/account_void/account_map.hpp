@@ -67,7 +67,7 @@ class AccountMap {
   // Return Value:                                                          //
   // true if insert succeeded, false if the ID already exists               //
   ////////////////////////////////////////////////////////////////////////////
-  bool Emplace( const ID& id, const Plaintext plaintext ) { return true; };
+  bool Emplace( const ID& id, const Plaintext& plaintext ) { return true; };
 
   ////////////////////////////////////////////////////////////////////////////
   // Erase an account of target iterator                                    //

@@ -80,7 +80,7 @@ class Account* AccountMap::At( const ID& id, void** pit ) {
 ////////////////////////////////////////////////////////////////////////////////
 
 // Score function
-int calculate_score( ID& a, ID& b ) {
+int calculate_score( const ID& a, const ID& b ) {
   int len_a = a.size();
   int len_b = b.size();
   int s = 0;
@@ -203,14 +203,14 @@ void AccountMap::Existing( const ID& id ) {
 // The part that can be changed is between string[min_len] and string[max_len-1]
 // Retrun true if succeed, false if the next one doesn't exist
 bool next_string( ID& text, int min_len, int max_len ) {
-  if (text.size() < max_len) {
-    text.append('0');
+  if ((int)text.size() < max_len) {
+    text.append("0");
     return true;
   }
 
   while (text.back() == 'z') {
     text.pop_back();
-    if (text.size() == min_len) {
+    if ((int)text.size() == min_len) {
       return false;
     }
   }
@@ -235,7 +235,12 @@ void AccountMap::Unused( const ID& id ) {
   bool comma = false;
   SkipListNode* temp;
   
-  string test = id.substr(0, min_len);
+  string test;
+  if (min_len == 0) {
+    test = "0";
+  } else {
+    test = id.substr(0, min_len);
+  }
 
   while (output < 10) {
     if (calculate_score(test, id) == target_score && !Find(test, temp)) {
@@ -254,7 +259,12 @@ void AccountMap::Unused( const ID& id ) {
       {
         max_len += 1;
       }
-      test = id.substr(0, min_len);
+      if (min_len == 0) {
+        test = "0";
+      } else {
+        test = id.substr(0, min_len);
+      }
+      
     }
   }
 
@@ -274,21 +284,21 @@ void AccountMap::Unused( const ID& id ) {
 ////////////////////////////////////////////////////////////////////////////////
 
 // Return whether two char* is matching, a may have wildcard
-bool match_recursion( const char* a, const char* b ) {
-  if (*a == '\0' && *b == '\0') {
+bool match_recursion( const ID& a, const ID& b, int pa, int pb ) {
+  if (pa == (int)a.size() && pb == (int)b.size()) {
     return true;
   }
 
-  if (*a == '?' || *a == *b) {
-    return match_recursion(a+1, b+1);
+  if (a[pa] == '?' || a[pa] == b[pb]) {
+    return match_recursion(a, b, pa+1, pb+1);
   }
 
-  if (*a == '*' && *(a+1) != '\0' && *b == '\0') {
+  if (a[pa] == '*' && pa+1 != (int)a.size() && pb == (int)b.size()) {
     return false;
   }
 
-  if (*a == '*') {
-    return match_recursion(a+1, b) || match_recursion(a, b+1);
+  if (a[pa] == '*') {
+    return match_recursion(a, b, pa+1, pb) || match_recursion(a, b, pa, pb+1);
   }
 
   return false;
@@ -297,22 +307,24 @@ bool match_recursion( const char* a, const char* b ) {
 void AccountMap::Find( const ID& id, const class Account* account ) {
   SkipListNode* node = Next(ninf);
 
-  int i = id.find_first_of("?*");
+  size_t i = id.find_first_of("?*");
 
   string id_key;
   bool key_not_used = true;
   if (i == string::npos) {
     id_key = id;
     key_not_used = false;
+    if(!Find(id_key, node)) node = Next(node);
   } else if (i > 0) {
     id_key = id.substr(0, i);
     key_not_used = false;
+    if(!Find(id_key, node)) node = Next(node);
   }
 
   bool comma = false;
   while (node->data_id.front() != '{' && (key_not_used || \
          node->data_id.compare(0, i, id_key) == 0)) {
-    if (match_recursion(id.c_str(), node->data_id.c_str()) && \
+    if (match_recursion(id, node->data_id, 0, 0) && \
         account != node->data_account) {
       if (comma) {
         cout << ',';

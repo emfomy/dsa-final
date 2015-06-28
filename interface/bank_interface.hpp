@@ -42,7 +42,7 @@ class Bank {
   // Ensure:                                                                //
   // Set the logined account as target account if permission allowed        //
   ////////////////////////////////////////////////////////////////////////////
-  void Login( const ID& id, const Plaintext password );
+  void Login( const ID& id, const Plaintext& password );
 
   ////////////////////////////////////////////////////////////////////////////
   // Create a specific account with password                                //
@@ -54,7 +54,7 @@ class Bank {
   // Ensure:                                                                //
   // Create target account if the ID is unused                              //
   ////////////////////////////////////////////////////////////////////////////
-  void Create( const ID& id, const Plaintext password );
+  void Create( const ID& id, const Plaintext& password );
 
   ////////////////////////////////////////////////////////////////////////////
   // Delete a specific account with password                                //
@@ -66,7 +66,7 @@ class Bank {
   // Ensure:                                                                //
   // Delete target account if permission allowed                            //
   ////////////////////////////////////////////////////////////////////////////
-  void Delete( const ID& id, const Plaintext password );
+  void Delete( const ID& id, const Plaintext& password );
 
   ////////////////////////////////////////////////////////////////////////////
   // Merge the second account into the first one                            //
@@ -80,8 +80,8 @@ class Bank {
   // Ensure:                                                                //
   // Merge the second account into the first one and delete the second one  //
   ////////////////////////////////////////////////////////////////////////////
-  void Merge( const ID& id1, const Plaintext password1,
-              const ID& id2, const Plaintext password2 );
+  void Merge( const ID& id1, const Plaintext& password1,
+              const ID& id2, const Plaintext& password2 );
 
   ////////////////////////////////////////////////////////////////////////////
   // Deposit money into the logined account                                 //

@@ -41,7 +41,7 @@ class AccountMap {
   // Return Value:                                                          //
   // Target account if exists, null pointer if not exists                   //
   ////////////////////////////////////////////////////////////////////////////
-  class Account* At( const IDptr id ) { return nullptr; };
+  class Account* At( const ID& id ) { return nullptr; };
 
   ////////////////////////////////////////////////////////////////////////////
   // Access account by its ID                                               //
@@ -55,15 +55,19 @@ class AccountMap {
   // Return Value:                                                          //
   // Target account if exists, null pointer if not exists                   //
   ////////////////////////////////////////////////////////////////////////////
-  class Account* At( const IDptr id, void** pit ) { return nullptr; };
+  class Account* At( const ID& id, void** pit ) { return nullptr; };
 
   ////////////////////////////////////////////////////////////////////////////
-  // Insert an account                                                      //
+  // Construct and insert an account                                        //
   //                                                                        //
   // Parameters:                                                            //
-  // account: target account                                                //
+  // id:        the ID                                                      //
+  // plaintext: the plain password                                          //
+  //                                                                        //
+  // Return Value:                                                          //
+  // true if insert succeeded, false if the ID already exists               //
   ////////////////////////////////////////////////////////////////////////////
-  void Insert( class Account* account ) {};
+  bool Emplace( const ID& id, const Plaintext& plaintext ) { return true; };
 
   ////////////////////////////////////////////////////////////////////////////
   // Erase an account of target iterator                                    //
@@ -82,7 +86,7 @@ class AccountMap {
   // Ensure:                                                                //
   // Display best satisfying IDs to standand output, separated by ','       //
   ////////////////////////////////////////////////////////////////////////////
-  void Existing( const IDptr id ) {};
+  void Existing( const ID& id ) {};
 
   ////////////////////////////////////////////////////////////////////////////
   // Display unused IDs                                                     //
@@ -93,7 +97,7 @@ class AccountMap {
   // Ensure:                                                                //
   // Display best satisfying IDs to standand output, separated by ','       //
   ////////////////////////////////////////////////////////////////////////////
-  void Unused( const IDptr id ) {};
+  void Unused( const ID& id ) {};
 
   ////////////////////////////////////////////////////////////////////////////
   // Find existing IDs that matches the wildcard ID                         //
@@ -107,7 +111,7 @@ class AccountMap {
   // Display all satisfying IDs to standand output,                         //
   //   separated by ',' in ascending dictionary order                       //
   ////////////////////////////////////////////////////////////////////////////
-  void Find( const IDptr id, const class Account* account ) {};
+  void Find( const ID& id, const class Account* account ) {};
 };
 
 }

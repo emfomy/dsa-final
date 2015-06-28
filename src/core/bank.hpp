@@ -36,17 +36,17 @@ class Bank {
   ~Bank();
 
   // Login an account
-  void Login( const IDptr id, const Plaintext password );
+  void Login( const ID& id, const Plaintext& password );
 
   // Create an account
-  void Create( const IDptr id, const Plaintext password );
+  void Create( const ID& id, const Plaintext& password );
 
   // Delete an account
-  void Delete( const IDptr id, const Plaintext password );
+  void Delete( const ID& id, const Plaintext& password );
 
   // Merge two accounts
-  void Merge( const IDptr id1, const Plaintext password1, 
-              const IDptr id2, const Plaintext password2 );
+  void Merge( const ID& id1, const Plaintext& password1, 
+              const ID& id2, const Plaintext& password2 );
 
   // Deposit money
   void Deposit( const Money money );
@@ -55,13 +55,13 @@ class Bank {
   void Withdraw( const Money money );
 
   // Transfer money to an account
-  void Transfer( const IDptr id, const Money money );
+  void Transfer( const ID& id, const Money money );
 
   // Find accounts
-  void Find( const IDptr id );
+  void Find( const ID& id );
 
   // Search account history
-  void Search( const IDptr id );
+  void Search( const ID& id );
 };
 
 }

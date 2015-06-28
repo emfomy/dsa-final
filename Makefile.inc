@@ -22,8 +22,8 @@ INCLUDE  = -I$(DSA)/src/core
 LIBRARY  = $(DSA)/lib/libcore.a -lcrypto
 
 ifeq ($(ACCOUNT), AVLTREE)
-	INCLUDE += -I$(DSA)/src/account_avl_tree
-	LIBRARY += $(DSA)/lib/libaccountavltree.a
+	INCLUDE += -I$(DSA)/src/account_avl_tree -I$(DSA)/ext/gnu_avl/src
+	LIBRARY += $(DSA)/lib/libaccountavltree.a $(DSA)/ext/gnu_avl/lib/libavl.a
 else
 	INCLUDE += -I$(DSA)/src/account_void
 	LIBRARY +=

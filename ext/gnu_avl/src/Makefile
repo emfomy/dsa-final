@@ -1,26 +1,27 @@
 # Data Structures and Algorithms - Final Project
-# Makefile of /src/account_avl_tree
+# GNU libavl
+# Makefile of /ext/gnu_avl/src
 #
-# Make sure $(DSA) is set to the root of this project
+# Make sure $(GNUAVL) is set to the root of this project
 
-include $(DSA)/Makefile.inc
+include $(GNUAVL)/Makefile.inc
 
 .PHONY: all clean
 
-TARGETDIR = $(DSA)/lib
+TARGETDIR = $(GNUAVL)/lib
 
 TARGET = \
-	$(TARGETDIR)/libaccountavltree.a \
+	$(TARGETDIR)/libavl.a \
 
 INCS = \
 
 LIBS = \
 
 OBJECTS = \
-	account_map.o \
+	avl.o \
 
 HEADERS = \
-	account_map.hpp \
+	avl.h \
 
 all: $(TARGET)
 	@echo > /dev/null
@@ -29,8 +30,8 @@ $(TARGET): $(OBJECTS) | $(TARGETDIR)
 	$(ARCHIVE) $@ $(OBJECTS)
 	-$(RANLIB) $@
 
-%.o: %.cpp $(HEADERS)
-	$(CXX) $(CXXFLAGS) -c $< $(INCS) $(INCLUDE) -o $@
+%.o: %.c $(HEADERS)
+	$(CC) $(CFLAGS) -c $< $(INCS) $(INCLUDE) -o $@
 
 $(TARGETDIR):
 	mkdir -p $(TARGETDIR)

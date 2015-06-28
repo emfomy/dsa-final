@@ -85,9 +85,9 @@ void HistoryMap::Merge( HistoryMap* that ) {
     HistoryMap *map3 = nullptr;
 
     // Merge *-that history into *-this history
-    if ( !node32 ) {
+    if ( node32 ) {
       map3 = node32->this_map_;
-      if ( node31 ) {
+      if ( !node31 ) {
         node31 = new HistoryNode(map3);
         (*map3)[this->id_].reset(node31);
         uniptr13->Link(node31);
@@ -108,9 +108,11 @@ void HistoryMap::Merge( HistoryMap* that ) {
   }
 
   // Merge that-this history into this-this history
-  node11->existing_.merge(node21->existing_);
-  node11->deleted_.merge(node21->deleted_);
-  node21->that_node_ = nullptr;
+  if ( node21 ) {
+    node11->existing_.merge(node21->existing_);
+    node11->deleted_.merge(node21->deleted_);
+    node21->that_node_ = nullptr;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

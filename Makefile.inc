@@ -4,7 +4,7 @@
 # Make sure $(DSA) is set to the root of this project
 
 ACCOUNT =
-HISTORY =
+HISTORY = HASHMAP
 
 CC       = gcc
 CXX      = g++

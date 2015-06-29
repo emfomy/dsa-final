@@ -10,6 +10,9 @@
 
 #include "account_map.hpp"
 #include "account.hpp"
+#include <iostream>
+#include <vector>
+using namespace std;
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
 ////////////////////////////////////////////////////////////////////////////////
@@ -122,7 +125,62 @@ Account* AccountMap::At( const ID& id, void** pit ){
 // Display best satisfying IDs to standand output, separated by ','           //
 ////////////////////////////////////////////////////////////////////////////////
 void AccountMap::Existing( const ID& id ){
+  const avl_node *p;
+  vector<Exist> record;
+  p = avl_tree->avl_root;
+
+  Exist tmp;
+  tmp.key = score(id, reinterpret_cast<_Account*>(p->avl_data)->key);
+  tmp.id = reinterpret_cast<_Account*>(p->avl_data)->key;
+  record.push_back(tmp);
+  int r_size = record.size();
+
+  for (int i =0 ; i< r_size-1 ; i++){
+    for (int j = 0 ; j < r_size - i - 1 ; j++){
+      if (record[j].key > record[j+1].key){
+        swap(record[j],record[j+1]);
+      }
+    }
+  }
+
+  if ( r_size >10){
+    record.pop_back();
+  }
+
+  if (p->avl_link[0] != nullptr){
+    ExistingInt(id, record, p->avl_link[0]);
+  }
+  if (p->avl_link[1] != nullptr){
+    ExistingInt(id, record, p->avl_link[1]);
+  }
+  r_size = record.size();
+  for(int i =0 ; i < r_size ; i++){
+    cout << record[i].id << ',' ;
+  }
 }
+
+void AccountMap::ExistingInt( const ID& id, vector<Exist>& r, avl_node* p){
+  Exist tmp;
+  tmp.key = score(id, reinterpret_cast<_Account*>(p->avl_data)->key);
+  tmp.id = reinterpret_cast<_Account*>(p->avl_data)->key;
+  r.push_back(tmp);
+  int r_size = r.size();
+
+  for (int i =0 ; i < r_size-1 ; i++){
+    for (int j = 0 ; j < r_size - i - 1 ; j++){
+      if (r[j].key > r[j+1].key){
+        swap(r[j],r[j+1]);
+      }
+    }
+  }
+  if ( r_size >10) { r.pop_back(); } 
+  if (p->avl_link[0] != nullptr) { 
+    ExistingInt(id, r, p->avl_link[0]); 
+  }
+  if (p->avl_link[1] != nullptr) { 
+    ExistingInt(id, r, p->avl_link[1]); 
+  }
+} 
 
 ////////////////////////////////////////////////////////////////////////////////
 // Display unused IDs                                                         //
@@ -149,6 +207,8 @@ void AccountMap::Unused( const ID& id ){
 //   separated by ',' in ascending dictionary order                           //
 ////////////////////////////////////////////////////////////////////////////////
 void AccountMap::Find( const ID& id, const Account* account ){
+  
+
 
 }
 

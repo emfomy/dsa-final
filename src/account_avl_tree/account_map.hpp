@@ -16,6 +16,7 @@ extern "C"{
 }
 #include "dsa.hpp"
 #include <string>
+#include <vector>
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
@@ -24,6 +25,12 @@ namespace dsa {
 ////////////////////////////////////////////////////////////////////////////////
 // The class of a map of accounts                                             //
 ////////////////////////////////////////////////////////////////////////////////
+class Exist{ 
+ public:
+  int key ;
+  ID id;
+};
+
 class AccountMap {
  private:
   struct avl_table* avl_tree;
@@ -74,7 +81,7 @@ class AccountMap {
   // Display best satisfying IDs to standand output, separated by ','       //
   ////////////////////////////////////////////////////////////////////////////
   void Existing( const ID& id );
-
+  void ExistingInt( const ID& id , std::vector<Exist>& , struct avl_node*);
   ////////////////////////////////////////////////////////////////////////////
   // Display unused IDs                                                     //
   //                                                                        //

@@ -1,11 +1,12 @@
 # Data Structures and Algorithms - Final Project
-# Makefile of /ext
+# OpenSSL
+# Makefile of /ext/openssl
 #
 # Make sure $(DSA) is set to the root of this project
 
 include $(DSA)/Makefile.inc
 
-SUBDIR = openssl
+SUBDIR =
 
 .PHONY: all $(SUBDIR) clean
 

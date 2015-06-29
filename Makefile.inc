@@ -17,8 +17,8 @@ AR       = ar
 ARFLAGS  = rv
 ARCHIVE  = $(AR) $(ARFLAGS)
 
-INCLUDE  = -I$(DSA)/src/core
-LIBRARY  = $(DSA)/lib/libcore.a -lcrypto
+INCLUDE  = -I$(DSA)/src/core -I$(DSA)/ext/openssl/include
+LIBRARY  = $(DSA)/lib/libcore.a $(DSA)/ext/openssl/lib/libcrypto.a
 
 ifeq ($(ACCOUNT), HASHMAP)
   INCLUDE += -I$(DSA)/src/account_hash_map

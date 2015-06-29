@@ -5,7 +5,7 @@
 
 include $(DSA)/Makefile.inc
 
-SUBDIR =
+SUBDIR = openssl
 
 .PHONY: all $(SUBDIR) clean
 

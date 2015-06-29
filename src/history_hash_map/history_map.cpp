@@ -24,7 +24,7 @@ namespace dsa {
 // Parameters:                                                                //
 // id: target ID                                                              //
 ////////////////////////////////////////////////////////////////////////////////
-HistoryMap::HistoryMap( const IDptr id ) : _HistoryMap() {
+HistoryMap::HistoryMap( const ID& id ) : _HistoryMap() {
   id_ = id;
   (*this)[id_].reset(new HistoryNode(this));
 }
@@ -85,9 +85,9 @@ void HistoryMap::Merge( HistoryMap* that ) {
     HistoryMap *map3 = nullptr;
 
     // Merge *-that history into *-this history
-    if ( !node32 ) {
+    if ( node32 ) {
       map3 = node32->this_map_;
-      if ( node31 ) {
+      if ( !node31 ) {
         node31 = new HistoryNode(map3);
         (*map3)[this->id_].reset(node31);
         uniptr13->Link(node31);
@@ -108,9 +108,11 @@ void HistoryMap::Merge( HistoryMap* that ) {
   }
 
   // Merge that-this history into this-this history
-  node11->existing_.merge(node21->existing_);
-  node11->deleted_.merge(node21->deleted_);
-  node21->that_node_ = nullptr;
+  if ( node21 ) {
+    node11->existing_.merge(node21->existing_);
+    node11->deleted_.merge(node21->deleted_);
+    node21->that_node_ = nullptr;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -123,7 +125,7 @@ void HistoryMap::Merge( HistoryMap* that ) {
 // Display 'no record' if no record exists                                    //
 // Display all history with target ID to standand output, line by line        //
 ////////////////////////////////////////////////////////////////////////////////
-void HistoryMap::Search( const IDptr id ) {
+void HistoryMap::Search( const ID& id ) {
   auto it = find(id);
   if ( it == end() ) {
     cout << "no record" << endl;

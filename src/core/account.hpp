@@ -26,9 +26,6 @@ class Account {
   Money money_ = 0;
 
  private:
-  // The ID
-  ID id_;
-
   // The ciphered password
   Ciphertext ciphertext_;
 
@@ -37,16 +34,13 @@ class Account {
 
  public:
   // Constructor
-  Account( const IDptr id, const Plaintext plaintext );
+  Account( const ID& id, const Plaintext& plaintext );
 
   // Destructor
   ~Account();
 
-  // Get the starting pointer of ID
-  const IDptr id() const;
-
   // Check password correction
-  bool Login( const Plaintext plaintext );
+  bool Login( const Plaintext& plaintext );
 
   // Transfer money to an account
   void Transfer( class Account* that, const Money money );
@@ -55,7 +49,7 @@ class Account {
   void Merge( class Account* that );
 
   // Display all history with target ID
-  void Search( const IDptr id );
+  void Search( const ID& id );
 };
 
 }

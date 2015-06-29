@@ -21,10 +21,11 @@ INCS = \
 
 LIBS = \
 
+
 all: $(SUBDIR) main
 	@echo > /dev/null
 
-$(TARGET): $(SRCS) $(LIBS)
+$(TARGET): $(SRCS) $(LIBS) $(LIBRARY)
 	$(CXX) $(CXXFLAGS) $(SRCS) $(INCS) $(INCLUDE) $(LIBS) $(LIBRARY) -o $@
 
 $(SUBDIR):
@@ -37,3 +38,4 @@ run: $(TARGET)
 
 clean:
 	@for dir in $(SUBDIR); do ( cd $$dir ; $(MAKE) clean ) done
+	$(RM) $(TARGET)

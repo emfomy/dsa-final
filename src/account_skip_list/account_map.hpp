@@ -11,6 +11,7 @@
 #define DSA_ACCOUNT_MAP_HPP_
 
 #include "dsa.hpp"
+#include "skip_list_for_account.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
@@ -20,17 +21,21 @@ namespace dsa {
 ////////////////////////////////////////////////////////////////////////////////
 // The class of a map of accounts                                             //
 ////////////////////////////////////////////////////////////////////////////////
-class AccountMap {
+class AccountMap : private SkipList {
+ private:
+  using SkipList::Find;
+  using SkipList::Insert;
+
  public:
   ////////////////////////////////////////////////////////////////////////////
   // The constructor of AccountMap                                          //
   ////////////////////////////////////////////////////////////////////////////
-  AccountMap() {};
+  AccountMap();
 
   ////////////////////////////////////////////////////////////////////////////
   // The destructor of AccountMap                                           //
   ////////////////////////////////////////////////////////////////////////////
-  ~AccountMap() {};
+  ~AccountMap();
 
   ////////////////////////////////////////////////////////////////////////////
   // Access account by its ID                                               //
@@ -41,7 +46,7 @@ class AccountMap {
   // Return Value:                                                          //
   // Target account if exists, null pointer if not exists                   //
   ////////////////////////////////////////////////////////////////////////////
-  class Account* At( const ID& id ) { return nullptr; };
+  class Account* At( const ID& id );
 
   ////////////////////////////////////////////////////////////////////////////
   // Access account by its ID                                               //
@@ -55,27 +60,7 @@ class AccountMap {
   // Return Value:                                                          //
   // Target account if exists, null pointer if not exists                   //
   ////////////////////////////////////////////////////////////////////////////
-  class Account* At( const ID& id, void** pit ) { return nullptr; };
-
-  ////////////////////////////////////////////////////////////////////////////
-  // Construct and insert an account                                        //
-  //                                                                        //
-  // Parameters:                                                            //
-  // id:        the ID                                                      //
-  // plaintext: the plain password                                          //
-  //                                                                        //
-  // Return Value:                                                          //
-  // true if insert succeeded, false if the ID already exists               //
-  ////////////////////////////////////////////////////////////////////////////
-  bool Emplace( const ID& id, const Plaintext& plaintext ) { return true; };
-
-  ////////////////////////////////////////////////////////////////////////////
-  // Erase an account of target iterator                                    //
-  //                                                                        //
-  // Parameters:                                                            //
-  // it: the iterator                                                       //
-  ////////////////////////////////////////////////////////////////////////////
-  void Erase( void* it ) {};
+  class Account* At( const ID& id, void** pit );
 
   ////////////////////////////////////////////////////////////////////////////
   // Display existing IDs                                                   //
@@ -86,7 +71,7 @@ class AccountMap {
   // Ensure:                                                                //
   // Display best satisfying IDs to standand output, separated by ','       //
   ////////////////////////////////////////////////////////////////////////////
-  void Existing( const ID& id ) {};
+  void Existing( const ID& id );
 
   ////////////////////////////////////////////////////////////////////////////
   // Display unused IDs                                                     //
@@ -97,7 +82,7 @@ class AccountMap {
   // Ensure:                                                                //
   // Display best satisfying IDs to standand output, separated by ','       //
   ////////////////////////////////////////////////////////////////////////////
-  void Unused( const ID& id ) {};
+  void Unused( const ID& id );
 
   ////////////////////////////////////////////////////////////////////////////
   // Find existing IDs that matches the wildcard ID                         //
@@ -111,7 +96,27 @@ class AccountMap {
   // Display all satisfying IDs to standand output,                         //
   //   separated by ',' in ascending dictionary order                       //
   ////////////////////////////////////////////////////////////////////////////
-  void Find( const ID& id, const class Account* account ) {};
+  void Find( const ID& id, const class Account* account );
+
+  ////////////////////////////////////////////////////////////////////////////
+  // Construct and insert an account                                        //
+  //                                                                        //
+  // Parameters:                                                            //
+  // id:        the ID                                                      //
+  // plaintext: the plain password                                          //
+  //                                                                        //
+  // Return Value:                                                          //
+  // true if insert succeeded, false if the ID already exists               //
+  ////////////////////////////////////////////////////////////////////////////
+  bool Emplace( const ID& id, const Plaintext& plaintext );
+
+  ////////////////////////////////////////////////////////////////////////////
+  // Erase an account of target iterator                                    //
+  //                                                                        //
+  // Parameters:                                                            //
+  // it: the iterator                                                       //
+  ////////////////////////////////////////////////////////////////////////////
+  void Erase( void* it );
 };
 
 }

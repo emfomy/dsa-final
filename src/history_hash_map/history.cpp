@@ -61,7 +61,7 @@ bool History::operator<( const History& that ) const {
 // Display 'no record' if no record exists                                    //
 // Display all history with target ID to standand output, line by line        //
 ////////////////////////////////////////////////////////////////////////////////
-void History::Display( const IDptr id ) {
+void History::Display( const ID& id ) {
   cout << (direction_ ? "To " : "From ") << id << ' ' << money_ << endl;
 }
 

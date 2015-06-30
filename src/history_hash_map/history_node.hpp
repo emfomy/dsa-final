@@ -13,6 +13,7 @@
 #include <list>
 #include <memory>
 #include "dsa.hpp"
+#include "history.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
 // The namespace dsa                                                          //
@@ -23,6 +24,20 @@ namespace dsa {
 // The unique pointer of History                                              //
 ////////////////////////////////////////////////////////////////////////////////
 typedef std::unique_ptr<class History> _HistoryUnique;
+
+////////////////////////////////////////////////////////////////////////////////
+// The compare function of existing IDs                                       //
+//                                                                            //
+// Input Parameters:                                                          //
+// id1: an ID                                                                 //
+// id2: another ID                                                            //
+//                                                                            //
+// Return Value:                                                              //
+// the score of the IDs                                                       //
+////////////////////////////////////////////////////////////////////////////////
+static bool HistoryCompare( _HistoryUnique& lhs, _HistoryUnique& rhs ) {
+  return (*lhs < *rhs);
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // The list of History                                                        //

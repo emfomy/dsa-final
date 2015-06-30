@@ -21,7 +21,6 @@ INCS = \
 
 LIBS = \
 
-
 all: $(SUBDIR) main
 	@echo > /dev/null
 

@@ -35,10 +35,7 @@ HistoryNode::~HistoryNode() {
   // Move existing to deleted
   if ( that_node_ ) {
     that_node_->that_node_ = nullptr;
-    that_node_->deleted_.splice(
-        that_node_->deleted_.begin(),
-        that_node_->existing_
-    );
+    that_node_->deleted_.merge(that_node_->existing_);
   }
 }
 

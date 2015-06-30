@@ -10,6 +10,12 @@ Data Structures and Algorithms - Final Project
 ### C++
 * Uses [Google C++ Style Guide](http://google-styleguide.googlecode.com/svn/trunk/cppguide.html) but uses `.cpp` and `.hpp` as extensions.
 
+## Install
+Compile with `make ACCOUNT=<account_map_type>`. The defalut value of `ACCOUNT` is `HASHMAP`.
+* `ACCOUNT=AVLTREE`: use AVL tree for `AccountMap`.
+* `ACCOUNT=HASHMAP`: use hash map for `AccountMap`.
+* `ACCOUNT=SKIPLIST`: use skip list for `AccountMap`.
+
 ## Directories
 Make sure $(DSA) is set to the root of this project
 
@@ -24,6 +30,9 @@ The core files.
 
 #### `/src/account_void`
 The source code of `AccountMap` without implementation.
+
+#### `/src/account_avl_tree`
+The implementation of `AccountMap` using AVL tree.
 
 #### `/src/account_hash_map`
 The implementation of `AccountMap` using hash map.
@@ -44,13 +53,16 @@ The library files (`*.lib`).
 The header files for library (`*.hpp`).
 
 ### `/interface`
-The interface for library (`*.hpp`)
+The interface for library (`*.hpp`).
 
 ### `/doc`
-The documentation.
+The report (`*.pdf`).
 
 ### `/ext`
 Third-party libraries.
 
 #### `/ext/openssl`
 * [OpenSSL cryptographic library](https://www.openssl.org/docs/crypto/crypto.html): uses for MD5 cryptography.
+
+#### `/ext/gnu_avl`
+* [GNU libavl](http://adtinfo.org/): uses for AVL tree.

@@ -132,13 +132,17 @@ void AccountMap::Existing( const ID& id ) {
   }
 
   // Display IDs
-  if ( !existing_queue_.empty() ) {
-    cout << *existing_queue_.top();
+  while ( !existing_queue_.empty() ) {
+    stack_.push(existing_queue_.top());
     existing_queue_.pop();
   }
-  while ( !existing_queue_.empty() ) {
-    cout << ',' << *existing_queue_.top();
-    existing_queue_.pop();
+  if ( !stack_.empty() ) {
+    cout << *stack_.top();
+    stack_.pop();
+  }
+  while ( !stack_.empty() ) {
+    cout << ',' << *stack_.top();
+    stack_.pop();
   }
 }
 
@@ -163,13 +167,15 @@ void AccountMap::Unused( const ID& id ) {
   // Score 1
   char cend = id[len-1];
   tmp = id;
-  if ( len > 0 ) {
-    tmp[len-1] = '\0';
+  if ( len > 1 ) {
+    tmp.pop_back();
     if ( Display(tmp, num) ) {
       return;
     }
+    tmp.push_back('0');
+  } else {
+    tmp[len-1] = '0';
   }
-  tmp[len-1] = '0';
   for ( auto& ctmp = tmp[len-1]; ctmp < cend; ctmp = NextChar(ctmp) ) {
     if ( Display(tmp, num) ) {
       return;

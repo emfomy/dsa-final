@@ -1,11 +1,14 @@
 # Data Structures and Algorithms - Final Project
-# Makefile of /ext
+# GNU libavl
+# Makefile of /ext/gnu_avl
 #
-# Make sure $(DSA) is set to the root of this project
+# Make sure $(GNUAVL) is set to the root of this project
 
-include $(DSA)/Makefile.inc
+export GNUAVL=$(CURDIR)
 
-SUBDIR = gnu_avl openssl
+include $(GNUAVL)/Makefile.inc
+
+SUBDIR = src
 
 .PHONY: all $(SUBDIR) clean
 

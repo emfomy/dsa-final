@@ -22,7 +22,7 @@ namespace dsa {
 // id:        the ID                                                          //
 // plaintext: the plain password                                              //
 ////////////////////////////////////////////////////////////////////////////////
-Account::Account( const ID& id, const Plaintext plaintext ) {
+Account::Account( const ID& id, const Plaintext& plaintext ) {
   MD5(
       reinterpret_cast<const unsigned char*>(plaintext.c_str()),
       plaintext.length(),
@@ -47,7 +47,7 @@ Account::~Account() {
 // Return Value:                                                              //
 // true if the password is correct, false if not                              //
 ////////////////////////////////////////////////////////////////////////////////
-bool Account::Login( const Plaintext plaintext ) {
+bool Account::Login( const Plaintext& plaintext ) {
   Ciphertext tmp = 0;
   MD5(
       reinterpret_cast<const unsigned char*>(plaintext.c_str()),

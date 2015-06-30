@@ -42,7 +42,7 @@ Bank::~Bank() {
 // Ensure:                                                                    //
 // Set the logined account as target account if permission allowed            //
 ////////////////////////////////////////////////////////////////////////////////
-void Bank::Login( const ID& id, const Plaintext password ) {
+void Bank::Login( const ID& id, const Plaintext& password ) {
   auto account = account_map_->At(id);
   if ( account == nullptr ) {
     cout << "ID " << id << " not found" << endl;
@@ -64,7 +64,7 @@ void Bank::Login( const ID& id, const Plaintext password ) {
 // Ensure:                                                                    //
 // Create target account if the ID is unused                                  //
 ////////////////////////////////////////////////////////////////////////////////
-void Bank::Create( const ID& id, const Plaintext password ) {
+void Bank::Create( const ID& id, const Plaintext& password ) {
   if ( account_map_->Emplace(id, password) ) {
     cout << "success" << endl;
   } else {
@@ -84,7 +84,7 @@ void Bank::Create( const ID& id, const Plaintext password ) {
 // Ensure:                                                                    //
 // Delete target account if permission allowed                                //
 ////////////////////////////////////////////////////////////////////////////////
-void Bank::Delete( const ID& id, const Plaintext password ) {
+void Bank::Delete( const ID& id, const Plaintext& password ) {
   void* it;
   auto account = account_map_->At(id, &it);
   if ( account == nullptr ) {
@@ -109,8 +109,8 @@ void Bank::Delete( const ID& id, const Plaintext password ) {
 // Ensure:                                                                    //
 // Merge the second account into the first one and delete the second one      //
 ////////////////////////////////////////////////////////////////////////////////
-void Bank::Merge( const ID& id1, const Plaintext password1,
-                  const ID& id2, const Plaintext password2 ) {
+void Bank::Merge( const ID& id1, const Plaintext& password1,
+                  const ID& id2, const Plaintext& password2 ) {
   void* it;
   auto account1 = account_map_->At(id1);
   auto account2 = account_map_->At(id2, &it);

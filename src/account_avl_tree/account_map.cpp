@@ -195,7 +195,7 @@ void AccountMap::ExistingInt( const ID& id, vector<Exist>& r, avl_node* p) {
 void AccountMap::Unused( const ID& id ) { //score = 1 
     
   vector<ID> record;
-  const char unit[63] = {'0','1','2','3','4','5','6','7','8','9','A','B','C',
+  const char unit[62] = {'0','1','2','3','4','5','6','7','8','9','A','B','C',
     'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U',
       'V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m',
         'n','o','p','q','r','s','t','u','v','w','x','y','z'} ;
@@ -293,8 +293,9 @@ void AccountMap::Unused( const ID& id ) { //score = 1
     }
     i++ ;
   }
-
-  cout<<record[0];
+  if ( record.size() != 0 ) {
+    cout<<record[0];
+  }
   for (int i = 1; i < record.size(); ++i) {
     cout << ','<< record[i] ;
   }

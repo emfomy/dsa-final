@@ -9,10 +9,10 @@ SUBDIR = core account_avl_tree account_hash_map account_skip_list history_hash_m
 
 .PHONY: all $(SUBDIR) clean
 
-all: $(SUBDIR)
+all: $(SRCDIR)
 	@echo > /dev/null
 
-$(SUBDIR):
+$(SRCDIR):
 	@( cd $@ ; $(MAKE) all )
 
 clean:

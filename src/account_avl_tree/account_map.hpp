@@ -105,7 +105,10 @@ class AccountMap {
   //   separated by ',' in ascending dictionary order                       //
   ////////////////////////////////////////////////////////////////////////////
   void Find( const ID& id, const class Account* account );
-
+  void FindInt( 
+        const ID& id, const Account* account, 
+          avl_node* p,std::vector<ID>& record );
+  
   ////////////////////////////////////////////////////////////////////////////
   // Construct and insert an account                                        //
   //                                                                        //

@@ -129,6 +129,10 @@ void AccountMap::Existing( const ID& id ){
   vector<Exist> record;
   p = avl_tree->avl_root;
 
+  if (p->avl_link[0] != nullptr){
+    ExistingInt(id, record, p->avl_link[0]);
+  }
+
   Exist tmp;
   tmp.key = score(id, reinterpret_cast<_Account*>(p->avl_data)->key);
   tmp.id = reinterpret_cast<_Account*>(p->avl_data)->key;
@@ -147,9 +151,6 @@ void AccountMap::Existing( const ID& id ){
     record.pop_back();
   }
 
-  if (p->avl_link[0] != nullptr){
-    ExistingInt(id, record, p->avl_link[0]);
-  }
   if (p->avl_link[1] != nullptr){
     ExistingInt(id, record, p->avl_link[1]);
   }
@@ -159,7 +160,10 @@ void AccountMap::Existing( const ID& id ){
   }
 }
 
-void AccountMap::ExistingInt( const ID& id, vector<Exist>& r, avl_node* p){
+void AccountMap::ExistingInt( const ID& id, vector<Exist>& r, avl_node* p){ 
+  if (p->avl_link[0] != nullptr) { 
+    ExistingInt(id, r, p->avl_link[0]); 
+  }
   Exist tmp;
   tmp.key = score(id, reinterpret_cast<_Account*>(p->avl_data)->key);
   tmp.id = reinterpret_cast<_Account*>(p->avl_data)->key;
@@ -173,10 +177,7 @@ void AccountMap::ExistingInt( const ID& id, vector<Exist>& r, avl_node* p){
       }
     }
   }
-  if ( r_size >10) { r.pop_back(); } 
-  if (p->avl_link[0] != nullptr) { 
-    ExistingInt(id, r, p->avl_link[0]); 
-  }
+  if ( r_size >10) { r.pop_back(); }
   if (p->avl_link[1] != nullptr) { 
     ExistingInt(id, r, p->avl_link[1]); 
   }
@@ -193,6 +194,8 @@ void AccountMap::ExistingInt( const ID& id, vector<Exist>& r, avl_node* p){
 ////////////////////////////////////////////////////////////////////////////////
 void AccountMap::Unused( const ID& id ){
 
+
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -207,9 +210,113 @@ void AccountMap::Unused( const ID& id ){
 //   separated by ',' in ascending dictionary order                           //
 ////////////////////////////////////////////////////////////////////////////////
 void AccountMap::Find( const ID& id, const Account* account ){
-  
+  vector<ID> record;
+  const avl_node* p;
+  p = avl_tree->avl_root;
 
+  if (p->avl_link[0] != nullptr) { 
+    FindInt(id, account, p->avl_link[0], record); 
+  }
 
+  ID id2 = reinterpret_cast<_Account*>(p->avl_data)->key;
+  int now = 0 ;
+  int len = id.length();
+  int len2 = id2.length();
+  bool d = true;
+
+  for (int i=0; i < len ; i++) { 
+    if (id[i] == id2[now]) {
+      now++;
+    }else if (id[i] == '?') {
+      if (now == len2){
+        d = false ;
+        break ;     
+      }
+      now++;
+    }else if (id[i] == '*' && i != len-1 ) {
+      if (now == len2){
+        d = false ;
+        break ;     
+      }
+      while (id[i+1] != id2[now] && now != len2) {
+        now++;
+      }
+      if (now == len2){
+        d = false ;
+        break ;     
+      }
+    }else if (id[i] == '*' && i == len-1 ) {
+      now++;
+    }else {
+      d = false ;
+      break ; 
+    }
+  }
+
+  if ( d && account != reinterpret_cast<_Account*>(p->avl_data)->data ){
+    record.push_back(id2);
+  }
+
+  if (p->avl_link[1] != nullptr) { 
+    FindInt(id, account, p->avl_link[1], record); 
+  }
+
+  int r_size = record.size();
+
+  cout << record[0] <<endl;
+  for ( int i = 1 ; i <r_size; i++) {
+    cout<< ','<< record[i] ;
+  }
+  cout<<endl;
+}
+void AccountMap::FindInt( 
+    const ID& id, const Account* account, avl_node* p,vector<ID>& record ){
+  if (p->avl_link[0] != nullptr) { 
+    FindInt(id, account, p->avl_link[0], record); 
+  }
+
+  ID id2 = reinterpret_cast<_Account*>(p->avl_data)->key;
+  int now = 0 ;
+  int len = id.length();
+  int len2 = id2.length();
+  bool d = true;
+
+  for (int i=0; i < len ; i++) { 
+    if (id[i] == id2[now]) {
+      now++;
+    }else if (id[i] == '?') {
+      if (now == len2){
+        d = false ;
+        break ;     
+      }
+      now++;
+    }else if (id[i] == '*' && i != len-1 ) {
+      if (now == len2){
+        d = false ;
+        break ;     
+      }
+      while (id[i+1] != id2[now] && now != len2) {
+        now++;
+      }
+      if (now == len2){
+        d = false ;
+        break ;     
+      }
+    }else if (id[i] == '*' && i == len-1 ) {
+      now++;
+    }else {
+      d = false ;
+      break ; 
+    }
+  }
+
+  if ( d && account !=reinterpret_cast<_Account*>(p->avl_data)->data ) {
+    record.push_back(id2);
+  }
+
+  if (p->avl_link[1] != nullptr) { 
+    FindInt(id, account, p->avl_link[1], record); 
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

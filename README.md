@@ -25,7 +25,10 @@ The core files.
 #### `/src/account_void`
 The source code of `AccountMap` without implementation.
 
-#### `/src/history_skip_list`
+#### `/src/account_hash_map`
+The implementation of `AccountMap` using hash map.
+
+#### `/src/account_skip_list`
 The implementation of `AccountMap` using skip list.
 
 #### `/src/history_void`

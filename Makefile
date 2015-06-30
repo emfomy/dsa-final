@@ -7,7 +7,7 @@ include $(DSA)/Makefile.inc
 
 MAKEFLAGS += --no-print-directory
 
-SUBDIR = src ext 
+SUBDIR = src ext
 
 .PHONY: all $(SUBDIR) clean
 

@@ -22,12 +22,12 @@ namespace dsa {
 ////////////////////////////////////////////////////////////////////////////////
 // The unique pointer of History                                              //
 ////////////////////////////////////////////////////////////////////////////////
-typedef std::unique_ptr<class History> HistoryUnique;
+typedef std::unique_ptr<class History> _HistoryUnique;
 
 ////////////////////////////////////////////////////////////////////////////////
 // The list of History                                                        //
 ////////////////////////////////////////////////////////////////////////////////
-typedef std::list<HistoryUnique> HistoryList;
+typedef std::list<_HistoryUnique> _HistoryList;
 
 ////////////////////////////////////////////////////////////////////////////////
 // The class of a node of transfer history                                    //
@@ -43,10 +43,10 @@ class HistoryNode {
   class HistoryNode* that_node_;
 
   // The history list of existing account
-  HistoryList existing_;
+  _HistoryList existing_;
 
   // The history list of deleted account
-  HistoryList deleted_;
+  _HistoryList deleted_;
 
  public:
   // Constructor

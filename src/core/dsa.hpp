@@ -18,6 +18,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace dsa {
 
+// The maximum length of ID/Plaintext
+const int kIDLength = 100;
+const int kPlaintextLength = 100;
+
 // The number of recommend IDs
 const int kNumRecommend = 10;
 

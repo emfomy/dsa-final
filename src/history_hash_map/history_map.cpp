@@ -81,18 +81,17 @@ void HistoryMap::Merge( HistoryMap* that ) {
       uniptr13.reset(new HistoryNode(this));
     }
     auto node32 = uniptr23->that_node_;
-    auto node31 = uniptr13->that_node_;
     HistoryMap *map3 = nullptr;
 
     // Merge *-that history into *-this history
     if ( node32 ) {
       map3 = node32->this_map_;
-      if ( !node31 ) {
-        node31 = new HistoryNode(map3);
-        (*map3)[this->id_].reset(node31);
-        uniptr13->Link(node31);
+      auto& uniptr31 = (*map3)[this->id_];
+      if ( !uniptr31 ) {
+        uniptr31.reset(new HistoryNode(map3));
+        uniptr13->Link(uniptr31.get());
       }
-      node31->existing_.merge(node32->existing_);
+      uniptr31->existing_.merge(node32->existing_, HistoryCompare);
       node32->that_node_ = nullptr;
     }
 
@@ -100,17 +99,17 @@ void HistoryMap::Merge( HistoryMap* that ) {
     if ( map3 == this ) {
       node11 = uniptr13.get();
       node21 = uniptr23.get();
-    } else {
-      uniptr13->existing_.merge(uniptr23->existing_);
-      uniptr13->deleted_.merge(uniptr23->deleted_);
+    } else if ( map3 != that ) {
+      uniptr13->existing_.merge(uniptr23->existing_, HistoryCompare);
+      uniptr13->deleted_.merge(uniptr23->deleted_, HistoryCompare);
       uniptr23->that_node_ = nullptr;
     }
   }
 
   // Merge that-this history into this-this history
   if ( node21 ) {
-    node11->existing_.merge(node21->existing_);
-    node11->deleted_.merge(node21->deleted_);
+    node11->existing_.merge(node21->existing_, HistoryCompare);
+    node11->deleted_.merge(node21->deleted_, HistoryCompare);
     node21->that_node_ = nullptr;
   }
 }

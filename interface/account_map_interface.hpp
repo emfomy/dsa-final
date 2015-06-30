@@ -80,7 +80,7 @@ class AccountMap {
   ////////////////////////////////////////////////////////////////////////////
   // Display existing IDs                                                   //
   //                                                                        //
-  // Input Parameters:                                                      //
+  // Parameters:                                                            //
   // id: the ID                                                             //
   //                                                                        //
   // Ensure:                                                                //
@@ -91,7 +91,7 @@ class AccountMap {
   ////////////////////////////////////////////////////////////////////////////
   // Display unused IDs                                                     //
   //                                                                        //
-  // Input Parameters:                                                      //
+  // Parameters:                                                            //
   // id: the ID                                                             //
   //                                                                        //
   // Ensure:                                                                //
@@ -103,7 +103,7 @@ class AccountMap {
   // Find existing IDs that matches the wildcard ID                         //
   //   but is different from target account                                 //
   //                                                                        //
-  // Input Parameters:                                                      //
+  // Parameters:                                                            //
   // id:      the wildcard ID                                               //
   // account: target account                                                //
   //                                                                        //

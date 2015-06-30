@@ -25,6 +25,9 @@ The core files.
 #### `/src/account_void`
 The source code of `AccountMap` without implementation.
 
+#### `/src/history_skip_list`
+The implementation of `AccountMap` using skip list.
+
 #### `/src/history_void`
 The source code of `HistoryMap` without implementation.
 
@@ -48,4 +51,3 @@ Third-party libraries.
 
 #### `/ext/openssl`
 * [OpenSSL cryptographic library](https://www.openssl.org/docs/crypto/crypto.html): uses for MD5 cryptography.
-

@@ -160,7 +160,7 @@ void AccountMap::Existing( const ID& id ) {
     
     // If get enough data, stop
     if (size == 10 && list_score[10] <= target_score) break;
-    
+
     // If data is not enough, move back iterator
     while (back->data_id.front() != '{' && \
           (num_compare == 0 || id.compare(0, num_compare, back->data_id, 0, num_compare) == 0)
@@ -179,7 +179,7 @@ void AccountMap::Existing( const ID& id ) {
 
   // Print the result
   bool comma = false;
-  for (int i = 0; i < (int)list_score.size(); ++i) {
+  for (int i = 0; i < size; ++i) {
     if (comma) {
       cout << ',';
     }

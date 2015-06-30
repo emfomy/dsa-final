@@ -32,17 +32,12 @@ class Account {
   // id:        the ID                                                      //
   // plaintext: the plain password                                          //
   ////////////////////////////////////////////////////////////////////////////
-  Account( const IDptr id, const Plaintext plaintext );
+  Account( const ID& id, const Plaintext& plaintext );
 
   ////////////////////////////////////////////////////////////////////////////
   // The destructor of Account                                              //
   ////////////////////////////////////////////////////////////////////////////
   ~Account();
-
-  ////////////////////////////////////////////////////////////////////////////
-  // Get the starting pointer of ID                                         //
-  ////////////////////////////////////////////////////////////////////////////
-  const IDptr id() const;
 
   ////////////////////////////////////////////////////////////////////////////
   // Check password correction                                              //
@@ -53,7 +48,7 @@ class Account {
   // Return Value:                                                          //
   // true if the password is correct, false if not                          //
   ////////////////////////////////////////////////////////////////////////////
-  bool Login( const Plaintext plaintext );
+  bool Login( const Plaintext& plaintext );
 
   ////////////////////////////////////////////////////////////////////////////
   // Transfer money to target account                                       //
@@ -81,7 +76,7 @@ class Account {
   // Ensure:                                                                //
   // Display all history with target ID to standand output, line by line    //
   ////////////////////////////////////////////////////////////////////////////
-  void Search( const IDptr id );
+  void Search( const ID& id );
 };
 
 }

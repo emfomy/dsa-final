@@ -74,7 +74,7 @@ void HistoryNode::Insert( const Money money ) {
 // Display 'no record' if no record exists                                    //
 // Display all history with target ID to standand output, line by line        //
 ////////////////////////////////////////////////////////////////////////////////
-void HistoryNode::Display( const IDptr id ) {
+void HistoryNode::Display( const ID& id ) {
   if ( existing_.empty() && deleted_.empty() ) {
     cout << "no record" << endl;
   } else {

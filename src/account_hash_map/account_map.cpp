@@ -7,7 +7,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "account_map.hpp"
-#include <stdexcept>
 #include "account.hpp"
 #include <iostream>
 
@@ -39,7 +38,7 @@ AccountMap::~AccountMap() {
 // Return Value:                                                              //
 // Target account if exists, null pointer if not exists                       //
 ////////////////////////////////////////////////////////////////////////////////
-Account* AccountMap::At( const IDptr id ) {
+Account* AccountMap::At( const ID& id ) {
   auto it = find(id);
   return ((it != end()) ? it->second.get() : nullptr);
 }
@@ -56,7 +55,7 @@ Account* AccountMap::At( const IDptr id ) {
 // Return Value:                                                              //
 // Target account if exists, null pointer if not exists                       //
 ////////////////////////////////////////////////////////////////////////////////
-Account* AccountMap::At( const IDptr id, void** ppit ) {
+Account* AccountMap::At( const ID& id, void** ppit ) {
   auto pit = new AccountMap::iterator(find(id));
   *ppit = reinterpret_cast<void*>(pit);
   return ((*pit != end()) ? (*pit)->second.get() : nullptr);
@@ -72,7 +71,7 @@ Account* AccountMap::At( const IDptr id, void** ppit ) {
 // Return Value:                                                              //
 // true if insert succeeded, false if the ID already exists                   //
 ////////////////////////////////////////////////////////////////////////////////
-bool AccountMap::Emplace( const IDptr id, const Plaintext plaintext ) {
+bool AccountMap::Emplace( const ID& id, const Plaintext plaintext ) {
   auto& uniptr = (*this)[id];
   bool success = (!uniptr);
   if ( success ) {
@@ -100,7 +99,7 @@ void AccountMap::Erase( void* pit ) {
 // Ensure:                                                                    //
 // Display best satisfying IDs to standand output, separated by ','           //
 ////////////////////////////////////////////////////////////////////////////////
-void AccountMap::Existing( const IDptr id ) {
+void AccountMap::Existing( const ID& id ) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -112,7 +111,7 @@ void AccountMap::Existing( const IDptr id ) {
 // Ensure:                                                                    //
 // Display best satisfying IDs to standand output, separated by ','           //
 ////////////////////////////////////////////////////////////////////////////////
-void AccountMap::Unused( const IDptr id ) {
+void AccountMap::Unused( const ID& id ) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -127,7 +126,7 @@ void AccountMap::Unused( const IDptr id ) {
 // Display all satisfying IDs to standand output,                             //
 //   separated by ',' in ascending dictionary order                           //
 ////////////////////////////////////////////////////////////////////////////////
-void AccountMap::Find( const IDptr id, const Account* account ) {
+void AccountMap::Find( const ID& id, const Account* account ) {
 }
 
 }

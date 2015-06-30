@@ -1,11 +1,12 @@
 # Data Structures and Algorithms - Final Project
-# Makefile of /src
+# OpenSSL
+# Makefile of /ext/openssl
 #
 # Make sure $(DSA) is set to the root of this project
 
 include $(DSA)/Makefile.inc
 
-SUBDIR = core account_hash_map account_skip_list history_hash_map
+SUBDIR =
 
 .PHONY: all $(SUBDIR) clean
 

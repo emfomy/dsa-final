@@ -132,13 +132,17 @@ void AccountMap::Existing( const ID& id ) {
   }
 
   // Display IDs
-  if ( !existing_queue_.empty() ) {
-    cout << *existing_queue_.top();
+  while ( !existing_queue_.empty() ) {
+    stack_.push(existing_queue_.top());
     existing_queue_.pop();
   }
-  while ( !existing_queue_.empty() ) {
-    cout << ',' << *existing_queue_.top();
-    existing_queue_.pop();
+  if ( !stack_.empty() ) {
+    cout << *stack_.top();
+    stack_.pop();
+  }
+  while ( !stack_.empty() ) {
+    cout << ',' << *stack_.top();
+    stack_.pop();
   }
 }
 
@@ -161,33 +165,105 @@ void AccountMap::Unused( const ID& id ) {
   ID tmp;
 
   // Score 1
-  char cend = id[len-1];
-  tmp = id;
-  if ( len > 0 ) {
-    tmp[len-1] = '\0';
-    if ( Display(tmp, num) ) {
-      return;
+  {
+    tmp = id;
+    char ccmp = id[len-1];
+
+    // length less 1
+    if ( len > 1 ) {
+      tmp.pop_back();
+      if ( Display(tmp, num) ) {
+        return;
+      }
+      tmp.push_back('0');
+    } else {
+      tmp[len-1] = '0';
     }
-  }
-  tmp[len-1] = '0';
-  for ( auto& ctmp = tmp[len-1]; ctmp < cend; ctmp = NextChar(ctmp) ) {
-    if ( Display(tmp, num) ) {
-      return;
-    }
-  }
-  if ( len < kIDLength ) {
-    tmp.push_back('0');
-    for ( auto& ctmp = tmp[len]; ctmp != 0; ctmp = NextChar(ctmp) ) {
+
+    // last different, lexicographical order less
+    for ( auto& ctmp = tmp[len-1]; ctmp < ccmp; ctmp = NextChar(ctmp) ) {
       if ( Display(tmp, num) ) {
         return;
       }
     }
-    tmp.pop_back();
+
+    // length greater 1
+    if ( len < kIDLength ) {
+      tmp.push_back('0');
+      for ( auto& ctmp = tmp[len]; ctmp != 0; ctmp = NextChar(ctmp) ) {
+        if ( Display(tmp, num) ) {
+          return;
+        }
+      }
+      tmp.pop_back();
+    }
+
+    // last different, lexicographical order greater
+    tmp[len-1] = NextChar(ccmp);
+    for ( auto& ctmp = tmp[len-1]; ctmp < ccmp; ctmp = NextChar(ctmp) ) {
+      if ( Display(tmp, num) ) {
+        return;
+      }
+    }
   }
-  tmp[len-1] = NextChar(cend);
-  for ( auto& ctmp = tmp[len-1]; ctmp < cend; ctmp = NextChar(ctmp) ) {
-    if ( Display(tmp, num) ) {
-      return;
+
+  // Score 2
+  {
+    tmp = id;
+    char ccmp = id[len-1];
+
+    // length less 1, second-last different, lexicographical order less
+    // second-last different, lexicographical order less
+    if ( len > 1 ) {
+      auto& ctmp = tmp[len-2];
+      for ( ctmp = '0'; ctmp < ccmp; ctmp = NextChar(ctmp) ) {
+        tmp.pop_back();
+        if ( Display(tmp, num) ) {
+          return;
+        }
+        tmp.push_back(ccmp);
+        if ( Display(tmp, num) ) {
+          return;
+        }
+      }
+    }
+
+    // second-last different, lexicographical order less
+    tmp.push_back('0');
+    auto& ctmp1 = tmp[len-1];
+    auto& ctmp2 = tmp[len];
+    for ( ctmp1 = '0'; ctmp1 < ccmp; ctmp1 = NextChar(ctmp1) ) {
+      for ( ctmp2 = '0'; ctmp2 != 0; ctmp2 = NextChar(ctmp2) ) {
+        if ( Display(tmp, num) ) {
+          return;
+        }
+      }
+    }
+
+    // second-last different, lexicographical order greater
+    for ( ctmp1 = NextChar(ccmp); ctmp1 != 0; ctmp1 = NextChar(ctmp1) ) {
+      for ( ctmp2 = '0'; ctmp2 != 0; ctmp2 = NextChar(ctmp2) ) {
+        if ( Display(tmp, num) ) {
+          return;
+        }
+      }
+    }
+    tmp.pop_back();
+
+    // length less 1, second-last different, lexicographical order greater
+    // second-last different, lexicographical order greater
+    if ( len > 1 ) {
+      auto& ctmp = tmp[len-2];
+      for ( ctmp = NextChar(ccmp); ctmp != 0; ctmp = NextChar(ctmp) ) {
+        tmp.pop_back();
+        if ( Display(tmp, num) ) {
+          return;
+        }
+        tmp.push_back(ccmp);
+        if ( Display(tmp, num) ) {
+          return;
+        }
+      }
     }
   }
 

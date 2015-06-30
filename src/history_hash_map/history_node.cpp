@@ -35,10 +35,7 @@ HistoryNode::~HistoryNode() {
   // Move existing to deleted
   if ( that_node_ ) {
     that_node_->that_node_ = nullptr;
-    that_node_->deleted_.splice(
-        that_node_->deleted_.begin(),
-        that_node_->existing_
-    );
+    that_node_->deleted_.merge(that_node_->existing_, HistoryCompare);
   }
 }
 
@@ -78,11 +75,44 @@ void HistoryNode::Display( const ID& id ) {
   if ( existing_.empty() && deleted_.empty() ) {
     cout << "no record" << endl;
   } else {
-    for ( auto& ptr : deleted_ ) {
-      ptr->Display(id);
+    auto eit = existing_.cbegin();
+    auto dit = deleted_.cbegin();
+    if ( eit == existing_.cend() ) {
+      while( dit != deleted_.cend() ) {
+        (*dit)->Display(id);
+        dit++;
+      }
+      return;
     }
-    for ( auto& ptr : existing_ ) {
-      ptr->Display(id);
+    if ( dit == deleted_.cend() ) {
+      while( eit != existing_.cend() ) {
+        (*eit)->Display(id);
+        eit++;
+      }
+      return;
+    }
+    while ( true ) {
+      if ( **eit < **dit ) {
+        (*eit)->Display(id);
+        eit++;
+        if ( eit == existing_.cend() ) {
+          while( dit != deleted_.cend() ) {
+            (*dit)->Display(id);
+            dit++;
+          }
+          return;
+        }
+      } else {
+        (*dit)->Display(id);
+        dit++;
+        if ( dit == deleted_.cend() ) {
+          while( eit != existing_.cend() ) {
+            (*eit)->Display(id);
+            eit++;
+          }
+          return;
+        }
+      }
     }
   }
 }

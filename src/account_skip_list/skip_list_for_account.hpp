@@ -32,10 +32,14 @@ struct SkipListNode {
   std::vector<SkipListNode*> right;
 
   // Account data in this node
-  Account* data_account;
+  Account* data_account = nullptr;
 
   // Start pointer of ID in the data_account
   ID data_id;
+
+  ~SkipListNode () {
+    delete data_account;
+  }
 };
 
 ////////////////////////////////////////////////////////////////////////////////

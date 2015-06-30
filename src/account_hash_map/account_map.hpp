@@ -12,6 +12,7 @@
 
 #include <memory>
 #include <queue>
+#include <stack>
 #include <unordered_map>
 #include <vector>
 #include "dsa.hpp"
@@ -77,7 +78,7 @@ class IDExistingCompare {
   bool operator()( const ID* lhs, const ID* rhs ) const {
     auto score1 = IDScore(*idptr_, *lhs);
     auto score2 = IDScore(*idptr_, *rhs);
-    return (score1 != score2) ? (score1 > score2) : (*lhs > *rhs);
+    return (score1 != score2) ? (score1 < score2) : (*lhs < *rhs);
   }
 };
 
@@ -116,6 +117,11 @@ typedef std::priority_queue<
 > _AccountWildcardQueue;
 
 ////////////////////////////////////////////////////////////////////////////////
+// The stack of ID                                                            //
+////////////////////////////////////////////////////////////////////////////////
+typedef std::stack<const ID*> _AccountSrack;
+
+////////////////////////////////////////////////////////////////////////////////
 // The class of a map of accounts                                             //
 ////////////////////////////////////////////////////////////////////////////////
 class AccountMap : private _AccountMap {
@@ -128,6 +134,9 @@ class AccountMap : private _AccountMap {
 
   // The priority queue of wildcard ID
   _AccountWildcardQueue wildcard_queue_;
+
+  // The stack of ID
+  _AccountSrack stack_;
 
  public:
   // Constructor

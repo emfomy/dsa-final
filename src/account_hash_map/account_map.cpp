@@ -7,8 +7,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "account_map.hpp"
-#include "account.hpp"
+#include <cmath>
 #include <iostream>
+#include "account.hpp"
 
 using namespace std;
 
@@ -100,6 +101,23 @@ void AccountMap::Erase( void* pit ) {
 // Display best satisfying IDs to standand output, separated by ','           //
 ////////////////////////////////////////////////////////////////////////////////
 void AccountMap::Existing( const ID& id ) {
+  if ( !queue_ ) {
+    queue_ = new _AccountQueue(IDCompare(id));
+  }
+  for ( auto& pair : *this ) {
+    queue_->push(&pair.first);
+    if ( queue_->size() > kNumRecommend ) {
+      queue_->pop();
+    }
+  }
+  if ( !queue_->empty() ) {
+    cout << *queue_->top());
+    queue_->pop();
+  }
+  while ( !queue_->empty() ) {
+    cout << ',' << *queue_->top();
+    queue_->pop();
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

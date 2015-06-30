@@ -3,7 +3,7 @@
 #
 # Make sure $(DSA) is set to the root of this project
 
-ACCOUNT = HASHMAP
+ACCOUNT = SKIPLIST
 HISTORY = HASHMAP
 
 CC       = gcc

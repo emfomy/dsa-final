@@ -52,7 +52,6 @@ SkipList::~SkipList() {
   SkipListNode* temp_del;
 
   while (temp!=nullptr) {
-    delete temp->data_account;
     temp_del = temp;
     temp = temp->right[0];
     delete temp_del;

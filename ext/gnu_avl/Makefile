@@ -1,11 +1,14 @@
 # Data Structures and Algorithms - Final Project
-# Makefile of /src
+# GNU libavl
+# Makefile of /ext/gnu_avl
 #
-# Make sure $(DSA) is set to the root of this project
+# Make sure $(GNUAVL) is set to the root of this project
 
-include $(DSA)/Makefile.inc
+export GNUAVL=$(CURDIR)
 
-SUBDIR = core account_avl_tree account_hash_map account_skip_list history_hash_map
+include $(GNUAVL)/Makefile.inc
+
+SUBDIR = src
 
 .PHONY: all $(SUBDIR) clean
 

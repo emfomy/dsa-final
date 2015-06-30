@@ -20,7 +20,10 @@ ARCHIVE  = $(AR) $(ARFLAGS)
 INCLUDE  = -I$(DSA)/src/core -I$(DSA)/ext/openssl/include
 LIBRARY  = $(DSA)/lib/libcore.a $(DSA)/ext/openssl/lib/libcrypto.a
 
-ifeq ($(ACCOUNT), HASHMAP)
+ifeq ($(ACCOUNT), AVLTREE)
+	INCLUDE += -I$(DSA)/src/account_avl_tree -I$(DSA)/ext/gnu_avl/src
+	LIBRARY += $(DSA)/lib/libaccountavltree.a $(DSA)/ext/gnu_avl/lib/libavl.a
+else ifeq ($(ACCOUNT), HASHMAP)
   INCLUDE += -I$(DSA)/src/account_hash_map
   LIBRARY += $(DSA)/lib/libaccounthashmap.a
 else ifeq ($(ACCOUNT), SKIPLIST)

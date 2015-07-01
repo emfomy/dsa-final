@@ -21,7 +21,7 @@ INCS = \
 
 LIBS = \
 
-all: $(SUBDIR) main
+all: clean $(SUBDIR) main
 	@echo > /dev/null
 
 $(TARGET): $(SRCS) $(LIBS) $(LIBRARY)

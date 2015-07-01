@@ -275,7 +275,7 @@ void AccountMap::Unused( const ID& id ) { //score = 1
   while ( record.size() < 10 && i < 62 ) {
     r = true ; 
     id2 = id;
-    id2 = id2 + unit[i];
+    id2[len2-1] = unit[i];
     for (p = avl_tree->avl_root; p != NULL; ){
       ID& id3 = reinterpret_cast<_Account*>(p->avl_data)->key;
       int cmp = id2.compare(id3);

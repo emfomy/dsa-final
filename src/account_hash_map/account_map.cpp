@@ -228,7 +228,7 @@ void AccountMap::Unused( const ID& id ) {
       }
     }
 
-    // second-last different, lexicographical order less
+    // length greater 1, last different, lexicographical order less
     tmp.push_back('0');
     auto& ctmp1 = tmp[len-1];
     auto& ctmp2 = tmp[len];
@@ -240,7 +240,7 @@ void AccountMap::Unused( const ID& id ) {
       }
     }
 
-    // second-last different, lexicographical order greater
+    // length greater 1, last different, lexicographical order greater
     for ( ctmp1 = NextChar(ccmp); ctmp1 != 0; ctmp1 = NextChar(ctmp1) ) {
       for ( ctmp2 = '0'; ctmp2 != 0; ctmp2 = NextChar(ctmp2) ) {
         if ( Display(tmp, num) ) {
